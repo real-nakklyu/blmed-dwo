@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<!-- v12 -->
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Better Life Medical – DWO</title>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+/* ── PALETTE ─────────────────────────────── */
+:root{
+  --ink:      #1a1108;
+  --ink-lt:   #3d2f1a;
+  --red:      #8B1A1A;
+  --red-lt:   #f5e8e8;
+  --paper:    #f5f0e8;
+  --paper-dk: #ede5d0;
+  --paper-md: #efe8d5;
+  --rule:     #b8a98a;
+  --rule-dk:  #8a7560;
+  --stamp:    #2a3d5c;
+  --sh:       2px 3px 8px rgba(26,17,8,.18);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:'Courier Prime',Courier,monospace;
+  background: #c8bfa8;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(0,0,0,.04) 27px,rgba(0,0,0,.04) 28px);
+  color:var(--ink);
+  min-height:100vh;
+  padding-bottom:60px;
+}
+
+/* ── TOOLBAR ────────────────────────────── */
+.toolbar{
+  max-width:820px;margin:20px auto 0;padding:0 12px;
+  display:flex;justify-content:flex-end;gap:8px;
+}
+.btn{
+  font-family:'Courier Prime',monospace;
+  font-size:12px;font-weight:700;letter-spacing:.06em;
+  padding:6px 16px;cursor:pointer;border:none;
+  text-transform:uppercase;transition:all .15s;
+}
+.btn-ghost{
+  background:var(--paper);
+  border:2px solid var(--rule-dk);
+  color:var(--ink-lt);
+  box-shadow:2px 2px 0 var(--rule-dk);
+}
+.btn-ghost:hover{background:var(--paper-dk);}
+.btn-stamp{
+  background:var(--stamp);
+  border:2px solid #1a2838;
+  color:#fff;
+  box-shadow:2px 2px 0 #1a2838;
+}
+.btn-stamp:hover{background:#1a2838;}
+
+/* ── MAIN PAPER ─────────────────────────── */
+.paper{
+  max-width:820px;
+  margin:14px auto 0;
+  padding:0 12px;
+}
+
+.sheet{
+  background:var(--paper);
+  border:1px solid var(--rule-dk);
+  box-shadow: var(--sh), 0 0 0 6px var(--paper-md), 0 0 0 7px var(--rule);
+  position:relative;
+}
+
+/* Aged paper corners */
+.sheet::before{
+  content:'';
+  position:absolute;inset:8px;
+  border:1px solid var(--rule);
+  pointer-events:none;z-index:0;
+}
+
+/* ── HEADER ─────────────────────────────── */
+.doc-header{
+  position:relative;
+  padding:24px 32px 16px;
+  border-bottom:3px double var(--rule-dk);
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:20px;
+  z-index:1;
+}
+.brand-left{
+  display:flex;align-items:center;gap:14px;
+}
+.brand-left img{
+  width:58px;height:58px;object-fit:contain;
+  filter:sepia(30%) contrast(1.1);
+}
+.brand-name{
+  font-family:'Special Elite',cursive;
+  font-size:22px;color:var(--red);
+  line-height:1.1;letter-spacing:.02em;
+}
+.brand-sub{
+  font-family:'Courier Prime',monospace;
+  font-size:10px;color:var(--ink-lt);
+  letter-spacing:.08em;text-transform:uppercase;
+  margin-top:3px;
+}
+.brand-contact{
+  font-family:'Courier Prime',monospace;
+  font-size:10px;color:var(--ink-lt);margin-top:2px;
+}
+.doc-title-block{
+  text-align:center;flex:1;
+}
+.doc-title-block .form-name{
+  font-family:'IM Fell English',serif;
+  font-size:16px;color:var(--stamp);
+  letter-spacing:.04em;
+  border-bottom:1.5px solid var(--stamp);
+  padding-bottom:4px;display:inline-block;
+}
+.doc-title-block .form-sub{
+  font-size:10px;color:var(--ink-lt);
+  letter-spacing:.1em;text-transform:uppercase;
+  margin-top:5px;font-family:'Courier Prime',monospace;
+}
+.form-id{
+  font-size:10px;color:var(--rule-dk);
+  text-align:right;font-family:'Courier Prime',monospace;
+  white-space:nowrap;
+}
+.form-id span{
+  display:block;margin-top:2px;
+  font-size:9px;letter-spacing:.06em;
+}
+
+/* ── SECTION ────────────────────────────── */
+.sec{
+  padding:0 32px 10px;
+  position:relative;z-index:1;
+}
+.sec:not(:last-child){
+  border-bottom:1px solid var(--rule);
+}
+.sec-label{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 0 8px;
+}
+.sec-label .stamp{
+  font-family:'Special Elite',cursive;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--paper);background:var(--stamp);
+  padding:2px 10px;
+  border:1.5px solid #1a2838;
+  box-shadow:1px 1px 0 #1a2838;
+}
+.sec-label .rule-line{
+  flex:1;border-top:1px solid var(--rule-dk);
+}
+
+/* ── FIELD ROWS ─────────────────────────── */
+.frow{
+  display:grid;gap:0 16px;
+  margin-bottom:8px;
+}
+.g2{grid-template-columns:2fr 1fr}
+.g3{grid-template-columns:1fr 1fr 1fr}
+.g4{grid-template-columns:repeat(4,1fr)}
+.gpi{grid-template-columns:1fr 2fr 1fr}
+.g211{grid-template-columns:2fr 1fr 1fr}
+.gdx{grid-template-columns:repeat(4,1fr) 60px 60px;gap:0 10px}
+.g1{grid-template-columns:1fr}
+
+/* ── FIELD ──────────────────────────────── */
+.f{
+  display:flex;flex-direction:column;
+  position:relative;
+  margin-bottom:6px;
+}
+.f label{
+  font-family:'Courier Prime',monospace;
+  font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-lt);margin-bottom:1px;
+}
+.f label.rl{color:var(--red);}
+
+/* Underline-style inputs — no box, just a bottom rule like paper forms */
+.f input, .f textarea{
+  width:100%;
+  background:transparent;
+  border:none;
+  border-bottom:1.5px solid var(--rule-dk);
+  border-radius:0;
+  font-family:'Courier Prime',monospace;
+  font-size:13px;
+  color:var(--ink);
+  padding:2px 4px 3px;
+  outline:none;
+  transition:border-color .12s;
+}
+.f input:focus, .f textarea:focus{
+  border-bottom:2px solid var(--red);
+  background:rgba(255,255,255,.4);
+}
+.f textarea{
+  resize:vertical;min-height:110px;line-height:1.6;
+  border:1.5px solid var(--rule-dk);
+  padding:4px 6px;
+  background:rgba(255,255,255,.25);
+}
+.f textarea:focus{
+  border:1.5px solid var(--red);
+  background:rgba(255,255,255,.4);
+}
+
+/* DX fields — slightly tinted */
+.f.dx input{
+  border-bottom-color:var(--red);
+  background:rgba(139,26,26,.04);
+}
+
+/* ICD selected */
+.f.dx.sel input{display:none}
+.icd-sel{
+  display:none;
+  padding:2px 4px 3px;
+  border-bottom:2px solid var(--red);
+  font-family:'Courier Prime',monospace;
+  font-size:13px;font-weight:700;
+  color:var(--red);
+  cursor:pointer;
+  background:transparent;
+  letter-spacing:.04em;
+}
+.f.dx.sel .icd-sel{display:block}
+
+/* ── AUTOCOMPLETE DROP ──────────────────── */
+.ac{position:relative}
+.drop{
+  position:absolute;top:calc(100% + 2px);left:0;right:0;
+  background:var(--paper);
+  border:1.5px solid var(--rule-dk);
+  box-shadow:3px 3px 0 var(--rule-dk);
+  z-index:99999;max-height:200px;overflow-y:auto;display:none;
+  min-width:240px;
+}
+.drop.open{display:block}
+/* Ensure autocomplete wrappers never clip their dropdowns */
+.ac{overflow:visible!important}
+.sec{overflow:visible!important}
+.frow{overflow:visible!important}
+.f{overflow:visible!important}
+.sheet{overflow:visible!important}
+.paper{overflow:visible!important}
+.di{
+  padding:7px 12px;cursor:pointer;
+  border-bottom:1px solid var(--rule);
+  font-family:'Courier Prime',monospace;
+  display:flex;flex-direction:column;gap:1px;
+}
+.di:last-child{border-bottom:none}
+.di:hover{background:var(--paper-dk)}
+.di .dc{font-size:11px;font-weight:700;color:var(--red);letter-spacing:.04em}
+.di .dd{font-size:12px;color:var(--ink)}
+.di .dn{font-size:12.5px;font-weight:700;color:var(--ink)}
+.di .ds{font-size:10.5px;color:var(--rule-dk)}
+.empty-row{padding:10px 12px;font-size:11px;color:var(--rule-dk);font-family:'Courier Prime',monospace}
+.loading-row{padding:10px 12px;font-size:11px;color:var(--ink-lt);font-family:'Courier Prime',monospace;display:flex;align-items:center;gap:8px}
+.spin{width:11px;height:11px;border:2px solid var(--rule);border-top-color:var(--red);border-radius:50%;animation:spin .6s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── ORDER TABLE ────────────────────────── */
+.order-wrap{padding:0 32px 10px;position:relative;z-index:1}
+.order-wrap table{
+  width:100%;border-collapse:collapse;
+  font-family:'Courier Prime',monospace;font-size:12.5px;
+}
+.order-wrap thead th{
+  background:var(--stamp);color:#fff;
+  font-family:'Special Elite',cursive;
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  padding:6px 8px;text-align:left;
+  border:1px solid #1a2838;
+}
+.order-wrap thead th:first-child{width:24px;text-align:center}
+.order-wrap thead th:last-child{width:52px;text-align:center}
+.order-wrap tbody tr{border-bottom:1px solid var(--rule)}
+.order-wrap tbody tr:nth-child(odd){background:rgba(255,255,255,.3)}
+.order-wrap tbody td{
+  padding:3px 6px;
+  border-right:1px solid var(--rule);
+  vertical-align:middle;
+}
+.order-wrap tbody td:last-child{border-right:none;text-align:center}
+.order-wrap tbody td:first-child{
+  text-align:center;font-size:10px;
+  color:var(--rule-dk);
+  border-right:1px solid var(--rule);
+}
+.order-wrap tbody input{
+  width:100%;border:none;background:transparent;
+  font-family:'Courier Prime',monospace;font-size:12.5px;
+  color:var(--ink);outline:none;padding:2px 3px;
+}
+.order-wrap tbody input:focus{
+  background:rgba(255,255,255,.5);
+  border-bottom:1.5px solid var(--red);
+}
+.col-hcpcs{width:110px}
+.col-qty{width:52px}
+
+/* Refills */
+.refrow{
+  display:flex;align-items:baseline;gap:10px;
+  padding:4px 32px 10px;
+  font-family:'Courier Prime',monospace;
+  border-top:1px solid var(--rule);
+  position:relative;z-index:1;
+}
+.refrow label{
+  font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-lt);
+  white-space:nowrap;
+}
+.refrow input{
+  width:80px;background:transparent;border:none;
+  border-bottom:1.5px solid var(--rule-dk);
+  font-family:'Courier Prime',monospace;font-size:13px;color:var(--ink);
+  padding:2px 4px 3px;outline:none;
+}
+.refrow input:focus{border-bottom-color:var(--red)}
+
+/* ── SIGNATURE BLOCK ────────────────────── */
+.sig-block{
+  padding:8px 32px 12px;
+  display:grid;grid-template-columns:2fr 1fr;
+  gap:32px;align-items:end;
+  position:relative;z-index:1;
+}
+.sig-line{
+  border-bottom:2px solid var(--ink);
+  margin-top:36px;
+}
+.sig-label{
+  font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-lt);margin-top:5px;
+  font-family:'Courier Prime',monospace;
+}
+
+/* ── FOOTNOTE ───────────────────────────── */
+.footnote{
+  padding:10px 32px 20px;
+  border-top:1px dashed var(--rule-dk);
+  font-size:9px;color:var(--rule-dk);line-height:1.6;
+  font-family:'Courier Prime',monospace;
+  position:relative;z-index:1;
+}
+.footnote strong{color:var(--ink-lt)}
+
+/* ══════════════════════════════════════════
+   PRINT
+══════════════════════════════════════════ */
+@media print{
+  @page{size:A4 portrait;margin:6mm 8mm}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  html,body{width:100%!important;height:100%!important;margin:0!important;padding:0!important}
+  body{background:#fff!important;font-size:9pt!important}
+  .toolbar{display:none!important}
+  .drop,.loading-row,.spin{display:none!important}
+
+  .paper{max-width:100%!important;padding:0!important;margin:0!important;height:100%!important}
+
+  /* Sheet fills full A4 page using flex column — sections grow to fill space */
+  .sheet{
+    box-shadow:none!important;
+    border:1.5px solid #888!important;
+    background:#fff!important;
+    height:100%!important;
+    display:flex!important;
+    flex-direction:column!important;
+    page-break-inside:avoid!important;
+  }
+  .sheet::before{border-color:#ccc!important;inset:5px!important}
+
+  /* Header — fixed size, no grow */
+  .doc-header{
+    padding:7px 14px 6px!important;
+    border-bottom:2.5px double #888!important;
+    flex:0 0 auto!important;
+  }
+  .brand-left img{width:34px!important;height:34px!important}
+  .brand-name{font-size:13pt!important}
+  .brand-sub,.brand-contact{font-size:7pt!important}
+  .doc-title-block .form-name{font-size:10.5pt!important}
+  .doc-title-block .form-sub{font-size:7pt!important}
+  .form-id{font-size:7pt!important}
+  .form-id span{font-size:6.5pt!important}
+
+  /* All sections — base sizing */
+  .sec{padding:0 14px 3px!important;flex:0 0 auto!important}
+  .order-wrap{padding:0 14px 3px!important;flex:0 0 auto!important}
+  .refrow{padding:2px 14px 3px!important;border-top:1px solid #ccc!important;flex:0 0 auto!important}
+  .footnote{padding:4px 14px 6px!important;font-size:6.5pt!important;border-top:1px dashed #999!important;flex:0 0 auto!important;margin-top:auto!important}
+
+  /* Notes and physician sections — tight, no stretching */
+  #sec-notes{flex:none!important}
+  #sec-notes .f{flex:none!important}
+  #sec-notes .f textarea{
+    min-height:120px!important;
+    max-height:120px!important;
+    height:120px!important;
+    flex:none!important;
+  }
+  #sec-physician{flex:none!important;padding-top:0!important;margin-top:0!important}
+
+  /* Remove all borders/spacing between notes and physician */
+  #sec-notes{border-bottom:none!important;padding-bottom:0!important;margin-bottom:0!important}
+  #sec-physician .sec-label{padding-top:4px!important}
+
+  /* Signature — compact */
+  .sig-block{
+    padding:4px 14px 10px!important;
+    gap:20px!important;
+    flex:none!important;
+  }
+  .sig-line{margin-top:28px!important;border-bottom:1.5px solid #111!important}
+  .sig-label{font-size:7pt!important;margin-top:4px!important}
+
+  /* Section labels */
+  .sec-label{padding:4px 0 3px!important}
+  .sec-label .stamp{
+    font-size:7.5pt!important;padding:1px 8px!important;
+    background:#2a3d5c!important;color:#fff!important;
+    border:1px solid #1a2838!important;
+  }
+  .sec-label .rule-line{border-top:1px solid #888!important}
+
+  /* Field rows */
+  .frow{gap:0 8px!important;margin-bottom:2px!important}
+  .f{margin-bottom:2px!important}
+  .f label{font-size:6.5pt!important;letter-spacing:.04em!important}
+  .f input{
+    font-size:9pt!important;padding:1px 2px 2px!important;
+    border-bottom:1px solid #777!important;background:#fff!important;
+  }
+  .f textarea{
+    font-size:9pt!important;min-height:22px!important;
+    padding:2px 4px!important;border:1px solid #777!important;
+    background:#fff!important;line-height:1.5!important;
+    width:100%!important;display:block!important;
+  }
+  .f.dx input{background:#fff!important;border-bottom:1px solid #8B1A1A!important}
+  .f.dx.sel input{display:none!important}
+  .icd-sel{
+    font-size:9pt!important;padding:1px 2px!important;
+    border-bottom:1.5px solid #8B1A1A!important;color:#8B1A1A!important;background:transparent!important;
+  }
+  .f.dx:not(.sel) .icd-sel{display:none!important}
+
+  /* Order table */
+  .order-wrap table{font-size:8.5pt!important}
+  .order-wrap thead th{
+    padding:3px 6px!important;font-size:7.5pt!important;
+    background:#2a3d5c!important;color:#fff!important;
+    border:1px solid #1a2838!important;letter-spacing:.06em!important;
+  }
+  .order-wrap tbody td{
+    padding:2px 5px!important;
+    border-right:1px solid #ccc!important;border-bottom:1px solid #ccc!important;
+  }
+  .order-wrap tbody tr:nth-child(odd){background:#f9f9f9!important}
+  .order-wrap tbody input{font-size:8.5pt!important;padding:1px 3px!important}
+
+  /* Refills */
+  .refrow label{font-size:7pt!important}
+  .refrow input{
+    font-size:9pt!important;border-bottom:1px solid #777!important;
+    width:60px!important;padding:1px 3px!important;background:#fff!important;
+  }
+}
+
+.drop::-webkit-scrollbar{width:5px}
+.drop::-webkit-scrollbar-thumb{background:var(--rule);border-radius:0}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button class="btn btn-ghost" onclick="clearForm()">[ CLEAR FORM ]</button>
+  <button class="btn btn-stamp" onclick="window.print()">[ PRINT / SAVE PDF ]</button>
+</div>
+
+<div class="paper">
+<div class="sheet">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="brand-left">
+      <img src="data:image/png;base64,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yohNjfxJclSoClaW9DaFidCslidCsgrT3wjm3oH7sOwVShXX74Rzb0D92HYKpQrei7ZWVW88svAizUxCgSrHxpl7g1kGEN57ieFl9AcB49Z4RxwViAFhsB9hfYqNlTtzaZh94yP26ELtyP3xxXUk3BJufyuvNRULGtjMUCSIctPEHHvoTiH+C9PEHHvoTiH+C5dS/eetPeetR815IxWnLTxBx76E4h/gvTxBx76E4h/gvXUv3nrT3nrTNeMVpy08Qce+hOIf4Lk8Qce+hOIf4Ll1L95609560zXjFactPEHHvoTiH+C9PEHHvoTiH+C5dS/eetPeetM14xWnLTxBx76E4h/guTxBx76E4h/guXUv3nrT3nrTNeMVpy08Qce+hOIf4Lk8Qce+hOIf4L11L95609560zXjFactPEHHvoTiH+C5PEHHvoTiH+C9dS/eetPeetM14xWnLTxBx76E4h/guTxBx76E4h/gvXUv3nrT3nrTNeMVpy08Qce+hOIf4L08Qce+hOIf4Ll1L95609560zXjFactPEHHvoTiH+C9PEHHvoTiH+C5dS/eetPeetM14xWnLTxBx76E4h/guTxBx76E4h/guXUv3nrT3nrTNeMVpy08Qce+hOIf4Lk8Qce+hOIf4Ll1L95609560zXjFactPEHHvoTiH+C9PEHHvoTiH+C5dS/eetPeetM14xWnLTxBx76E4h/guTxBx76E4h/gvXUv3nrT3nrTNeMVpy08Qce+hOIf4L08Qce+hOIf4L11L95609560zXjFactPEHHvoTiH+C5PEHHvoTiH+C9dS/eetPeetM14xWnLTxBx76E4h/gvTxCx96E4h/gvXUv3nrT3nrTNeMVpy18Q8fehOIf4L1icCY6a4WwTiMxDp/2D7WXUy/rPWozLhZxGeawta5QlI1Dk9U6ZOUidiSVQkpqTnWGz4UeGWkda/KdX3W2u66v/wBea5dzyQ5ts8h5IWpDq9WcDuJqKQJEs5ULSd7w/FGL/ZJftFXK4qmve8PxRi/2SX7RVyuKqKruKWdPsClQpUc3BYnQrJYnQoCtPfCebagfuw7BVKVdbvhHNvQP3YdgqlIVvRdu5WVe8+i2X85GHvb4PbC6lP0K5bbMOcjD3t8HthdSX8VFr0RXG+kVeG5NkspRQbEwiyWUolgRZLKUSwIsllKJYEWSylEs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" alt="Better Life"/>
+      <div>
+        <div class="brand-name">Better Life</div>
+        <div class="brand-sub">Medical &amp; Surgical Supply</div>
+        <div class="brand-contact">Ph (305) 909-0880 &nbsp;·&nbsp; Fx (305) 539-0880</div>
+      </div>
+    </div>
+    <div class="doc-title-block">
+      <div class="form-name">Durable Medical Equipment</div>
+      <div class="form-sub">Statement of Ordering Provider</div>
+    </div>
+    <div class="form-id">
+      Physician Detailed Written Order
+      <span>FORM BL-DWO</span>
+    </div>
+  </div>
+
+  <!-- 01 PATIENT -->
+  <div class="sec" id="sec-patient">
+    <div class="sec-label"><span class="stamp">I. Patient Information</span><span class="rule-line"></span></div>
+    <div class="frow g2">
+      <div class="f"><label>Full Name</label><input id="patient_name" type="text" placeholder="Last, First Middle" oninput="toUpper(this)"/></div>
+      <div class="f"><label>Date of Birth</label><input id="dob" type="date"/></div>
+    </div>
+    <div class="frow g1">
+      <div class="f ac">
+        <label>Address</label>
+        <input id="pat_addr" type="text" placeholder="Start typing an address…" autocomplete="off" oninput="addrSearch('pat_addr','pat_addr_drop')"/>
+        <div class="drop" id="pat_addr_drop"></div>
+      </div>
+    </div>
+    <div class="frow gpi">
+      <div class="f"><label>Phone</label><input id="phone" type="tel" placeholder="(305) 000-0000" oninput="fmtPhone(this)" maxlength="14"/></div>
+      <div class="f"><label>Insurance Plan</label><input id="insurance" type="text" placeholder="Carrier name" oninput="toUpper(this)"/></div>
+      <div class="f"><label>Insurance ID #</label><input id="insurance_id" type="text" placeholder="Member ID" oninput="toUpper(this)"/></div>
+    </div>
+    <div class="frow gdx">
+      <div class="f dx ac" id="dx1w"><label class="rl">Diagnosis #1</label><input id="dx1i" type="text" placeholder="Code or term…" autocomplete="off" oninput="icdSearch(this,1)"/><div class="icd-sel" id="dx1s" title="Click to change" onclick="clearIcd(1)"></div><div class="drop" id="dx1d"></div><input type="hidden" id="dx1v"/></div>
+      <div class="f dx ac" id="dx2w"><label class="rl">Diagnosis #2</label><input id="dx2i" type="text" placeholder="Code or term…" autocomplete="off" oninput="icdSearch(this,2)"/><div class="icd-sel" id="dx2s" title="Click to change" onclick="clearIcd(2)"></div><div class="drop" id="dx2d"></div><input type="hidden" id="dx2v"/></div>
+      <div class="f dx ac" id="dx3w"><label class="rl">Diagnosis #3</label><input id="dx3i" type="text" placeholder="Code or term…" autocomplete="off" oninput="icdSearch(this,3)"/><div class="icd-sel" id="dx3s" title="Click to change" onclick="clearIcd(3)"></div><div class="drop" id="dx3d"></div><input type="hidden" id="dx3v"/></div>
+      <div class="f dx ac" id="dx4w"><label class="rl">Diagnosis #4</label><input id="dx4i" type="text" placeholder="Code or term…" autocomplete="off" oninput="icdSearch(this,4)"/><div class="icd-sel" id="dx4s" title="Click to change" onclick="clearIcd(4)"></div><div class="drop" id="dx4d"></div><input type="hidden" id="dx4v"/></div>
+      <div class="f"><label>Ht.</label><input id="height" type="text" placeholder="" oninput="toUpper(this)"/></div>
+      <div class="f"><label>Wt.</label><input id="weight" type="text" placeholder=""/></div>
+    </div>
+  </div>
+
+  <!-- 02 ORDER -->
+  <div class="order-wrap">
+    <div class="sec-label"><span class="stamp">II. Equipment &amp; Supply Order</span><span class="rule-line"></span></div>
+    <table>
+      <thead><tr>
+        <th>#</th><th class="col-hcpcs">HCPCS Code</th><th>Item Description</th><th class="col-qty">Qty</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+  <div class="refrow">
+    <label>Refills :</label>
+    <input id="refills" type="text" placeholder=""/>
+  </div>
+
+  <!-- 03 JUSTIFICATION -->
+  <div class="sec" id="sec-notes" style="padding-bottom:2px;border-bottom:none!important">
+    <div class="sec-label" style="padding-top:8px;padding-bottom:6px"><span class="stamp">III. Medical Justification</span><span class="rule-line"></span></div>
+    <div class="frow g1">
+      <div class="f">
+        <label>Clinical notes &amp; medical necessity</label>
+        <textarea id="justification" placeholder="" oninput="toUpper(this)"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 PHYSICIAN -->
+  <div class="sec" id="sec-physician" style="padding-top:0;border-bottom:none!important">
+    <div class="sec-label" style="padding-top:6px;padding-bottom:6px"><span class="stamp">IV. Ordering Physician</span><span class="rule-line"></span></div>
+    <div class="frow g211">
+      <div class="f ac">
+        <label>NPI # &nbsp;<span style="font-weight:400;letter-spacing:0;text-transform:none;font-size:9px;color:var(--rule-dk)">(search by NPI or name)</span></label>
+        <input id="npi_input" type="text" placeholder="1234567890 or Dr. Last Name…" autocomplete="off" oninput="npiSearch(this)"/>
+        <div class="drop" id="npi_drop"></div>
+      </div>
+      <div class="f"><label>License #</label><input id="lic_num" type="text" oninput="toUpper(this)"/></div>
+      <div class="f"><label>Physician Name</label><input id="phys_name" type="text" placeholder="Dr. Full Name" oninput="toUpper(this)"/></div>
+    </div>
+    <div class="frow g3">
+      <div class="f"><label>Specialty</label><input id="phys_type" type="text" oninput="toUpper(this)"/></div>
+      <div class="f"><label>Phone #</label><input id="phys_phone" type="tel" placeholder="(305) 000-0000" oninput="fmtPhone(this)" maxlength="14"/></div>
+      <div class="f"><label>Fax #</label><input id="phys_fax" type="tel" placeholder="(305) 000-0000" oninput="fmtPhone(this)" maxlength="14"/></div>
+    </div>
+    <div class="frow g1">
+      <div class="f ac">
+        <label>Physician Address</label>
+        <input id="phys_addr" type="text" placeholder="Start typing an address…" autocomplete="off" oninput="addrSearch('phys_addr','phys_addr_drop')"/>
+        <div class="drop" id="phys_addr_drop"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGNATURE -->
+  <div class="sig-block">
+    <div>
+      <div class="sig-line"></div>
+      <div class="sig-label">** Physician Signature</div>
+    </div>
+    <div>
+      <div class="sig-line"></div>
+      <div class="sig-label">Date</div>
+    </div>
+  </div>
+
+  <!-- FOOTNOTE -->
+  <div class="footnote">
+    <strong>** NOTE TO PHYSICIAN:</strong> By signing this document you are verifying there is supporting documentation in the patient's permanent medical records and this information is available upon request. &nbsp;<strong>ORIGINAL ONLY</strong> — Medicaid does not accept faxes. Please mail back.
+  </div>
+
+</div><!-- /sheet -->
+</div><!-- /paper -->
+
+<script>
+
+// ── TABLE ROWS ────────────────────────────────
+const tbody=document.getElementById("rows");
+for(let i=1;i<=10;i++){
+  const tr=document.createElement("tr");
+  tr.innerHTML=`<td>${i}</td>
+    <td class="col-hcpcs"><div class="ac" style="position:relative">
+      <input id="hcpcs_${i}" type="text" placeholder="" autocomplete="off" oninput="hcpcsSearch(this,${i}); toUpper(this)"/>
+      <div class="drop" id="hd${i}"></div></div></td>
+    <td><input id="desc_${i}" type="text" placeholder=""/></td>
+    <td class="col-qty"><input id="qty_${i}" type="text" placeholder=""/></td>`;
+  tbody.appendChild(tr);
+}
+
+const T={};
+
+// ── PHONE FORMAT: 4079873262 → (407) 987-3262 ──
+function fmtPhone(el){
+  // strip everything except digits
+  let d=el.value.replace(/\D/g,"").substring(0,10);
+  if(d.length===0){el.value="";return;}
+  if(d.length<=3)      el.value=`(${d}`;
+  else if(d.length<=6) el.value=`(${d.slice(0,3)}) ${d.slice(3)}`;
+  else                 el.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
+}
+
+// ── ADDRESS AUTOCOMPLETE (Nominatim) ───────────────────────────
+async function addrSearch(inputId, dropId) {
+  const el   = document.getElementById(inputId);
+  const drop = document.getElementById(dropId);
+  const q    = el.value.trim();
+  if (q.length < 3) { closeDrop(drop); return; }
+  clearTimeout(T[dropId]);
+  T[dropId] = setTimeout(async () => {
+    showLoad(drop, "Looking up address…", el);
+    try {
+      const url = "https://nominatim.openstreetmap.org/search?format=json&limit=6&addressdetails=1&countrycodes=us&q="
+                + encodeURIComponent(q);
+      const r    = await fetch(url, { headers: { "Accept-Language": "en" } });
+      const data = await r.json();
+
+      drop.innerHTML = "";
+      if (!data.length) {
+        drop.innerHTML = `<div class="empty-row">No addresses found</div>`;
+        positionDrop(drop, el);
+        drop.classList.add("open");
+        return;
+      }
+
+      data.forEach(item => {
+        const a = item.address || {};
+
+        // --- build each part individually ---
+        const num    = a.house_number || "";
+        const road   = a.road || a.pedestrian || a.footway || a.street || a.path || a.residential || "";
+        const city   = a.city || a.town || a.village || a.hamlet || a.suburb || a.municipality || "";
+        const state  = a.state || "";
+        const zip    = (a.postcode || "").split("-")[0];
+
+        // Street line: number + road
+        const streetLine = [num, road].filter(Boolean).join(" ").trim();
+
+        let fmt = "";
+        if (streetLine) {
+          // We have a proper street — build Google Maps style
+          const parts = [streetLine];
+          if (city)  parts.push(city);
+          const sz = [state, zip].filter(Boolean).join(" ");
+          if (sz)    parts.push(sz);
+          parts.push("USA");
+          fmt = parts.join(", ");
+        } else {
+          // Fallback: Nominatim display_name already has everything in order
+          // e.g. "1464, East Hallandale Beach Boulevard, Golden Isles, Hallandale Beach, ..."
+          // Clean it up: take segments, remove duplicates, cap at 4 useful parts
+          const segs = item.display_name.split(",").map(s => s.trim()).filter(Boolean);
+          // Reassemble: first seg often IS the house number, second is road
+          const cleaned = [];
+          const seen = new Set();
+          for (const seg of segs) {
+            if (seen.has(seg.toLowerCase())) continue;
+            seen.add(seg.toLowerCase());
+            cleaned.push(seg);
+            if (cleaned.length === 4) break;
+          }
+          fmt = cleaned.join(", ") + ", USA";
+        }
+
+        // Two-line display
+        const commaIdx = fmt.indexOf(", ");
+        const dLine1 = commaIdx !== -1 ? fmt.slice(0, commaIdx) : fmt;
+        const dLine2 = commaIdx !== -1 ? fmt.slice(commaIdx + 2) : "";
+
+        const div = document.createElement("div");
+        div.className = "di";
+        div.innerHTML = `<span class="dd" style="font-weight:500">${esc(dLine1)}</span>`
+                      + (dLine2 ? `<span class="ds">${esc(dLine2)}</span>` : "");
+        div.addEventListener("mousedown", e => {
+          e.preventDefault();
+          el.value = fmt;
+          closeDrop(drop);
+        });
+        drop.appendChild(div);
+      });
+
+      drop.classList.add("open");
+    } catch(err) {
+      drop.innerHTML = `<div class="empty-row">Address lookup unavailable</div>`;
+      drop.classList.add("open");
+    }
+  }, 400);
+}
+
+// ── ICD-10 ─────────────────────────────────────
+async function icdSearch(el,n){
+  const q=el.value.trim();
+  const drop=document.getElementById(`dx${n}d`);
+  if(q.length<2){closeDrop(drop);return;}
+  clearTimeout(T[`icd${n}`]);
+  T[`icd${n}`]=setTimeout(async()=>{
+    showLoad(drop,"Searching ICD-10…",el);
+    try{
+      const r=await fetch(`https://clinicaltables.nlm.nih.gov/api/icd10cm/v3/search?sf=code,name&terms=${encodeURIComponent(q)}&maxList=8`);
+      const d=await r.json();
+      const items=(d[3]||[]).map(x=>({code:x[0],desc:x[1]}));
+      renderCodes(drop,items,(code,desc)=>selectIcd(n,code,desc),el);
+    }catch{drop.innerHTML=`<div class="empty-row">Search unavailable</div>`;positionDrop(drop,el);drop.classList.add("open");}
+  },280);
+}
+
+function selectIcd(n,code,desc){
+  document.getElementById(`dx${n}v`).value=code;
+  document.getElementById(`dx${n}s`).textContent=code; // code only, no description
+  document.getElementById(`dx${n}w`).classList.add("sel");
+  closeDrop(document.getElementById(`dx${n}d`));
+}
+
+function clearIcd(n){
+  const w=document.getElementById(`dx${n}w`);
+  const i=document.getElementById(`dx${n}i`);
+  document.getElementById(`dx${n}v`).value="";
+  document.getElementById(`dx${n}s`).textContent="";
+  i.value="";i.style.display="";
+  w.classList.remove("sel");
+}
+
+// ── HCPCS — uses long_desc for full description ─────────────
+async function hcpcsSearch(el,row){
+  const q=el.value.trim();
+  const drop=document.getElementById(`hd${row}`);
+  if(q.length<2){closeDrop(drop);return;}
+  clearTimeout(T[`h${row}`]);
+  T[`h${row}`]=setTimeout(async()=>{
+    showLoad(drop,"Searching HCPCS…",el);
+    try{
+      // ef=long_desc fetches the full long description alongside the code
+      const url=`https://clinicaltables.nlm.nih.gov/api/hcpcs/v3/search?sf=code,short_desc,long_desc&terms=${encodeURIComponent(q)}&maxList=8&ef=long_desc`;
+      const r=await fetch(url);
+      const d=await r.json();
+      // d[1] = codes array, d[2] = extra fields {long_desc:[...]}, d[3] = display array
+      const codes  = d[1]||[];
+      const extra  = d[2]||{};
+      const longDescs = extra["long_desc"]||[];
+      const display   = d[3]||[];
+      const items = codes.map((code,i)=>({
+        code,
+        // Use long_desc if available, fall back to display short desc
+        desc: (longDescs[i]||"").trim() || (display[i]||[])[1]||""
+      }));
+      renderCodes(drop,items,(code,desc)=>{
+        el.value=code.toUpperCase();
+        document.getElementById(`desc_${row}`).value=desc;
+        closeDrop(drop);
+      },el);
+    }catch(e){drop.innerHTML=`<div class="empty-row">Search unavailable</div>`;drop.classList.add("open");}
+  },280);
+}
+
+// ── NPI SEARCH via NLM npi_idv ─────────────────
+// Fields: NPI (cf), name.full, provider_type, addr_practice.phone,
+//         addr_practice.fax, addr_practice.full, licenses[0].lic_number
+async function npiSearch(el){
+  const q=el.value.trim();
+  const drop=document.getElementById("npi_drop");
+  if(q.length<3){closeDrop(drop);return;}
+  clearTimeout(T.npi);
+  T.npi=setTimeout(async()=>{
+    showLoad(drop,"Searching NPI registry…",el);
+    try{
+      // Request all needed extra fields
+      const ef=[
+        "name.full",
+        "provider_type",
+        "addr_practice.phone",
+        "addr_practice.fax",
+        "addr_practice.line1",
+        "addr_practice.line2",
+        "addr_practice.city",
+        "addr_practice.state",
+        "addr_practice.zip",
+        "licenses"          // full licenses array — contains lic_number
+      ].join(",");
+
+      const url=`https://clinicaltables.nlm.nih.gov/api/npi_idv/v3/search?terms=${encodeURIComponent(q)}&maxList=8&ef=${encodeURIComponent(ef)}&sf=NPI,name.full`;
+      const r=await fetch(url);
+      const d=await r.json();
+
+      // d[1] = NPI codes array
+      // d[2] = extra fields hash  { "name.full": [...], "provider_type": [...], ... }
+      // d[3] = display array (not used here)
+      const npis   = d[1]||[];
+      const extra  = d[2]||{};
+
+      if(!npis.length){
+        drop.innerHTML=`<div class="empty-row">No providers found</div>`;
+        positionDrop(drop,el);
+        drop.classList.add("open");return;
+      }
+
+      drop.innerHTML="";
+      npis.forEach((npi,i)=>{
+        const name    = (extra["name.full"]||[])[i]||"";
+        const ptype   = (extra["provider_type"]||[])[i]||"";
+        const phone   = (extra["addr_practice.phone"]||[])[i]||"";
+        const fax     = (extra["addr_practice.fax"]||[])[i]||"";
+        const line1   = (extra["addr_practice.line1"]||[])[i]||"";
+        const line2   = (extra["addr_practice.line2"]||[])[i]||"";
+        const city    = (extra["addr_practice.city"]||[])[i]||"";
+        const state   = (extra["addr_practice.state"]||[])[i]||"";
+        const zip     = (extra["addr_practice.zip"]||[])[i]||"";
+
+        // licenses is an array of objects; grab first one's lic_number
+        const licensesRaw = (extra["licenses"]||[])[i];
+        let licNum="";
+        try{
+          // NLM returns complex fields as JSON strings
+          const lics=typeof licensesRaw==="string"?JSON.parse(licensesRaw):licensesRaw;
+          if(Array.isArray(lics)&&lics.length>0){
+            // find primary or fall back to first
+            const primary=lics.find(l=>l.primary_taxonomy===true||l.primary_taxonomy==="Y")||lics[0];
+            licNum=primary.lic_number||primary.number||primary.id||"";
+          }
+        }catch(e){}
+
+        // Build clean address
+        const addrParts=[];
+        const street=[line1,line2].filter(Boolean).join(" ");
+        if(street) addrParts.push(street);
+        if(city)   addrParts.push(city);
+        const sz=[state,zip].filter(Boolean).join(" ");
+        if(sz)     addrParts.push(sz);
+        if(addrParts.length) addrParts.push("USA");
+        const addrStr=addrParts.join(", ");
+
+        // Format phone/fax as (xxx) xxx-xxxx if raw digits
+        const fmtNum=s=>{
+          const d=(s||"").replace(/\D/g,"");
+          if(d.length===10) return `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
+          return s;
+        };
+
+        const div=document.createElement("div");
+        div.className="di";
+        div.innerHTML=`
+          <span class="dn">${esc(name)}</span>
+          <span class="ds">NPI: ${esc(npi)}${ptype?" · "+esc(ptype):""}</span>
+          <span class="ds">${esc(addrStr)}${phone?" · "+esc(fmtNum(phone)):""}</span>`;
+
+        div.addEventListener("mousedown",e=>{
+          e.preventDefault();
+          document.getElementById("npi_input").value  = npi;
+          document.getElementById("phys_name").value  = name.toUpperCase();
+          document.getElementById("phys_type").value  = ptype.toUpperCase();
+          document.getElementById("phys_phone").value = fmtNum(phone);
+          document.getElementById("phys_fax").value   = fmtNum(fax);
+          document.getElementById("lic_num").value    = licNum.toUpperCase();
+          document.getElementById("phys_addr").value  = addrStr;
+          closeDrop(drop);
+        });
+        drop.appendChild(div);
+      });
+      positionDrop(drop,el);
+      drop.classList.add("open");
+    }catch(e){
+      drop.innerHTML=`<div class="empty-row">NPI lookup unavailable</div>`;
+      positionDrop(drop,el);
+      drop.classList.add("open");
+    }
+  },400);
+}
+
+// ── AUTO UPPERCASE ───────────────────────────────
+// Called on inputs that should auto-capitalize
+function toUpper(el){
+  const pos = el.selectionStart;
+  el.value = el.value.toUpperCase();
+  el.setSelectionRange(pos, pos);
+}
+
+// ── SHARED ─────────────────────────────────────
+function renderCodes(drop,items,onSelect,inputEl){
+  if(!items.length){drop.innerHTML=`<div class="empty-row">No results found</div>`;if(inputEl)positionDrop(drop,inputEl);drop.classList.add("open");return;}
+  drop.innerHTML="";
+  items.forEach(item=>{
+    const div=document.createElement("div");
+    div.className="di";
+    div.innerHTML=`<span class="dc">${esc(item.code)}</span><span class="dd">${esc(item.desc)}</span>`;
+    div.addEventListener("mousedown",e=>{e.preventDefault();onSelect(item.code,item.desc);});
+    drop.appendChild(div);
+  });
+  if(inputEl)positionDrop(drop,inputEl);
+  drop.classList.add("open");
+}
+
+function positionDrop(drop, inputEl) {
+  // Position dropdown using fixed coords so it always appears on top
+  const rect = inputEl.getBoundingClientRect();
+  const spaceBelow = window.innerHeight - rect.bottom;
+  const spaceAbove = rect.top;
+  const dropH = Math.min(200, drop.scrollHeight || 200);
+  drop.style.position  = 'fixed';
+  drop.style.left      = rect.left + 'px';
+  drop.style.width     = rect.width + 'px';
+  drop.style.zIndex    = '99999';
+  drop.style.right     = 'auto';
+  // Show above if not enough space below
+  if (spaceBelow < dropH + 8 && spaceAbove > spaceBelow) {
+    drop.style.top    = 'auto';
+    drop.style.bottom = (window.innerHeight - rect.top + 2) + 'px';
+  } else {
+    drop.style.bottom = 'auto';
+    drop.style.top    = (rect.bottom + 2) + 'px';
+  }
+}
+function showLoad(drop, msg, inputEl) {
+  drop.innerHTML = `<div class="loading-row"><span class="spin"></span>${msg}</div>`;
+  if (inputEl) positionDrop(drop, inputEl);
+  drop.classList.add("open");
+}
+function closeDrop(drop){
+  if(drop){ drop.classList.remove("open"); }
+}
+function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+
+document.addEventListener("click",e=>{
+  document.querySelectorAll(".drop.open").forEach(d=>{
+    // drop is now in body; check against the linked input's parent instead
+    const input = d._linkedInput;
+    const ac = input ? input.closest(".ac") : null;
+    if(ac && !ac.contains(e.target) && !d.contains(e.target)) closeDrop(d);
+    else if(!ac && !d.contains(e.target)) closeDrop(d);
+  });
+});
+
+function clearForm(){
+  if(!confirm("Clear all fields?"))return;
+  document.querySelectorAll("input:not([type=hidden]),textarea").forEach(el=>el.value="");
+  for(let i=1;i<=4;i++)clearIcd(i);
+}
+
+// Move all .drop elements to <body> so they are NEVER clipped by any parent
+// This is the only reliable way to ensure they always appear on top
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll(".drop").forEach(drop => {
+    // Store reference to the input inside the same .ac wrapper
+    const ac = drop.closest(".ac");
+    const input = ac ? ac.querySelector("input:not([type=hidden])") : null;
+    drop._linkedInput = input;
+    document.body.appendChild(drop); // move to body
+  });
+});
+
+// Reposition open dropdowns on scroll or resize
+["scroll","resize"].forEach(evt =>
+  window.addEventListener(evt, () => {
+    document.querySelectorAll(".drop.open").forEach(drop => {
+      if (drop._linkedInput) positionDrop(drop, drop._linkedInput);
+    });
+  }, true)
+);
+
+</script>
+</body>
+</html>
