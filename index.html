@@ -337,7 +337,7 @@ body{
 
 /* ── SIGNATURE BLOCK ────────────────────── */
 .sig-block{
-  padding:8px 32px 12px;
+  padding:28px 32px 14px;
   display:grid;grid-template-columns:2fr 1fr;
   gap:32px;align-items:end;
   position:relative;z-index:1;
@@ -424,11 +424,11 @@ body{
 
   /* Signature — compact */
   .sig-block{
-    padding:4px 14px 10px!important;
+    padding:28px 14px 12px!important;
     gap:20px!important;
     flex:none!important;
   }
-  .sig-line{margin-top:28px!important;border-bottom:1.5px solid #111!important}
+  .sig-line{margin-top:42px!important;border-bottom:1.5px solid #111!important}
   .sig-label{font-size:7pt!important;margin-top:4px!important}
 
   /* Section labels */
@@ -442,6 +442,7 @@ body{
 
   /* Field rows */
   .frow{gap:0 8px!important;margin-bottom:2px!important}
+  #sec-physician .frow{margin-bottom:14px!important}
   .f{margin-bottom:2px!important}
   .f label{font-size:6.5pt!important;letter-spacing:.04em!important}
   .f input{
@@ -470,11 +471,11 @@ body{
     border:1px solid #1a2838!important;letter-spacing:.06em!important;
   }
   .order-wrap tbody td{
-    padding:2px 5px!important;
+    padding:4px 4px!important;
     border-right:1px solid #ccc!important;border-bottom:1px solid #ccc!important;
   }
   .order-wrap tbody tr:nth-child(odd){background:#f9f9f9!important}
-  .order-wrap tbody input{font-size:8.5pt;padding:1px 3px!important}
+  .order-wrap tbody input{font-size:8.5pt;padding:2px 3px!important;line-height:1.4!important}
 
   /* Refills */
   .refrow label{font-size:7pt!important}
@@ -576,7 +577,7 @@ body{
   <!-- 04 PHYSICIAN -->
   <div class="sec" id="sec-physician" style="padding-top:0;border-bottom:none!important">
     <div class="sec-label" style="padding-top:6px;padding-bottom:6px"><span class="stamp">IV. Ordering Physician</span><span class="rule-line"></span></div>
-    <div class="frow g211">
+    <div class="frow g211" style="margin-bottom:14px">
       <div class="f ac">
         <label>NPI # &nbsp;<span style="font-weight:400;letter-spacing:0;text-transform:none;font-size:9px;color:var(--rule-dk)">(search by NPI or name)</span></label>
         <input id="npi_input" type="text" placeholder="1234567890 or Dr. Last Name…" autocomplete="off" oninput="npiSearch(this)"/>
@@ -585,12 +586,12 @@ body{
       <div class="f"><label>License #</label><input id="lic_num" type="text" oninput="toUpper(this)"/></div>
       <div class="f"><label>Physician Name</label><input id="phys_name" type="text" placeholder="Dr. Full Name" oninput="toUpper(this)"/></div>
     </div>
-    <div class="frow g3">
+    <div class="frow g3" style="margin-bottom:14px">
       <div class="f"><label>Specialty</label><input id="phys_type" type="text" oninput="toUpper(this)"/></div>
       <div class="f"><label>Phone #</label><input id="phys_phone" type="tel" placeholder="(305) 000-0000" oninput="fmtPhone(this)" maxlength="14"/></div>
       <div class="f"><label>Fax #</label><input id="phys_fax" type="tel" placeholder="(305) 000-0000" oninput="fmtPhone(this)" maxlength="14"/></div>
     </div>
-    <div class="frow g1">
+    <div class="frow g1" style="margin-bottom:0">
       <div class="f ac">
         <label>Physician Address</label>
         <input id="phys_addr" type="text" placeholder="Start typing an address…" autocomplete="off" oninput="addrSearch('phys_addr','phys_addr_drop')"/>
