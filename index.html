@@ -204,6 +204,33 @@ body{
   outline:none;
   transition:border-color .12s;
 }
+.f select{
+  width:100%;
+  background:transparent;
+  border:none;
+  border-bottom:1.5px solid var(--rule-dk);
+  border-radius:0;
+  font-family:'Courier Prime',monospace;
+  font-size:13px;
+  color:var(--ink);
+  padding:2px 4px 3px;
+  outline:none;
+  cursor:pointer;
+  appearance:none;
+  -webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238a7560'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 4px center;
+}
+.f select:focus{
+  border-bottom:2px solid var(--red);
+  background-color:rgba(255,255,255,.4);
+}
+.f select option{
+  font-family:'Courier Prime',monospace;
+  background:var(--paper);
+  color:var(--ink);
+}
 .f input:focus, .f textarea:focus{
   border-bottom:2px solid var(--red);
   background:rgba(255,255,255,.4);
@@ -449,6 +476,12 @@ body{
     font-size:9pt!important;padding:1px 2px 2px!important;
     border-bottom:1px solid #777!important;background:#fff!important;
   }
+  .f select{
+    font-size:9pt!important;padding:1px 2px 2px!important;
+    border-bottom:1px solid #777!important;background:#fff!important;
+    border-radius:0!important;appearance:none!important;
+    -webkit-appearance:none!important;background-image:none!important;
+  }
   .f textarea{
     font-size:9pt!important;min-height:22px!important;
     padding:2px 4px!important;border:1px solid #777!important;
@@ -471,7 +504,7 @@ body{
     border:1px solid #1a2838!important;letter-spacing:.06em!important;
   }
   .order-wrap tbody td{
-    padding:3px 3px!important;
+    padding:5px 5px!important;
     border-right:1px solid #ccc!important;border-bottom:1px solid #ccc!important;
   }
   .order-wrap tbody tr:nth-child(odd){background:#f9f9f9!important}
@@ -535,7 +568,41 @@ body{
     </div>
     <div class="frow gpi">
       <div class="f"><label>Phone</label><input id="phone" type="tel" placeholder="(305) 000-0000" oninput="fmtPhone(this)" maxlength="14"/></div>
-      <div class="f"><label>Insurance Plan</label><input id="insurance" type="text" placeholder="Carrier name" oninput="toUpper(this)"/></div>
+      <div class="f">
+        <label>Insurance Plan</label>
+        <select id="insurance" onchange="updateAllQty()">
+          <option value="">— Select Insurance —</option>
+          <option value="SUNSHINE MMA">SUNSHINE MMA</option>
+          <option value="SUNSHINE LTC">SUNSHINE LTC</option>
+          <option value="WELLCARE (MEDICARE)">WELLCARE (MEDICARE)</option>
+          <option value="AMBETTER (COMMERCIAL)">AMBETTER (COMMERCIAL)</option>
+          <option value="AETNA MEDICAID">AETNA MEDICAID</option>
+          <option value="AETNA MEDICARE">AETNA MEDICARE</option>
+          <option value="UNITED HEALTH CARE (MEDICARE)">UNITED HEALTH CARE (MEDICARE)</option>
+          <option value="UNITED HEALTH CARE">UNITED HEALTH CARE</option>
+          <option value="HUMANA MMA">HUMANA MMA</option>
+          <option value="HUMANA LTC">HUMANA LTC</option>
+          <option value="HUMANA (MEDICARE)">HUMANA (MEDICARE)</option>
+          <option value="SIMPLY LTC">SIMPLY LTC</option>
+          <option value="SIMPLY MEDICARE">SIMPLY MEDICARE</option>
+          <option value="CAREPLUS (MEDICARE)">CAREPLUS (MEDICARE)</option>
+          <option value="MEDICARE">MEDICARE</option>
+          <option value="OSCAR (COMMERCIAL)">OSCAR (COMMERCIAL)</option>
+          <option value="CARECENTRIX (MCR, COMMERCIAL)">CARECENTRIX (MCR, COMMERCIAL)</option>
+          <option value="CIGNA (MCR, COMMERCIAL)">CIGNA (MCR, COMMERCIAL)</option>
+          <option value="DEVOTED (MEDICARE)">DEVOTED (MEDICARE)</option>
+          <option value="FREEDOM (MEDICARE)">FREEDOM (MEDICARE)</option>
+          <option value="FLORIDA COMMUNITY CARE">FLORIDA COMMUNITY CARE</option>
+          <option value="FLORIDA COMPLETE CARE (MEDICARE)">FLORIDA COMPLETE CARE (MEDICARE)</option>
+          <option value="HEALTH FIRST (MEDICARE)">HEALTH FIRST (MEDICARE)</option>
+          <option value="MOLINA (MEDICARE)">MOLINA (MEDICARE)</option>
+          <option value="OPTIMUM (MEDICARE)">OPTIMUM (MEDICARE)</option>
+          <option value="MEDICAID">MEDICAID</option>
+          <option value="UMR (COMMERCIAL)">UMR (COMMERCIAL)</option>
+          <option value="GOLD KIDNEY (COMMERCIAL)">GOLD KIDNEY (COMMERCIAL)</option>
+          <option value="WELLMED (MCR, COMMERCIAL)">WELLMED (MCR, COMMERCIAL)</option>
+        </select>
+      </div>
       <div class="f"><label>Insurance ID #</label><input id="insurance_id" type="text" placeholder="Member ID" oninput="toUpper(this)"/></div>
     </div>
     <div class="frow gdx">
@@ -628,7 +695,7 @@ for(let i=1;i<=10;i++){
   const tr=document.createElement("tr");
   tr.innerHTML=`<td>${i}</td>
     <td class="col-hcpcs"><div class="ac" style="position:relative">
-      <input id="hcpcs_${i}" type="text" placeholder="" autocomplete="off" oninput="hcpcsSearch(this,${i}); toUpper(this)"/>
+      <input id="hcpcs_${i}" type="text" placeholder="" autocomplete="off" oninput="hcpcsSearch(this,${i}); toUpper(this); onHcpcsChange(this,${i})" onblur="autoFillQty(${i})"/>
       <div class="drop" id="hd${i}"></div></div></td>
     <td><input id="desc_${i}" type="text" placeholder="" oninput="fitText(this,12.5,7)"/></td>
     <td class="col-qty"><input id="qty_${i}" type="text" placeholder="" oninput="fitText(this,12.5,8)"/></td>`;
@@ -795,6 +862,7 @@ async function hcpcsSearch(el,row){
         const descEl=document.getElementById(`desc_${row}`);
         descEl.value=desc;
         fitText(descEl,12.5,7);
+        autoFillQty(row);
         closeDrop(drop);
       },el);
     }catch(e){drop.innerHTML=`<div class="empty-row">Search unavailable</div>`;drop.classList.add("open");}
@@ -914,6 +982,19 @@ async function npiSearch(el){
   },400);
 }
 
+// ── HCPCS CHANGE — clear desc+qty when code is deleted ──────
+function onHcpcsChange(el, row){
+  if(el.value.trim() === ""){
+    const descEl = document.getElementById(`desc_${row}`);
+    const qtyEl  = document.getElementById(`qty_${row}`);
+    descEl.value = "";
+    qtyEl.value  = "";
+    // Reset font sizes
+    descEl.style.fontSize = "";
+    qtyEl.style.fontSize  = "";
+  }
+}
+
 // ── FIT TEXT — shrinks font size as content grows ───────────
 // maxSize: default font size; minSize: smallest allowed
 function fitText(el, maxSize, minSize) {
@@ -993,7 +1074,259 @@ document.addEventListener("click",e=>{
 function clearForm(){
   if(!confirm("Clear all fields?"))return;
   document.querySelectorAll("input:not([type=hidden]),textarea").forEach(el=>el.value="");
+  document.getElementById("insurance").value="";
   for(let i=1;i<=4;i++)clearIcd(i);
+}
+
+// ── INSURANCE TYPE CLASSIFIER ────────────────────────────
+// Returns: "medicaid" | "medicare_commercial"
+function getInsuranceType(){
+  const ins = (document.getElementById("insurance").value || "").toUpperCase();
+  if(!ins) return null;
+  // Pure Medicaid plans (no Medicare/Commercial)
+  const medicaidPlans = [
+    "SUNSHINE MMA","SUNSHINE LTC",
+    "AETNA MEDICAID",
+    "HUMANA MMA","HUMANA LTC",
+    "SIMPLY LTC",
+    "FLORIDA COMMUNITY CARE",
+    "MEDICAID",
+    "AETNA MMA","AETNA LTC"  // MMA/LTC = Medicaid Managed Care / Long Term Care
+  ];
+  for(const p of medicaidPlans){
+    if(ins === p) return "medicaid";
+  }
+  return "medicare_commercial"; // everything else
+}
+
+// ── HCPCS PRICE LOOKUP TABLE ─────────────────────────────
+// Approximate CMS fee schedule purchase prices for common DME codes.
+// If purchase price < $300 → always bill as purchase (1 NU)
+// If purchase price >= $300 OR code is typically rental → apply rental logic
+// Source: CMS DMEPOS Fee Schedule (Florida/national averages)
+const HCPCS_PRICES = {
+  // ── WALKERS / CANES / CRUTCHES (all under $300 — purchase) ──
+  "E0100":45,  "E0105":60,
+  "E0110":85,  "E0111":90,  "E0112":95,  "E0113":100, "E0114":110, "E0116":105,
+  "E0130":110, "E0135":130, "E0140":120, "E0141":125, "E0143":140, "E0144":150,
+  "E0147":400, "E0148":410, "E0149":420, "E0153":55,  "E0154":65,  "E0155":75,
+  "E0156":80,  "E0157":85,  "E0158":90,  "E0159":95,
+  // ── COMMODES (purchase) ──
+  "E0163":110, "E0165":145, "E0167":130, "E0168":200, "E0170":260, "E0171":280,
+  // ── BATH / SHOWER CHAIRS (purchase) ──
+  "E0240":65,  "E0241":70,  "E0242":75,  "E0243":80,  "E0244":90,
+  "E0245":95,  "E0246":100, "E0247":110, "E0248":125,
+  // ── TRAPEZE / OVERBED TABLE (purchase) ──
+  "E0900":180, "E0910":120, "E0920":90,  "E0935":140, "E0936":145,
+  "E0940":200, "E0941":210, "E0942":220, "E0943":230, "E0944":240, "E0945":250,
+  "E0946":170, "E0947":180, "E0948":190,
+  // ── TRACTION EQUIPMENT (purchase) ──
+  "E0849":195, "E0850":200, "E0855":175, "E0856":185,
+  // ── CUSHIONS / POSITIONING (purchase if <$300) ──
+  "E0190":60,  "E0191":55,  "E0193":260, "E0194":270, "E0196":190,
+  "E0197":180, "E0198":170, "E0199":160,
+  // ── TRANSFER BENCH / LIFT (purchase) ──
+  "E0155":75,  "E0156":80,  "E0157":85,
+  // ── HEAT/COLD THERAPY (purchase) ──
+  "E0200":45,  "E0202":50,  "E0203":55,  "E0205":60,  "E0210":65,
+  "E0215":70,  "E0217":75,  "E0218":80,  "E0221":90,
+  // ── KNEE/BACK BRACES — L-codes (purchase) ──
+  "L0130":120, "L0174":140, "L0450":260, "L0452":280, "L0454":265,
+  "L0456":270, "L0458":275, "L0460":285, "L0462":290,
+  "L1800":180, "L1810":190, "L1820":200, "L1830":210, "L1831":220,
+  "L1832":230, "L1833":240, "L1834":250, "L1836":260, "L1840":270,
+  "L1843":280, "L1844":290, "L1845":295, "L1846":285, "L1847":275,
+  "L1848":265, "L1850":255, "L1860":245,
+  "L0636":270, "L0637":280, "L0638":290, "L0639":285, "L0640":275,
+  "L0641":265, "L0642":255, "L0643":245, "L0648":290, "L0649":295,
+  "L0650":285, "L0651":275,
+  // ── WRIST/HAND SPLINTS (purchase) ──
+  "L3900":75,  "L3901":80,  "L3904":85,  "L3905":90,  "L3906":95,
+  "L3908":100, "L3912":110, "L3913":115, "L3915":120, "L3916":125,
+  "L3917":130, "L3919":140, "L3921":145, "L3923":150, "L3925":155,
+  "L3927":160, "L3929":165, "L3931":170, "L3933":180, "L3935":190,
+  // ── ANKLE/FOOT ORTHOTICS AFO (purchase) ──
+  "L1900":120, "L1902":130, "L1904":140, "L1906":150, "L1907":160,
+  "L1910":170, "L1920":180, "L1930":190, "L1932":200, "L1940":210,
+  "L1945":215, "L1950":220, "L1951":225, "L1960":230, "L1970":240,
+  "L1971":250, "L1980":260, "L1990":270,
+  // ── CERVICAL COLLARS (purchase) ──
+  "L0120":55,  "L0130":65,  "L0140":75,  "L0150":85,  "L0160":95,
+  "L0170":105, "L0172":115, "L0174":125,
+  // ── DIABETIC SUPPLIES / A-codes (purchase) ──
+  "A4230":30,  "A4231":35,  "A4232":25,  "A4233":20,
+  "A4245":15,  "A4246":18,  "A4247":20,  "A4248":22,  "A4250":12,
+  "A4253":50,  "A4256":25,  "A4258":30,  "A4259":35,
+  "A5500":50,  "A5501":55,  "A5503":60,  "A5504":65,  "A5505":70,
+  "A5506":75,  "A5507":80,  "A5508":85,  "A5510":90,  "A5512":95,
+  "A5513":100, "A5514":105,
+  // ── OSTOMY SUPPLIES (purchase) ──
+  "A4361":30,  "A4362":35,  "A4363":25,  "A4364":20,  "A4366":18,
+  "A4367":15,  "A4368":22,  "A4369":28,  "A4371":32,  "A4372":38,
+  "A4373":42,  "A4374":48,  "A4375":52,  "A4376":58,  "A4377":62,
+  "A4378":68,  "A4379":72,  "A4380":78,  "A4381":82,  "A4382":88,
+  "A4383":92,  "A4384":98,  "A4385":102, "A4387":108, "A4388":112,
+  "A4389":118, "A4390":122, "A4391":128, "A4392":132, "A4393":138,
+  "A4394":142, "A4395":148, "A4396":152, "A4397":158, "A4398":162,
+  "A4399":168, "A4400":172, "A4402":178,
+  // ── INCONTINENCE SUPPLIES (purchase) ──
+  "A4310":20,  "A4311":22,  "A4312":24,  "A4313":26,  "A4314":28,
+  "A4315":30,  "A4316":32,  "A4320":35,  "A4321":38,  "A4322":42,
+  "A4326":45,  "A4327":48,  "A4328":52,  "A4330":55,  "A4331":58,
+  "A4332":62,  "A4333":65,  "A4334":68,  "A4335":72,  "A4336":75,
+  "A4337":78,  "A4338":82,  "A4340":85,  "A4344":88,  "A4346":92,
+  "A4347":95,  "A4349":98,  "A4351":102, "A4352":108, "A4353":112,
+  "A4354":118, "A4355":122, "A4356":128, "A4357":132, "A4358":138,
+  "A4360":142,
+  // ── NEBULIZER SUPPLIES (purchase) ──
+  "A7000":25,  "A7001":28,  "A7002":32,  "A7003":38,  "A7004":42,
+  "A7005":48,  "A7006":52,  "A7007":58,  "A7008":62,  "A7009":68,
+  "A7010":72,  "A7011":78,  "A7012":82,  "A7013":88,  "A7014":92,
+  "A7015":98,  "A7016":102, "A7017":108,
+  // ── SURGICAL DRESSINGS (purchase) ──
+  "A6000":15,  "A6001":18,  "A6002":22,  "A6003":28,  "A6004":32,
+  "A6005":38,  "A6006":42,  "A6007":48,  "A6008":52,  "A6009":58,
+  "A6010":62,  "A6011":68,  "A6012":72,  "A6013":78,  "A6014":82,
+  "A6015":88,  "A6016":92,  "A6017":98,  "A6018":102, "A6019":108,
+  "A6020":112, "A6021":118, "A6022":122, "A6023":128, "A6024":132,
+  "A6025":138, "A6026":142, "A6154":148, "A6196":152, "A6197":158,
+  "A6198":162, "A6199":168, "A6200":172, "A6201":178, "A6202":182,
+  "A6203":188, "A6204":192, "A6205":198, "A6206":202, "A6207":208,
+  "A6208":212, "A6209":218, "A6210":222, "A6211":228, "A6212":232,
+  "A6213":238, "A6214":242, "A6215":248, "A6216":252, "A6217":258,
+  "A6218":262, "A6219":268, "A6220":272, "A6221":278, "A6222":282,
+  "A6223":288, "A6224":292, "A6228":195, "A6229":200, "A6230":205,
+  // ── HOSPITAL BEDS (rental — >$300) ──
+  "E0250":1800,"E0251":1900,"E0255":2000,"E0256":2100,"E0260":2200,
+  "E0261":2300,"E0265":2400,"E0266":2500,"E0270":2600,"E0271":2700,
+  "E0272":2800,"E0273":2900,"E0274":3000,"E0275":3100,"E0276":3200,
+  "E0277":3300,"E0280":1500,"E0290":1600,"E0291":1700,"E0292":1800,
+  "E0293":1900,"E0294":2000,"E0295":2100,"E0296":2200,"E0297":2300,
+  "E0301":2400,"E0302":2500,"E0303":2600,"E0304":2700,"E0305":2800,
+  "E0310":2900,
+  // ── MATTRESSES/OVERLAYS (varies) ──
+  "E0181":180, "E0182":190, "E0183":200, "E0184":210, "E0185":220,
+  "E0186":230, "E0187":240, "E0188":250, "E0189":260, "E0191":270,
+  "E0193":280, "E0194":290, "E0196":295, "E0197":285, "E0199":275,
+  // ── WHEELCHAIRS (rental — >$300) ──
+  "E1130":500, "E1140":600, "E1150":700, "E1160":800, "E1161":900,
+  "E1170":1000,"E1171":1100,"E1172":1200,"E1180":1300,"E1190":1400,
+  "E1195":1500,"E1200":1600,"E1210":1700,"E1211":1800,"E1212":1900,
+  "E1213":2000,"E1214":2100,"E1220":2200,"E1221":2300,"E1222":2400,
+  "E1223":2500,"E1224":2600,"E1225":2700,"E1226":2800,"E1227":2900,
+  "E1228":3000,"E1229":3100,"E1230":3200,"E1231":3300,"E1232":3400,
+  "E1233":3500,"E1234":3600,"E1235":3700,"E1236":3800,"E1237":3900,
+  "E1238":4000,
+  "K0001":350, "K0002":450, "K0003":550, "K0004":650, "K0005":4500,
+  "K0006":5000,"K0007":5500,"K0008":3000,"K0009":3500,"K0010":400,
+  "K0011":450, "K0012":500, "K0013":550, "K0014":600,
+  // ── SCOOTERS (rental) ──
+  "K0800":1800,"K0801":2000,"K0802":2200,"K0806":2400,"K0807":2600,
+  "K0808":2800,"K0812":3000,
+  // ── POWER WHEELCHAIRS Group 1-5 (all rental, all >$300) ──
+  "K0813":3500,"K0814":3600,"K0815":3700,"K0816":3800,
+  "K0820":4000,"K0821":4100,"K0822":4200,
+  "K0823":4500,"K0824":4800,"K0825":5000,"K0826":5200,"K0827":5500,
+  "K0828":5800,"K0829":6000,
+  "K0835":5500,"K0836":5600,"K0837":5700,"K0838":5800,"K0839":5900,"K0840":6000,
+  "K0841":6500,"K0842":6600,"K0843":6700,
+  "K0848":7000,"K0849":7100,"K0850":7200,"K0851":7300,"K0852":7400,
+  "K0853":7500,"K0854":7600,"K0855":7700,"K0856":7800,"K0857":7900,
+  "K0858":8000,"K0859":8100,"K0860":8200,"K0861":8300,"K0862":8400,
+  "K0863":8500,"K0864":8600,
+  "K0868":9000,"K0869":9100,"K0870":9200,"K0871":9300,
+  "K0877":9500,"K0878":9600,"K0879":9700,"K0880":9800,
+  "K0884":10000,"K0885":10200,"K0886":10400,
+  "K0890":11000,"K0891":11200,"K0898":4000,
+  // ── CPAP / RESPIRATORY (rental) ──
+  "E0470":700, "E0471":800, "E0480":900, "E0482":1000,"E0484":1100,
+  "E0485":1200,"E0486":1300,"E0487":1400,"E0561":200, "E0562":250,
+  "E0601":800,
+  // ── OXYGEN EQUIPMENT (rental) ──
+  "E0431":2500,"E0433":2600,"E0434":2700,"E0435":2800,
+  "E0439":2900,"E0440":3000,"E0441":3100,"E0442":3200,"E0443":3300,
+  "E0444":3400,"E0445":3500,"E0446":3600,"E0447":3700,
+  "E1390":2000,"E1391":2100,"E1392":2200,"E1405":2300,"E1406":2400,
+  // ── INFUSION PUMPS (rental) ──
+  "E0776":1200,"E0779":1300,"E0780":1400,"E0781":1500,"E0782":1600,
+  "E0783":1700,"E0784":1800,"E0785":1900,"E0786":2000,
+  // ── LIFT EQUIPMENT (rental if >$300) ──
+  "E0621":800, "E0625":900, "E0627":1000,"E0628":1100,"E0629":1200,
+  "E0630":1300,"E0635":1400,"E0636":1500,"E0637":1600,"E0638":1700,
+  "E0639":1800,"E0640":1900,"E0641":2000,"E0642":2100,"E0650":2200,
+  "E0651":2300,"E0652":2400,"E0655":2500,"E0660":2600,"E0665":2700,
+  "E0666":2800,"E0667":2900,"E0668":3000,"E0669":3100,"E0670":3200,
+  "E0671":3300,"E0672":3400,"E0673":3500,"E0675":1500,"E0676":1600,
+  "E0691":1700,"E0692":1800,"E0693":1900,"E0694":2000,"E0695":2100,
+  "E0700":2200,"E0705":2300,"E0710":2400,
+};
+
+// ── HCPCS ITEM TYPE CLASSIFIER ────────────────────────────
+// Returns "purchase" if price < $300 or always-purchase category
+// Returns "rental" otherwise
+function getItemType(hcpcsCode, insuranceType){
+  if(!hcpcsCode) return null;
+  const code = hcpcsCode.toUpperCase().trim();
+  const letter = code[0];
+
+  // ── SPECIAL CASES: insurance-dependent items ──────────
+  // E0147 (heavy duty walker), E0149 (bariatric walker), E0260 (semi-electric bed)
+  // Medicaid → purchase (1 NU), Medicare/Commercial → rental
+  if(["E0147","E0149","E0260"].includes(code)){
+    const ins = insuranceType || getInsuranceType();
+    return ins === "medicaid" ? "purchase" : "rental";
+  }
+
+  // Check price lookup table first
+  if(HCPCS_PRICES[code] !== undefined){
+    return HCPCS_PRICES[code] < 300 ? "purchase" : "rental";
+  }
+
+  // For unknown codes, use category rules:
+  // A-codes (supplies), B-codes, L-codes, S, T, V = purchase
+  if(["A","B","L","S","T","V"].includes(letter)) return "purchase";
+
+  // E-codes not in table: default rental (most equipment)
+  if(letter === "E") return "rental";
+
+  // K-codes rental ranges (all wheelchairs and power mobility devices):
+  // K0001–K0109 = manual wheelchairs
+  // K0800–K0898 = power mobility devices (scooters + power wheelchairs)
+  // All of these are expensive rental items
+  if(letter === "K"){
+    const num = parseInt(code.slice(1));
+    if(num >= 1   && num <= 109) return "rental";  // manual wheelchairs
+    if(num >= 800 && num <= 898) return "rental";  // power wheelchairs & scooters
+    return "purchase";
+  }
+
+  // Default: purchase
+  return "purchase";
+}
+
+// ── AUTO QTY FILLER ──────────────────────────────────────
+function autoFillQty(row){
+  const hcpcs = (document.getElementById(`hcpcs_${row}`).value || "").trim();
+  const qtyEl = document.getElementById(`qty_${row}`);
+  if(!hcpcs){ qtyEl.value = ""; return; }
+
+  const insType  = getInsuranceType();
+  const itemType = getItemType(hcpcs, insType);
+
+  if(!insType) return; // no insurance selected yet — don't overwrite
+
+  if(itemType === "purchase"){
+    qtyEl.value = "1 NU";
+  } else {
+    // rental
+    qtyEl.value = insType === "medicaid" ? "10 RR" : "13 RR";
+  }
+  fitText(qtyEl, 12.5, 7);
+}
+
+// Update all rows when insurance changes
+function updateAllQty(){
+  for(let i=1;i<=8;i++) autoFillQty(i);
 }
 
 // Move all .drop elements to <body> so they are NEVER clipped by any parent
