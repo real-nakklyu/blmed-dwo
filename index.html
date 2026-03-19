@@ -474,7 +474,7 @@ body{
     border-right:1px solid #ccc!important;border-bottom:1px solid #ccc!important;
   }
   .order-wrap tbody tr:nth-child(odd){background:#f9f9f9!important}
-  .order-wrap tbody input{font-size:8.5pt!important;padding:1px 3px!important}
+  .order-wrap tbody input{font-size:8.5pt;padding:1px 3px!important}
 
   /* Refills */
   .refrow label{font-size:7pt!important}
@@ -629,8 +629,8 @@ for(let i=1;i<=10;i++){
     <td class="col-hcpcs"><div class="ac" style="position:relative">
       <input id="hcpcs_${i}" type="text" placeholder="" autocomplete="off" oninput="hcpcsSearch(this,${i}); toUpper(this)"/>
       <div class="drop" id="hd${i}"></div></div></td>
-    <td><input id="desc_${i}" type="text" placeholder=""/></td>
-    <td class="col-qty"><input id="qty_${i}" type="text" placeholder=""/></td>`;
+    <td><input id="desc_${i}" type="text" placeholder="" oninput="fitText(this,12.5,7)"/></td>
+    <td class="col-qty"><input id="qty_${i}" type="text" placeholder="" oninput="fitText(this,12.5,8)"/></td>`;
   tbody.appendChild(tr);
 }
 
@@ -791,7 +791,9 @@ async function hcpcsSearch(el,row){
       }));
       renderCodes(drop,items,(code,desc)=>{
         el.value=code.toUpperCase();
-        document.getElementById(`desc_${row}`).value=desc;
+        const descEl=document.getElementById(`desc_${row}`);
+        descEl.value=desc;
+        fitText(descEl,12.5,7);
         closeDrop(drop);
       },el);
     }catch(e){drop.innerHTML=`<div class="empty-row">Search unavailable</div>`;drop.classList.add("open");}
@@ -909,6 +911,19 @@ async function npiSearch(el){
       drop.classList.add("open");
     }
   },400);
+}
+
+// ── FIT TEXT — shrinks font size as content grows ───────────
+// maxSize: default font size; minSize: smallest allowed
+function fitText(el, maxSize, minSize) {
+  // Reset to max so we can measure properly
+  el.style.fontSize = maxSize + 'px';
+  // Keep shrinking until text fits or we hit minSize
+  let size = maxSize;
+  while (el.scrollWidth > el.clientWidth + 2 && size > minSize) {
+    size -= 0.5;
+    el.style.fontSize = size + 'px';
+  }
 }
 
 // ── AUTO UPPERCASE ───────────────────────────────
