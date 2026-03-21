@@ -1257,11 +1257,21 @@ const WC_CODES = {
 
 // ── BED CODES ─────────────────────────────────────────────
 const BED_CODES = {
-  E0260: [{code:"E0260", desc:"SEMI-ELECTRIC HOSPITAL BED WITH HEAD AND FOOT ADJUSTMENT, INCLUDING BOTH SIDE RAILS AND A MATTRESS"}],
-  E0255: [{code:"E0255", desc:"HOSPITAL BED, FIXED HEIGHT, WITH ANY TYPE SIDE RAILS, WITH MATTRESS"}],
+  E0260: [
+    {code:"E0260", desc:"SEMI-ELECTRIC HOSPITAL BED WITH HEAD AND FOOT ADJUSTMENT, INCLUDING BOTH SIDE RAILS AND A MATTRESS"},
+    {code:"", desc:""},
+    {code:"", desc:""},
+  ],
+  E0255: [
+    {code:"E0255", desc:"HOSPITAL BED, FIXED HEIGHT, WITH ANY TYPE SIDE RAILS, WITH MATTRESS"},
+    {code:"", desc:""},
+    {code:"", desc:""},
+  ],
   E0261: [
     {code:"E0261", desc:"HOSPITAL BED, SEMI-ELECTRIC, WITH ANY TYPE SIDE RAILS, WITH MATTRESS"},
     {code:"E0272", desc:"MATTRESS, INNERSPRING"},
+    {code:"", desc:""},
+    {code:"", desc:""},
   ]
 };
 
@@ -1408,8 +1418,10 @@ function buildBedRows(bedCode){
   codes.forEach((item, i) => {
     // Bed is purchase for Medicaid, rental for Medicare/Commercial
     // Special case per your rule: E0260, E0261 Medicaid = 1 NU
-    let qty = "1 NU";
-    if(item.code === "E0272"){
+    let qty = "";
+    if(item.code === ""){
+      qty = ""; // blank row — no qty until code is entered
+    } else if(item.code === "E0272"){
       qty = "1 NU"; // mattress always purchase
     } else if(bedCode === "E0261"){
       qty = "13 RR"; // E0261 is Medicare-only, always rental
@@ -1423,9 +1435,21 @@ function buildBedRows(bedCode){
     tr.style.background = i%2===0 ? "rgba(255,255,255,.3)" : "transparent";
     tr.innerHTML = `
       <td style="text-align:center;font-size:10.5px;color:var(--rule-dk);font-weight:600">${i+1}</td>
-      <td style="padding:5px 6px"><span style="font-family:'Courier Prime',monospace;font-size:12.5px;padding:3px 6px;display:block">${item.code}</span></td>
-      <td><input type="text" value="${item.desc}" style="width:100%;border:none;background:transparent;font-family:'Courier Prime',monospace;font-size:11.5px;color:var(--ink);outline:none;padding:3px 4px" oninput="fitText(this,11.5,7)"/></td>
-      <td style="text-align:center"><input type="text" value="${qty}" style="width:100%;border:none;background:transparent;font-family:'Courier Prime',monospace;font-size:12px;color:var(--ink);outline:none;padding:3px;text-align:center"/></td>`;
+      <td style="padding:3px 6px">
+        ${item.code === ""
+          ? `<div class="ac" style="position:relative">
+               <input type="text" value="" placeholder=""
+                 id="bed-hcpcs-${i}-${bedCode}"
+                 autocomplete="off"
+                 style="width:100%;border:none;background:transparent;font-family:'Courier Prime',monospace;font-size:12.5px;color:var(--ink);outline:none;padding:3px 4px"
+                 oninput="bedBlankSearch(this, ${i}, '${bedCode}'); toUpper(this)"/>
+               <div class="drop" id="bed-drop-${i}-${bedCode}"></div>
+             </div>`
+          : `<span style="font-family:'Courier Prime',monospace;font-size:12.5px;padding:3px 6px;display:block">${item.code}</span>`
+        }
+      </td>
+      <td><input type="text" id="bed-desc-${i}-${bedCode}" value="${item.desc}" style="width:100%;border:none;background:transparent;font-family:'Courier Prime',monospace;font-size:11.5px;color:var(--ink);outline:none;padding:3px 4px" oninput="fitText(this,11.5,7)"/></td>
+      <td style="text-align:center"><input type="text" id="bed-qty-${i}-${bedCode}" value="${qty}" style="width:100%;border:none;background:transparent;font-family:'Courier Prime',monospace;font-size:12px;color:var(--ink);outline:none;padding:3px;text-align:center"/></td>`;
     tbody.appendChild(tr);
   });
 }
@@ -1445,6 +1469,57 @@ function setBedVariant(code){
     document.getElementById(`bed-${c.toLowerCase()}-btn`).classList.toggle("active", c===code);
   });
   buildBedRows(code);
+}
+
+// HCPCS search for blank bed rows
+async function bedBlankSearch(el, rowIdx, bedCode){
+  const q = el.value.trim();
+  const dropId = `bed-drop-${rowIdx}-${bedCode}`;
+  const drop = document.getElementById(dropId);
+  if(!drop) return;
+  if(q.length < 2){ closeDrop(drop); return; }
+  clearTimeout(T[`bed-blank-${rowIdx}`]);
+  T[`bed-blank-${rowIdx}`] = setTimeout(async() => {
+    showLoad(drop, "Searching HCPCS…", el);
+    try{
+      const url = `https://clinicaltables.nlm.nih.gov/api/hcpcs/v3/search?sf=code,short_desc,long_desc&terms=${encodeURIComponent(q)}&maxList=8&ef=long_desc`;
+      const r = await fetch(url);
+      const d = await r.json();
+      const codes = d[1]||[];
+      const extra = d[2]||{};
+      const longs = extra["long_desc"]||[];
+      const disp  = d[3]||[];
+      const items = codes.map((c,i) => ({
+        code: c,
+        desc: (longs[i]||"").trim() || (disp[i]||[])[1]||""
+      }));
+      renderCodes(drop, items, (code, desc) => {
+        el.value = code.toUpperCase();
+        // Fill desc and auto-qty
+        const descEl = document.getElementById(`bed-desc-${rowIdx}-${bedCode}`);
+        const qtyEl  = document.getElementById(`bed-qty-${rowIdx}-${bedCode}`);
+        if(descEl){ descEl.value = desc; fitText(descEl, 11.5, 7); }
+        if(qtyEl){
+          const ins = getInsuranceType();
+          const itemType = getItemType(code, ins);
+          if(itemType === "purchase") qtyEl.value = "1 NU";
+          else qtyEl.value = ins === "medicare_commercial" ? "13 RR" : "10 RR";
+          fitText(qtyEl, 12, 7);
+        }
+        closeDrop(drop);
+        // Re-attach drop to body so it positions correctly
+        setTimeout(() => {
+          if(drop.parentElement !== document.body){
+            drop._linkedInput = el;
+            document.body.appendChild(drop);
+          }
+        }, 10);
+      }, el);
+    } catch(e){
+      drop.innerHTML = `<div class="empty-row">Search unavailable</div>`;
+      drop.classList.add("open");
+    }
+  }, 300);
 }
 
 // ── WC CODE SEARCH (K0001–K0009 range) ───────────────────
