@@ -565,6 +565,44 @@ body{
   #section-compression input[type=text]{font-size:7.5pt!important}
   /* Compression section grows to fill space for this form */
   .sheet[data-form="compression"] #section-compression{flex:1 1 auto!important}
+  /* Oxygen form print — preserve screen layout */
+  .sheet[data-form="oxygen"]{height:auto!important;min-height:calc(297mm - 10mm)!important}
+  .sheet[data-form="oxygen"] #section-oxygen{flex:1 1 auto!important;display:flex!important;flex-direction:column!important}
+  .sheet[data-form="oxygen"] #sec-notes,
+  .sheet[data-form="oxygen"] #sec-physician{display:none!important}
+  .sheet[data-form="oxygen"] #section-oxygen .sec{padding:0 14px 6px!important}
+  .sheet[data-form="oxygen"] #section-oxygen .sec-label{padding:4px 0 3px!important}
+  .sheet[data-form="oxygen"] #section-oxygen .frow{margin-bottom:4px!important;gap:0 10px!important}
+  .sheet[data-form="oxygen"] #section-oxygen .f label{font-size:6.5pt!important}
+  .sheet[data-form="oxygen"] #section-oxygen .f input{font-size:8.5pt!important;padding:1px 3px!important}
+  .sheet[data-form="oxygen"] #section-oxygen .cs-check{font-size:8.5pt!important}
+  .sheet[data-form="oxygen"] #oxy-sig-block{
+    padding:80px 14px 10px!important;flex-shrink:0!important;
+    margin-top:auto!important;gap:80px!important;align-items:flex-end!important;
+  }
+  .sheet[data-form="oxygen"] #oxy-sig-block .sig-line{
+    margin-top:60px!important;
+    border-bottom:1.5px solid #111!important;
+  }
+  .sheet[data-form="oxygen"] #oxy-sig-block .siglabel{
+    font-size:11pt!important;
+    font-family:'Special Elite',cursive!important;
+    color:var(--ink)!important;
+    margin-top:6px!important;
+  }
+  .sheet[data-form="oxygen"] #oxy-footnote{flex-shrink:0!important;padding:4px 14px 6px!important;font-size:6pt!important}
+  .sheet[data-form="oxygen"] #sec-notes{flex:0!important;display:none!important}
+  .sheet[data-form="oxygen"] > .sig-block,
+  .sheet[data-form="oxygen"] > .footnote{display:none!important}
+  #oxy-sig-block{padding:80px 14px 10px!important;display:flex!important;gap:80px!important;align-items:flex-end!important}
+  #oxy-sig-block .sig-line{margin-top:60px!important;border-bottom:1.5px solid #111!important}
+  #oxy-sig-block .siglabel{font-size:11pt!important;font-family:'Special Elite',cursive!important;margin-top:6px!important}
+  #section-oxygen .cs-check{font-size:8.5pt!important}
+  #section-oxygen .cs-check input{width:10px!important;height:10px!important}
+  #section-oxygen input[type=text],#section-oxygen input[type=tel],#section-oxygen input[type=date]{
+    font-size:8.5pt!important;border-bottom:0.7px solid #888!important;background:#fff!important;
+  }
+
   .sheet[data-form="compression"] #sec-notes .f textarea{
     min-height:140px!important;max-height:140px!important;height:140px!important;
   }
@@ -957,14 +995,25 @@ body{
         <div class="codes">A6532 · A6533–A6541 · A6583 · A6588</div>
       </div>
 
-      <div class="form-card" onclick="openForm('standard')" style="opacity:.5;pointer-events:none;cursor:default">
+      <div class="form-card" onclick="openForm('oxygen')">
         <h3>Oxygen</h3>
-        <p>Coming soon — oxygen equipment and supply DWO form.</p>
-        <div class="codes">E0431 · E0433 · E0441 · E1390 · A4216</div>
+        <p>Stationary concentrator and portable oxygen system prescription with saturation and usage fields.</p>
+        <div class="codes">E1390 · E0431</div>
+      </div>
+
+      <div class="form-card" style="opacity:.5;pointer-events:none;cursor:default">
+        <h3>Hoyer Lift</h3>
+        <p>Coming soon — patient lift equipment DWO form.</p>
+        <div class="codes">E0621 · E0635 · E0636</div>
       </div>
 
     </div>
   </div>
+    <div style="text-align:center;margin-top:18px;padding-bottom:6px">
+      <span style="font-family:'Courier Prime',monospace;font-size:10px;color:var(--rule-dk);letter-spacing:.08em">
+        created by <strong style="color:var(--stamp)">Andrew</strong>
+      </span>
+    </div>
 </div>
 
 <!-- ══════════════════════════════════════════
@@ -1305,6 +1354,124 @@ body{
     </div>
   </div>
 
+  <!-- OXYGEN FORM (hidden by default) -->
+  <div id="section-oxygen" style="display:none">
+
+    <!-- Dear Physician note -->
+    <div style="padding:8px 14px 6px;background:rgba(255,255,255,.3);border-bottom:1px solid var(--rule);font-family:'Courier Prime',monospace;font-size:11px;color:var(--ink-lt);line-height:1.6">
+      Dear Physician,<br>
+      Please review, sign and fax the order to <strong style="color:var(--ink)">305-539-0880</strong><br>
+      If you have any questions, please call <strong style="color:var(--ink)">305-909-0880</strong> or email: <strong style="color:var(--ink)">info@blmed.net</strong>
+    </div>
+
+    <!-- Patient Information -->
+    <div class="sec" style="padding-bottom:4px">
+      <div class="sec-label"><span class="stamp">I. Patient Information</span><span class="rule-line"></span></div>
+      <div class="frow g2" style="margin-bottom:6px">
+        <div class="f"><label>Patient Name</label><input id="oxy-pat-name" type="text" oninput="toUpper(this)"/></div>
+        <div class="f" style="max-width:120px"><label>DOB</label><input id="oxy-dob" type="date"/></div>
+        <div class="f" style="max-width:110px;flex-shrink:0">
+          <label>Gender</label>
+          <div style="display:flex;gap:14px;align-items:center;padding-top:6px">
+            <label class="cs-check"><input type="checkbox" id="oxy-gender-m" onchange="if(this.checked)document.getElementById('oxy-gender-f').checked=false"/> M</label>
+            <label class="cs-check"><input type="checkbox" id="oxy-gender-f" onchange="if(this.checked)document.getElementById('oxy-gender-m').checked=false"/> F</label>
+          </div>
+        </div>
+      </div>
+      <div class="frow g1" style="margin-bottom:6px">
+        <div class="f ac"><label>Address</label>
+          <input id="oxy-address" type="text" placeholder="Start typing an address…" autocomplete="off" oninput="addrSearch('oxy-address','oxy-addr-drop')"/>
+          <div class="drop" id="oxy-addr-drop"></div>
+        </div>
+      </div>
+      <div class="frow g2" style="margin-bottom:4px">
+        <div class="f"><label>Phone Number</label><input id="oxy-phone" type="tel" oninput="fmtPhone(this)" maxlength="14"/></div>
+        <div class="f"><label>Mobile</label><input id="oxy-mobile" type="tel" oninput="fmtPhone(this)" maxlength="14"/></div>
+      </div>
+    </div>
+
+    <!-- Physician Information -->
+    <div class="sec" style="padding-bottom:4px">
+      <div class="sec-label"><span class="stamp">II. Physician Information</span><span class="rule-line"></span></div>
+      <div class="frow g211" style="margin-bottom:6px">
+        <div class="f ac">
+          <label>NPI # &nbsp;<span style="font-weight:400;letter-spacing:0;text-transform:none;font-size:9px;color:var(--rule-dk)">(search by NPI or name)</span></label>
+          <input id="oxy-npi-search" type="text" placeholder="1234567890 or Dr. Last Name…" autocomplete="off" oninput="oxyNpiSearch(this)"/>
+          <div class="drop" id="oxy-npi-drop"></div>
+        </div>
+        <div class="f"><label>License #</label><input id="oxy-lic-num" type="text" oninput="toUpper(this)"/></div>
+        <div class="f"><label>Physician Name</label><input id="oxy-phys-name" type="text" oninput="toUpper(this)"/></div>
+      </div>
+      <div class="frow g3" style="margin-bottom:6px">
+        <div class="f"><label>Specialty</label><input id="oxy-phys-type" type="text" oninput="toUpper(this)"/></div>
+        <div class="f"><label>Phone Number</label><input id="oxy-phys-phone" type="tel" oninput="fmtPhone(this)" maxlength="14"/></div>
+        <div class="f"><label>Fax</label><input id="oxy-phys-fax" type="tel" oninput="fmtPhone(this)" maxlength="14"/></div>
+      </div>
+      <div class="frow g1" style="margin-bottom:4px">
+        <div class="f ac"><label>Address</label>
+          <input id="oxy-phys-addr" type="text" placeholder="Start typing an address…" autocomplete="off" oninput="addrSearch('oxy-phys-addr','oxy-phys-addr-drop')"/>
+          <div class="drop" id="oxy-phys-addr-drop"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prescription -->
+    <div class="sec" style="padding-bottom:4px">
+      <div class="sec-label"><span class="stamp">III. Prescription</span><span class="rule-line"></span></div>
+      <div style="font-family:'Courier Prime',monospace;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-lt);margin-bottom:6px">Ordered Items</div>
+      <div style="background:rgba(255,255,255,.3);border:1px solid var(--rule-dk);padding:8px 12px;font-family:'Courier Prime',monospace;margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px dashed var(--rule)">
+          <span style="font-weight:700;color:var(--red)">E1390</span>
+          <span style="flex:1;padding:0 12px;color:var(--ink)">Stationary Oxygen Concentrator</span>
+          <span style="color:var(--ink-lt);font-size:11px">QTY 1</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:4px 0">
+          <span style="font-weight:700;color:var(--red)">E0431</span>
+          <span style="flex:1;padding:0 12px;color:var(--ink)">Portable Oxygen System</span>
+          <span style="color:var(--ink-lt);font-size:11px">QTY 1</span>
+        </div>
+      </div>
+
+      <!-- Oxygen pulse dose + saturation -->
+      <div class="frow" style="gap:20px;margin-bottom:8px;flex-wrap:wrap;align-items:center">
+        <div style="display:flex;align-items:center;gap:8px;font-family:'Courier Prime',monospace;font-size:12px;color:var(--ink)">
+          <label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-lt);white-space:nowrap">Oxygen Pulse Dose Setting:</label>
+          <input id="oxy-pulse-dose" type="text" style="width:60px;border:none;border-bottom:1.5px solid var(--rule-dk);background:transparent;font-family:'Courier Prime',monospace;font-size:12px;padding:2px 4px;outline:none;text-align:center"/>
+          <span style="white-space:nowrap">via</span>
+          <label class="cs-check"><input type="checkbox" id="oxy-nasal"/> nasal</label>
+          <label class="cs-check"><input type="checkbox" id="oxy-cannula"/> cannula</label>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;font-family:'Courier Prime',monospace;font-size:12px;color:var(--ink)">
+          <label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-lt);white-space:nowrap">Patient O₂ Saturation Level:</label>
+          <input id="oxy-saturation" type="text" style="width:60px;border:none;border-bottom:1.5px solid var(--rule-dk);background:transparent;font-family:'Courier Prime',monospace;font-size:12px;padding:2px 4px;outline:none;text-align:center"/>
+          <span style="font-size:10px;color:var(--rule-dk)">(required)</span>
+        </div>
+      </div>
+
+      <!-- Oxygen Use checkboxes -->
+      <div style="display:flex;align-items:center;gap:16px;font-family:'Courier Prime',monospace;font-size:12px;flex-wrap:wrap;padding:6px 0;border-top:1px solid var(--rule)">
+        <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-lt)">Oxygen Use (check all that apply):</span>
+        <label class="cs-check"><input type="checkbox" id="oxy-rest"/> At rest / awake</label>
+        <label class="cs-check"><input type="checkbox" id="oxy-exertion"/> During Exertion</label>
+        <label class="cs-check"><input type="checkbox" id="oxy-sleep"/> During Sleep</label>
+      </div>
+    </div>
+      <!-- Prescriber signature block for oxygen -->
+      <div class="sig-block" id="oxy-sig-block" style="margin-top:40px">
+        <div style="flex:3">
+          <div class="sig-line"></div>
+          <div class="siglabel">Prescriber Signature</div>
+        </div>
+        <div style="flex:1.5">
+          <div class="sig-line"></div>
+          <div class="siglabel">Date</div>
+        </div>
+      </div>
+      <div class="footnote" id="oxy-footnote">
+        <strong>** NOTE TO PHYSICIAN:</strong> By signing this document you are verifying there is supporting documentation in the patient's permanent medical records and this information is available upon request. &nbsp;<strong>ORIGINAL ONLY</strong> — Medicaid does not accept faxes. Please mail back.
+      </div>
+  </div>
+
   <!-- 04 JUSTIFICATION -->
   <div class="sec" id="sec-notes" style="padding-bottom:2px;border-bottom:none!important">
     <div class="sec-label" style="padding-top:8px;padding-bottom:6px"><span class="stamp" id="notes-section-num">IV. Medical Justification</span><span class="rule-line"></span></div>
@@ -1445,18 +1612,35 @@ function openForm(type){
   document.getElementById("section-criteria-wheelchair").style.display = type === "wheelchair" ? "" : "none";
   document.getElementById("section-criteria-bed").style.display      = type === "bed"         ? "" : "none";
   document.getElementById("section-compression").style.display       = type === "compression" ? "" : "none";
+  document.getElementById("section-oxygen").style.display            = type === "oxygen"       ? "" : "none";
   // Tag the sheet so print CSS knows which form is active
   document.querySelector(".sheet").setAttribute("data-form", type);
 
+  // Oxygen has its own patient/physician sections — hide shared ones
+  const isOxygen = type === "oxygen";
+  document.getElementById("sec-notes").style.display      = isOxygen ? "none" : "";
+  document.getElementById("sec-physician").style.display  = isOxygen ? "none" : "";
+  const mainSig = document.querySelector(".sheet > .sig-block"); if(mainSig) mainSig.style.display = isOxygen ? "none" : "";
+  const mainFootnote = document.querySelector(".sheet > .footnote"); if(mainFootnote) mainFootnote.style.display = isOxygen ? "none" : "";
+  // Hide shared patient section for oxygen (it has its own)
+  document.querySelectorAll(".sec").forEach(el => {
+    if(el.id !== "sec-notes" && el.id !== "sec-physician" && !el.closest("#section-oxygen") && !el.closest("#section-compression") && !el.closest("#section-criteria-wheelchair") && !el.closest("#section-criteria-bed")) {
+      // Only hide the FIRST patient section (id-less .sec at top)
+    }
+  });
+  // Show/hide the shared patient info block
+  const sharedPatient = document.querySelector(".sheet > .sec:not([id])");
+  if(sharedPatient) sharedPatient.style.display = isOxygen ? "none" : "";
+
   // Update section numbers
-  const notesNum     = type === "standard"    ? "III." : type === "compression" ? "III." : "IV.";
-  const physicianNum = type === "standard"    ? "IV."  : type === "compression" ? "IV."  : "V.";
+  const notesNum     = (type === "standard" || type === "compression" || type === "oxygen") ? "III." : "IV.";
+  const physicianNum = (type === "standard" || type === "compression" || type === "oxygen") ? "IV."  : "V.";
   document.getElementById("notes-section-num").textContent     = notesNum + " Medical Justification";
   document.getElementById("physician-section-num").textContent = physicianNum + " Ordering Physician";
 
   // Update form title
-  const titles = {standard:"Durable Medical Equipment", wheelchair:"Manual Wheelchair DWO", bed:"Hospital Bed DWO", compression:"Compression Stocking Order"};
-  const ids    = {standard:"FORM BL-DWO", wheelchair:"FORM BL-WC", bed:"FORM BL-BED", compression:"FORM BL-CS"};
+  const titles = {standard:"Durable Medical Equipment", wheelchair:"Manual Wheelchair DWO", bed:"Hospital Bed DWO", compression:"Compression Stocking Order", oxygen:"Oxygen Prescription"};
+  const ids    = {standard:"FORM BL-DWO", wheelchair:"FORM BL-WC", bed:"FORM BL-BED", compression:"FORM BL-CS", oxygen:"FORM BL-O2"};
   document.getElementById("form-title-display").textContent = titles[type] || "Durable Medical Equipment";
   document.getElementById("form-id-display").textContent    = ids[type]    || "FORM BL-DWO";
 
@@ -2402,6 +2586,60 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+
+// ── OXYGEN NPI SEARCH ────────────────────────────────────────────────────
+async function oxyNpiSearch(el){
+  const q = el.value.trim();
+  const drop = document.getElementById("oxy-npi-drop");
+  if(!drop) return;
+  if(q.length < 3){ closeDrop(drop); return; }
+  clearTimeout(T["oxy-npi"]);
+  T["oxy-npi"] = setTimeout(async() => {
+    showLoad(drop, "Searching NPI registry…", el);
+    try{
+      const isNum = /^\d+$/.test(q);
+      const sf = isNum ? "npi" : "provider_name";
+      const url = `https://clinicaltables.nlm.nih.gov/api/npi_idv/v3/search?terms=${encodeURIComponent(q)}&sf=${sf}&maxList=8&ef=name.full,provider_type,addr_practice.phone,addr_practice.fax,addr_practice.line1,addr_practice.city,addr_practice.state,addr_practice.zip,licenses`;
+      const r = await fetch(url);
+      const d = await r.json();
+      const codes = d[1]||[];
+      const extra = d[2]||{};
+      const names = extra["name.full"]||[];
+      const types = extra["provider_type"]||[];
+      const phones= extra["addr_practice.phone"]||[];
+      const faxes = extra["addr_practice.fax"]||[];
+      const lines = extra["addr_practice.line1"]||[];
+      const cities= extra["addr_practice.city"]||[];
+      const states= extra["addr_practice.state"]||[];
+      const zips  = extra["addr_practice.zip"]||[];
+      const lics  = extra["licenses"]||[];
+      if(!codes.length){ drop.innerHTML=`<div class="empty-row">No results found</div>`; drop.classList.add("open"); positionDrop(drop,el); return; }
+      drop.innerHTML=""; drop.classList.add("open"); positionDrop(drop,el);
+      codes.forEach((npi,i)=>{
+        const row = document.createElement("div");
+        row.className="drop-row";
+        const name = (names[i]||"").trim();
+        const type = (types[i]||"").trim();
+        row.innerHTML=`<strong>${name||npi}</strong><span style="color:#888;font-size:11px;margin-left:8px">${type}</span><span style="color:#aaa;font-size:10px;margin-left:8px">${npi}</span>`;
+        row.onclick=()=>{
+          el.value=npi;
+          document.getElementById("oxy-phys-name").value=name.toUpperCase();
+          document.getElementById("oxy-phys-type").value=(type||"").toUpperCase();
+          const rawPhone=(phones[i]||"").replace(/\D/g,"");
+          if(rawPhone.length===10) document.getElementById("oxy-phys-phone").value=`(${rawPhone.slice(0,3)}) ${rawPhone.slice(3,6)}-${rawPhone.slice(6)}`;
+          const rawFax=(faxes[i]||"").replace(/\D/g,"");
+          if(rawFax.length===10) document.getElementById("oxy-phys-fax").value=`(${rawFax.slice(0,3)}) ${rawFax.slice(3,6)}-${rawFax.slice(6)}`;
+          const addr=[lines[i],cities[i],states[i],zips[i]].filter(Boolean).join(", ");
+          if(addr) document.getElementById("oxy-phys-addr").value=addr;
+          const lic=(lics[i]||[])[0];
+          if(lic && document.getElementById("oxy-lic-num")) document.getElementById("oxy-lic-num").value=(lic.number||"").toUpperCase();
+          closeDrop(drop);
+        };
+        drop.appendChild(row);
+      });
+    }catch(e){ closeDrop(drop); }
+  }, 300);
+}
 
 // Patch clearForm to also reset criteria checkboxes and special rows
 const _origClear = clearForm;
