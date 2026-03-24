@@ -60,6 +60,217 @@ body{
 }
 .btn-stamp:hover{background:#1a2838;}
 
+.workflow-bar{
+  max-width:820px;
+  margin:0 auto 10px;
+  padding:0 12px;
+}
+.workflow-panel{
+  background:rgba(245,240,232,.95);
+  border:1px solid var(--rule);
+  box-shadow:var(--sh);
+  padding:10px 12px;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+}
+.workflow-card{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.workflow-title{
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--ink-lt);
+}
+.workflow-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  align-items:center;
+}
+.workflow-card select{
+  width:100%;
+  background:#fff8ee;
+  border:1px solid var(--rule);
+  font-family:'Courier Prime',monospace;
+  font-size:12px;
+  color:var(--ink);
+  padding:6px 8px;
+}
+.workflow-card input,
+.workflow-card textarea{
+  width:100%;
+  background:#fff8ee;
+  border:1px solid var(--rule);
+  font-family:'Courier Prime',monospace;
+  font-size:12px;
+  color:var(--ink);
+  padding:6px 8px;
+}
+.workflow-card textarea{
+  min-height:74px;
+  resize:vertical;
+}
+.workflow-note{
+  font-size:11px;
+  line-height:1.4;
+  color:var(--ink-lt);
+  min-height:32px;
+}
+.status-ok{color:#2f5d37}
+.status-warn{color:var(--red)}
+.field-missing{
+  border-bottom:2px solid var(--red)!important;
+  background:rgba(139,26,26,.08)!important;
+}
+.fax-cover-wrap{
+  display:none;
+  max-width:820px;
+  margin:0 auto 14px;
+  padding:0 12px;
+}
+body.fax-cover-enabled .fax-cover-wrap{display:block}
+.fax-cover{
+  background:var(--paper);
+  border:1px solid var(--rule-dk);
+  box-shadow: var(--sh), 0 0 0 6px var(--paper-md), 0 0 0 7px var(--rule);
+  padding:28px 30px 24px;
+  min-height:260mm;
+  position:relative;
+}
+.fax-cover::before{
+  content:'';
+  position:absolute;
+  inset:8px;
+  border:1px solid var(--rule);
+  pointer-events:none;
+}
+.fax-cover-content{
+  position:relative;
+  z-index:1;
+}
+.fax-cover-title{
+  font-family:'Special Elite',cursive;
+  font-size:26px;
+  color:var(--red);
+  margin-bottom:10px;
+}
+.fax-cover-sub{
+  font-family:'Courier Prime',monospace;
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--ink-lt);
+  margin-bottom:16px;
+}
+.fax-cover-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px 18px;
+  margin-bottom:16px;
+}
+.fax-line{
+  border-bottom:1.5px solid var(--rule-dk);
+  padding:0 0 6px;
+  min-height:24px;
+}
+.fax-label{
+  display:block;
+  font-family:'Courier Prime',monospace;
+  font-size:9px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--ink-lt);
+  margin-bottom:4px;
+}
+.fax-value{
+  font-family:'Courier Prime',monospace;
+  font-size:13px;
+  color:var(--ink);
+  white-space:pre-wrap;
+}
+.fax-message{
+  border:1px solid var(--rule-dk);
+  background:rgba(255,255,255,.25);
+  min-height:120px;
+  padding:10px 12px;
+  margin-bottom:18px;
+}
+.fax-footer{
+  font-family:'Courier Prime',monospace;
+  font-size:11px;
+  line-height:1.6;
+  color:var(--ink);
+}
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(26,17,8,.45);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index:9999;
+}
+.modal-backdrop.open{display:flex}
+.modal-card{
+  width:min(520px,100%);
+  background:var(--paper);
+  border:1px solid var(--rule-dk);
+  box-shadow:var(--sh), 0 0 0 6px var(--paper-md), 0 0 0 7px var(--rule);
+  padding:22px 22px 18px;
+}
+.modal-title{
+  font-family:'Special Elite',cursive;
+  font-size:22px;
+  color:var(--red);
+  margin-bottom:8px;
+}
+.modal-text{
+  font-family:'Courier Prime',monospace;
+  font-size:12px;
+  line-height:1.6;
+  color:var(--ink-lt);
+  margin-bottom:14px;
+}
+.modal-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px 12px;
+}
+.modal-field{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.modal-field.full{grid-column:1 / -1}
+.modal-field label{
+  font-family:'Courier Prime',monospace;
+  font-size:9px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--ink-lt);
+}
+.modal-field input{
+  width:100%;
+  background:#fff8ee;
+  border:1px solid var(--rule);
+  font-family:'Courier Prime',monospace;
+  font-size:13px;
+  color:var(--ink);
+  padding:8px 9px;
+}
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-top:16px;
+}
+
 /* ── MAIN PAPER ─────────────────────────── */
 .paper{
   max-width:820px;
@@ -397,8 +608,24 @@ body{
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
   html,body{width:100%!important;height:100%!important;margin:0!important;padding:0!important}
   body{background:#fff!important;font-size:9pt!important}
-  .toolbar{display:none!important}
+  .toolbar,.workflow-bar{display:none!important}
+  .modal-backdrop{display:none!important}
   .drop,.loading-row,.spin{display:none!important}
+  body:not(.fax-cover-enabled) .fax-cover-wrap{display:none!important}
+  body.fax-cover-enabled .fax-cover-wrap{
+    display:block!important;
+    max-width:100%!important;
+    padding:0!important;
+    margin:0 0 6mm!important;
+    page-break-after:always!important;
+  }
+  body.fax-cover-enabled .fax-cover{
+    min-height:calc(297mm - 12mm)!important;
+    box-shadow:none!important;
+    border:1.5px solid #888!important;
+    background:#fff!important;
+  }
+  body.fax-cover-enabled .fax-cover::before{border-color:#ccc!important}
 
   .paper{max-width:100%!important;padding:0!important;margin:0!important;height:100%!important}
 
@@ -782,7 +1009,7 @@ body{
 
   #home-screen{display:none!important}
   #form-screen{display:block!important}
-  .back-btn,.toolbar,.variant-bar{display:none!important}
+  .back-btn,.toolbar,.variant-bar,.workflow-bar{display:none!important}
   .drop{display:none!important}
 
   /* ── Sheet: flex column, fills exactly one A4 page ── */
@@ -944,10 +1171,17 @@ body{
   .siglabel{font-size:6.5pt!important;margin-top:2px!important}
 
   /* ── FOOTNOTE ── */
-  .footnote{
+.footnote{
     padding:2px 10px 4px!important;font-size:6pt!important;
     border-top:0.7px dashed #aaa!important;flex-shrink:0!important;
   }
+}
+
+@media (max-width:900px){
+  .workflow-panel{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .workflow-panel{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -1024,12 +1258,106 @@ body{
 <div class="toolbar" style="margin-top:16px">
   <button class="back-btn" onclick="goHome()">← Back to Form Selection</button>
   <div style="flex:1"></div>
+  <button class="btn btn-ghost" onclick="saveRecordPackage()">[ SAVE RECORD ]</button>
+  <button class="btn btn-ghost" onclick="handleFaxPrint()">[ PRINT FAX PACKAGE ]</button>
   <button class="btn btn-ghost" onclick="clearForm()">[ CLEAR FORM ]</button>
-  <button class="btn btn-stamp" onclick="window.print()">[ PRINT / SAVE PDF ]</button>
+  <button class="btn btn-stamp" onclick="handlePrint()">[ PRINT / SAVE PDF ]</button>
 </div>
-<div style="max-width:820px;margin:0 auto;padding:0 12px">
-<div class="toolbar" style="margin:0 0 8px;padding:0;max-width:100%;justify-content:flex-start">
+<div class="workflow-bar">
+  <div class="workflow-panel">
+    <div class="workflow-card">
+      <div class="workflow-title">Patient Shortcuts</div>
+      <select id="patient-preset-select" onchange="applyPatientPreset(this.value)">
+        <option value="">Load a saved patient...</option>
+      </select>
+      <div class="workflow-actions">
+        <button class="btn btn-ghost" type="button" onclick="saveCurrentPatientPreset()">Save Current Patient</button>
+      </div>
+      <div class="workflow-note" id="patient-preset-status">Store frequent patients to cut repeat typing.</div>
+    </div>
+    <div class="workflow-card">
+      <div class="workflow-title">Physician Shortcuts</div>
+      <select id="physician-preset-select" onchange="applyPhysicianPreset(this.value)">
+        <option value="">Load a saved physician...</option>
+      </select>
+      <div class="workflow-actions">
+        <button class="btn btn-ghost" type="button" onclick="saveCurrentPhysicianPreset()">Save Current Physician</button>
+      </div>
+      <div class="workflow-note" id="physician-preset-status">Keep common referral sources ready to reuse.</div>
+    </div>
+    <div class="workflow-card">
+      <div class="workflow-title">Readiness Check</div>
+      <div class="workflow-note" id="checklist-status">Checklist updates as the form fills in.</div>
+      <div class="workflow-actions">
+        <button class="btn btn-ghost" type="button" onclick="showChecklistDetails()">Show Missing Items</button>
+      </div>
+    </div>
+    <div class="workflow-card">
+      <div class="workflow-title">Fax Cover Sheet</div>
+      <div class="workflow-actions">
+        <button class="btn btn-ghost" type="button" onclick="openStaffProfileModal()">Edit My Info</button>
+      </div>
+      <div class="workflow-note" id="staff-status">Staff profile not set yet.</div>
+      <input id="cover_to_name" type="text" placeholder="Doctor or office name"/>
+      <input id="cover_to_fax" type="text" placeholder="Fax number" oninput="fmtPhone(this)"/>
+      <input id="cover_attn" type="text" placeholder="Attention"/>
+      <input id="cover_subject" type="text" placeholder="Subject"/>
+      <textarea id="cover_notes" placeholder="Optional note to physician office"></textarea>
+      <div class="workflow-note" id="fax-status">Use fax package print for a cover sheet plus the A4 form.</div>
+    </div>
+  </div>
 </div>
+<input id="draft-import-input" type="file" accept=".json,application/json" style="display:none"/>
+
+<div class="fax-cover-wrap">
+  <div class="fax-cover" id="fax-cover-sheet">
+    <div class="fax-cover-content">
+      <div class="fax-cover-title">Fax Cover Sheet</div>
+      <div class="fax-cover-sub">Better Life Medical &amp; Surgical Supply</div>
+      <div class="fax-cover-grid">
+        <div class="fax-line"><span class="fax-label">To</span><div class="fax-value" id="fax-preview-to-name"></div></div>
+        <div class="fax-line"><span class="fax-label">Fax Number</span><div class="fax-value" id="fax-preview-to-fax"></div></div>
+        <div class="fax-line"><span class="fax-label">Attention</span><div class="fax-value" id="fax-preview-attn"></div></div>
+        <div class="fax-line"><span class="fax-label">Date</span><div class="fax-value" id="fax-preview-date"></div></div>
+        <div class="fax-line"><span class="fax-label">Patient</span><div class="fax-value" id="fax-preview-patient"></div></div>
+        <div class="fax-line"><span class="fax-label">Pages</span><div class="fax-value" id="fax-preview-pages"></div></div>
+        <div class="fax-line"><span class="fax-label">Subject</span><div class="fax-value" id="fax-preview-subject"></div></div>
+        <div class="fax-line"><span class="fax-label">From</span><div class="fax-value" id="fax-preview-from">Better Life Medical<br/>Ph (305) 909-0880<br/>Fx (305) 539-0880</div></div>
+      </div>
+      <div class="fax-message">
+        <span class="fax-label">Message</span>
+        <div class="fax-value" id="fax-preview-notes"></div>
+      </div>
+      <div class="fax-footer">
+        Please review and sign the attached DWO form, then fax it back to Better Life at (305) 539-0880.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="staff-profile-modal">
+  <div class="modal-card">
+    <div class="modal-title">Staff Profile</div>
+    <div class="modal-text">Set the teammate name and extension for this computer. It will be used on the fax cover and can be updated anytime.</div>
+    <div class="modal-grid">
+      <div class="modal-field">
+        <label>First Name</label>
+        <input id="staff_first_name" type="text" placeholder="First name"/>
+      </div>
+      <div class="modal-field">
+        <label>Last Name</label>
+        <input id="staff_last_name" type="text" placeholder="Last name"/>
+      </div>
+      <div class="modal-field full">
+        <label>Extension</label>
+        <input id="staff_extension" type="text" placeholder="Extension"/>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" type="button" onclick="closeStaffProfileModal()">Cancel</button>
+      <button class="btn btn-stamp" type="button" onclick="saveStaffProfile()">Save Profile</button>
+    </div>
+  </div>
 </div>
 
 <div class="paper">
@@ -1529,6 +1857,17 @@ body{
 let currentForm = "standard";
 let wcVariant   = "standard"; // "standard" | "bariatric"
 let bedVariant  = "E0260";
+const STORAGE_KEYS = {
+  drafts: "bl_dwo_drafts_v1",
+  patients: "bl_dwo_patient_presets_v1",
+  physicians: "bl_dwo_physician_presets_v1",
+  staff: "bl_dwo_staff_profile_v1"
+};
+const AUTOSAVE_DELAY = 500;
+let autosaveTimer = null;
+let latestChecklist = [];
+const OFFICE_PHONE = "(305) 909-0880";
+const OFFICE_FAX = "(305) 539-0880";
 
 // ── WHEELCHAIR CRITERIA TEXT ──────────────────────────────
 const WC_CRITERIA = [
@@ -1683,6 +2022,7 @@ function openForm(type){
         document.body.appendChild(drop);
       }
     });
+    syncWorkflowPanel();
   }, 50);
 }
 
@@ -2028,10 +2368,51 @@ async function addrSearch(inputId, dropId) {
   T[dropId] = setTimeout(async () => {
     showLoad(drop, "Looking up address…", el);
     try {
-      const url = "https://nominatim.openstreetmap.org/search?format=json&limit=6&addressdetails=1&countrycodes=us&q="
-                + encodeURIComponent(q);
-      const r    = await fetch(url, { headers: { "Accept-Language": "en" } });
-      const data = await r.json();
+      const normalized = q.replace(/\s+/g, " ").trim();
+      const noComma = normalized.replace(/,/g, " ").replace(/\s+/g, " ").trim();
+      const parts = noComma.split(" ").filter(Boolean);
+      const hasLeadingNumber = /^\d+[A-Z\-\/]*$/i.test(parts[0] || "");
+      const streetOnly = hasLeadingNumber ? parts.slice(1).join(" ") : "";
+      const queries = [normalized];
+      if (noComma && noComma !== normalized) queries.push(noComma);
+      if (streetOnly && streetOnly.length >= 3) queries.push(streetOnly);
+
+      const results = (await Promise.all(
+        queries.slice(0, 3).map(term => {
+          const url = "https://nominatim.openstreetmap.org/search?format=jsonv2&limit=8&addressdetails=1&countrycodes=us&q="
+                    + encodeURIComponent(term);
+          return fetch(url, { headers: { "Accept-Language": "en" } })
+            .then(r => r.json())
+            .catch(() => []);
+        })
+      )).flat();
+
+      const seenKeys = new Set();
+      const data = [];
+      results.forEach(item => {
+        const key = `${item.place_id || ""}|${(item.display_name || "").toLowerCase()}`;
+        if (seenKeys.has(key)) return;
+        seenKeys.add(key);
+        data.push(item);
+      });
+
+      const typedNum = hasLeadingNumber ? parts[0].toUpperCase() : "";
+      const typedStreet = (hasLeadingNumber ? parts.slice(1) : parts).join(" ").toUpperCase();
+      data.sort((a, b) => {
+        const aa = a.address || {};
+        const ba = b.address || {};
+        const aStreet = [aa.house_number || "", aa.road || aa.pedestrian || aa.footway || aa.street || aa.path || aa.residential || ""].join(" ").trim().toUpperCase();
+        const bStreet = [ba.house_number || "", ba.road || ba.pedestrian || ba.footway || ba.street || ba.path || ba.residential || ""].join(" ").trim().toUpperCase();
+        const aScore =
+          (typedNum && (aa.house_number || "").toUpperCase().startsWith(typedNum) ? 5 : 0) +
+          (typedStreet && aStreet.includes(typedStreet) ? 3 : 0) +
+          (aStreet.startsWith((typedNum ? `${typedNum} ` : "") + typedStreet) ? 2 : 0);
+        const bScore =
+          (typedNum && (ba.house_number || "").toUpperCase().startsWith(typedNum) ? 5 : 0) +
+          (typedStreet && bStreet.includes(typedStreet) ? 3 : 0) +
+          (bStreet.startsWith((typedNum ? `${typedNum} ` : "") + typedStreet) ? 2 : 0);
+        return bScore - aScore;
+      });
 
       drop.innerHTML = "";
       if (!data.length) {
@@ -2041,7 +2422,7 @@ async function addrSearch(inputId, dropId) {
         return;
       }
 
-      data.forEach(item => {
+      data.slice(0, 8).forEach(item => {
         const a = item.address || {};
 
         // --- build each part individually ---
@@ -2102,7 +2483,7 @@ async function addrSearch(inputId, dropId) {
       drop.innerHTML = `<div class="empty-row">Address lookup unavailable</div>`;
       drop.classList.add("open");
     }
-  }, 400);
+  }, 300);
 }
 
 // ── ICD-10 ─────────────────────────────────────
@@ -2293,6 +2674,7 @@ function onHcpcsChange(el, row){
     const qtyEl  = document.getElementById(`qty_${row}`);
     descEl.value = "";
     qtyEl.value  = "";
+    clearQtyMeta(qtyEl);
     // Reset font sizes
     descEl.style.fontSize = "";
     qtyEl.style.fontSize  = "";
@@ -2378,6 +2760,7 @@ document.addEventListener("click",e=>{
 function clearForm(){
   if(!confirm("Clear all fields?"))return;
   document.querySelectorAll("input:not([type=hidden]),textarea").forEach(el=>el.value="");
+  document.querySelectorAll("input[id^='qty_']").forEach(clearQtyMeta);
   document.getElementById("insurance").value="";
   for(let i=1;i<=4;i++)clearIcd(i);
 }
@@ -2401,6 +2784,42 @@ function getInsuranceType(){
     if(ins === p) return "medicaid";
   }
   return "medicare_commercial"; // everything else
+}
+
+
+// ── MEDICAID MONTHLY SUPPLY QTY RULES ───────────────────
+// Auto-filled from the Florida Medicaid DME / Medical Supplies fee schedule.
+// Uses the fee schedule "Units" column, which represents the number of units
+// billable within the same month for a one-month supply.
+const MEDICAID_SUPPLY_QTY_RULES = {"A4206":{"u":60,"l":"720 PER YEAR"},"A4207":{"u":60,"l":"720 PER YEAR"},"A4208":{"u":60,"l":"720 PER YEAR"},"A4209":{"u":60,"l":"720 PER YEAR"},"A4213":{"u":31,"l":"372 PER YEAR"},"A4215":{"u":100,"l":"1200 PER YEAR"},"A4216":{"u":150,"l":"150 PER MONTH"},"A4217":{"u":1,"l":"31 UNITS PER MONTH"},"A4221":{"u":1,"l":"52 PER YEAR"},"A4222":{"u":7,"l":"MEDICAL NECESSITY UP TO 365 PER YEAR MAX"},"A4223":{"u":1,"l":"52 PER YEAR"},"A4230":{"u":1,"l":"12 BOXES PER YEAR"},"A4231":{"u":1,"l":"12 BOXES PER YEAR"},"A4232":{"u":1,"l":"12 BOXES PER YEAR"},"A4244":{"u":12,"l":"144 PER YEAR"},"A4245":{"u":2,"l":"24 PER YEAR"},"A4246":{"u":3,"l":"36 PER YEAR"},"A4247":{"u":2,"l":"2 BOXES PER MONTH"},"A4250":{"u":2,"l":"2 BOXES PER MONTH"},"A4265":{"u":6,"l":"72 PER YEAR"},"A4280":{"u":5,"l":"5 PER MONTH"},"A4310":{"u":2,"l":"24 PER YEAR"},"A4311":{"u":3,"l":"36 PER YEAR"},"A4312":{"u":3,"l":"36 PER YEAR"},"A4313":{"u":3,"l":"36 PER YEAR"},"A4314":{"u":2,"l":"24 PER YEAR"},"A4315":{"u":2,"l":"24 PER YEAR"},"A4316":{"u":2,"l":"24 PER YEAR"},"A4320":{"u":31,"l":"372 PER YEAR"},"A4322":{"u":12,"l":"144 PER YEAR"},"A4326":{"u":31,"l":"372 PER YEAR"},"A4327":{"u":1,"l":"1 PER YEAR"},"A4328":{"u":2,"l":"24 PER YEAR"},"A4330":{"u":31,"l":"372 PER YEAR"},"A4331":{"u":31,"l":"372 PER YEAR"},"A4332":{"u":200,"l":"200 PER MONTH"},"A4333":{"u":31,"l":"31 PER MONTH"},"A4338":{"u":3,"l":"36 PER YEAR"},"A4340":{"u":3,"l":"36 PER YEAR"},"A4344":{"u":3,"l":"36 PER YEAR"},"A4346":{"u":3,"l":"36 PER YEAR"},"A4349":{"u":35,"l":"35 PER MONTH"},"A4351":{"u":186,"l":"186 PER MONTH"},"A4352":{"u":186,"l":"186 PER MONTH"},"A4353":{"u":186,"l":"186 PER MONTH"},"A4354":{"u":3,"l":"36 PER YEAR"},"A4355":{"u":4,"l":"48 PER YEAR"},"A4356":{"u":1,"l":"1 PER YEAR"},"A4357":{"u":2,"l":"24 PER YEAR"},"A4358":{"u":5,"l":"60 PER YEAR"},"A4361":{"u":1,"l":"12 PER YEAR"},"A4362":{"u":20,"l":"240 PER YEAR"},"A4363":{"u":12,"l":"144 PER YEAR"},"A4364":{"u":4,"l":"48 PER YEAR"},"A4367":{"u":1,"l":"12 PER YEAR"},"A4368":{"u":200,"l":"200 PER MONTH"},"A4369":{"u":12,"l":"144 PER YEAR"},"A4371":{"u":12,"l":"144 PER YEAR"},"A4372":{"u":20,"l":"240 PER YEAR"},"A4373":{"u":31,"l":"372 PER YEAR"},"A4375":{"u":10,"l":"10 PER MONTH"},"A4376":{"u":10,"l":"10 PER MONTH"},"A4377":{"u":10,"l":"10 PER MONTH"},"A4378":{"u":10,"l":"10 PER MONTH"},"A4379":{"u":10,"l":"10 PER MONTH"},"A4380":{"u":20,"l":"240 PER YEAR"},"A4381":{"u":10,"l":"10 PER MONTH"},"A4382":{"u":10,"l":"10 PER MONTH"},"A4383":{"u":10,"l":"10 PER MONTH"},"A4384":{"u":10,"l":"10 PER MONTH"},"A4385":{"u":10,"l":"10 PER MONTH"},"A4387":{"u":10,"l":"10 PER MONTH"},"A4388":{"u":10,"l":"10 PER MONTH"},"A4389":{"u":10,"l":"10 PER MONTH"},"A4390":{"u":10,"l":"10 PER MONTH"},"A4391":{"u":10,"l":"10 PER MONTH"},"A4392":{"u":10,"l":"10 PER MONTH"},"A4393":{"u":10,"l":"10 PER MONTH"},"A4394":{"u":10,"l":"10 PER MONTH"},"A4395":{"u":31,"l":"31 PER MONTH"},"A4396":{"u":2,"l":"2 PER MONTH"},"A4398":{"u":2,"l":"24 PER YEAR"},"A4399":{"u":1,"l":"2 PER YEAR"},"A4400":{"u":1,"l":"6 PER YEAR"},"A4402":{"u":4,"l":"48 PER YEAR"},"A4404":{"u":31,"l":"372 PER YEAR"},"A4405":{"u":12,"l":"144 PER YEAR"},"A4406":{"u":12,"l":"144 PER YEAR"},"A4407":{"u":31,"l":"372 PER YEAR"},"A4408":{"u":31,"l":"372 PER YEAR"},"A4409":{"u":31,"l":"372 PER YEAR"},"A4410":{"u":31,"l":"372 PER YEAR"},"A4411":{"u":31,"l":"372 PER YEAR"},"A4412":{"u":31,"l":"31 PER MONTH"},"A4413":{"u":10,"l":"10 PER MONTH"},"A4414":{"u":31,"l":"372 PER YEAR"},"A4415":{"u":31,"l":"372 PER YEAR"},"A4416":{"u":31,"l":"31 PER MONTH"},"A4417":{"u":31,"l":"31 PER MONTH"},"A4418":{"u":31,"l":"31 PER MONTH"},"A4420":{"u":31,"l":"31 PER MONTH"},"A4421":{"u":1,"l":"12 PER YEAR"},"A4423":{"u":31,"l":"31 PER MONTH"},"A4424":{"u":31,"l":"31 PER MONTH"},"A4425":{"u":31,"l":"372 PER YEAR"},"A4426":{"u":31,"l":"372 PER YEAR"},"A4427":{"u":31,"l":"372 PER YEAR"},"A4428":{"u":31,"l":"372 PER YEAR"},"A4429":{"u":31,"l":"372 PER YEAR"},"A4430":{"u":31,"l":"372 PER YEAR"},"A4431":{"u":31,"l":"31 PER MONTH"},"A4432":{"u":31,"l":"31 PER MONTH"},"A4433":{"u":31,"l":"31 PER MONTH"},"A4434":{"u":31,"l":"372 PER YEAR"},"A4436":{"u":1,"l":"1 PER MONTH"},"A4437":{"u":1,"l":"1 PER MONTH"},"A4450":{"u":200,"l":"2400 PER YEAR"},"A4452":{"u":200,"l":"2400 PER YEAR"},"A4455":{"u":4,"l":"48 PER YEAR"},"A4456":{"u":100,"l":"100 PER MONTH"},"A4554":{"u":150,"l":"1800 PER YEAR"},"A4561":{"u":10,"l":"10 PER MONTH"},"A4562":{"u":10,"l":"10 PER MONTH"},"A4640":{"u":1,"l":"1 PER YEAR"},"A4927":{"u":4,"l":"48 PER YEAR"},"A4930":{"u":100,"l":"1200 PER YEAR"},"A5051":{"u":31,"l":"372 PER YEAR"},"A5052":{"u":31,"l":"372 PER YEAR"},"A5053":{"u":31,"l":"372 PER YEAR"},"A5054":{"u":31,"l":"372 PER YEAR"},"A5055":{"u":31,"l":"31 PER MONTH"},"A5056":{"u":1,"l":"10 PER MONTH"},"A5057":{"u":1,"l":"10 PER MONTH"},"A5061":{"u":31,"l":"372 PER YEAR"},"A5062":{"u":31,"l":"372 PER YEAR"},"A5063":{"u":31,"l":"372 PER YEAR"},"A5071":{"u":31,"l":"372 PER YEAR"},"A5072":{"u":31,"l":"372 PER YEAR"},"A5073":{"u":31,"l":"372 PER YEAR"},"A5081":{"u":1,"l":"6 PER YEAR"},"A5082":{"u":1,"l":"6 PER YEAR"},"A5093":{"u":10,"l":"120 PER YEAR"},"A5102":{"u":1,"l":"2 PER YEAR"},"A5105":{"u":1,"l":"2 PER YEAR"},"A5112":{"u":1,"l":"12 PER YEAR"},"A5113":{"u":1,"l":"4 PER YEAR"},"A5114":{"u":1,"l":"4 PER YEAR"},"A5120":{"u":50,"l":"600 PER YEAR"},"A5121":{"u":10,"l":"120 PER YEAR"},"A5122":{"u":10,"l":"120 PER YEAR"},"A5126":{"u":20,"l":"240 PER YEAR"},"A5131":{"u":3,"l":"3 PER MONTH"},"A5200":{"u":3,"l":"3 PER MONTH"},"A6022":{"u":31,"l":"31 PER MONTH"},"A6023":{"u":15,"l":"15 PER MONTH"},"A6024":{"u":31,"l":"31 PER MONTH"},"A6154":{"u":15,"l":"15 PER MONTH"},"A6196":{"u":31,"l":"31 PER MONTH"},"A6197":{"u":31,"l":"31 PER MONTH"},"A6199":{"u":31,"l":"31 PER MONTH"},"A6203":{"u":31,"l":"31 PER MONTH"},"A6204":{"u":31,"l":"31 PER MONTH"},"A6207":{"u":31,"l":"31 PER MONTH"},"A6209":{"u":31,"l":"31 PER MONTH"},"A6210":{"u":31,"l":"31 PER MONTH"},"A6211":{"u":31,"l":"31 PER MONTH"},"A6212":{"u":31,"l":"31 PER MONTH"},"A6214":{"u":31,"l":"31 PER MONTH"},"A6216":{"u":200,"l":"200 PER MONTH"},"A6219":{"u":62,"l":"62 PER MONTH"},"A6220":{"u":62,"l":"62 PER MONTH"},"A6222":{"u":31,"l":"31 PER MONTH"},"A6223":{"u":31,"l":"31 PER MONTH"},"A6224":{"u":31,"l":"31 PER MONTH"},"A6229":{"u":31,"l":"31 PER MONTH"},"A6231":{"u":31,"l":"31 PER MONTH"},"A6232":{"u":31,"l":"31 PER MONTH"},"A6233":{"u":31,"l":"31 PER MONTH"},"A6234":{"u":31,"l":"31 PER MONTH"},"A6235":{"u":31,"l":"31 PER MONTH"},"A6236":{"u":31,"l":"31 PER MONTH"},"A6237":{"u":31,"l":"31 PER MONTH"},"A6238":{"u":31,"l":"31 PER MONTH"},"A6240":{"u":31,"l":"31 PER MONTH"},"A6241":{"u":31,"l":"31 PER MONTH"},"A6242":{"u":31,"l":"31 PER MONTH"},"A6243":{"u":31,"l":"31 PER MONTH"},"A6244":{"u":31,"l":"31 PER MONTH"},"A6245":{"u":31,"l":"31 PER MONTH"},"A6246":{"u":31,"l":"31 PER MONTH"},"A6247":{"u":31,"l":"31 PER MONTH"},"A6248":{"u":15,"l":"15 PER MONTH"},"A6251":{"u":31,"l":"31 PER MONTH"},"A6252":{"u":31,"l":"31 PER MONTH"},"A6253":{"u":31,"l":"31 PER MONTH"},"A6254":{"u":31,"l":"31 PER MONTH"},"A6255":{"u":31,"l":"31 PER MONTH"},"A6257":{"u":31,"l":"31 PER MONTH"},"A6258":{"u":31,"l":"31 PER MONTH"},"A6259":{"u":31,"l":"31 PER MONTH"},"A6266":{"u":31,"l":"31 PER MONTH"},"A6402":{"u":200,"l":"200 PER MONTH"},"A6403":{"u":200,"l":"200 PER MONTH"},"A6441":{"u":31,"l":"31 PER MONTH"},"A6443":{"u":31,"l":"31 PER MONTH"},"A6444":{"u":31,"l":"31 PER MONTH"},"A6446":{"u":31,"l":"31 PER MONTH"},"A6447":{"u":31,"l":"31 PER MONTH"},"A6449":{"u":31,"l":"31 PER MONTH"},"A6450":{"u":31,"l":"31 PER MONTH"},"A6451":{"u":31,"l":"31 PER MONTH"},"A6452":{"u":31,"l":"31 PER MONTH"},"A6454":{"u":31,"l":"31 PER MONTH"},"A6456":{"u":31,"l":"31 PER MONTH"},"A6457":{"u":2,"l":"2 EVERY 6 MONTHS"},"A9276":{"u":"1 (per box)","l":"1 PER MONTH"},"A9277":{"u":1,"l":"2 PER YEAR"},"A9278":{"u":1,"l":"1 PER YEAR"},"A9900":{"u":1,"l":"MEDICAL NECESSITY"},"T4521":{"u":200,"l":"UP TO 200 PER MONTH Any combination of these codes can be billed but only up to 200 units.*","g":"CONTINENCE_SHARED_200"},"T4522":{"u":200,"l":"UP TO 200 PER MONTH Any combination of these codes can be billed but only up to 200 units.*","g":"CONTINENCE_SHARED_200"},"T4523":{"u":200,"l":"UP TO 200 PER MONTH Any combination of these codes can be billed but only up to 200 units.*","g":"CONTINENCE_SHARED_200"},"T4524":{"u":200,"l":"UP TO 200 PER MONTH Any combination of these codes can be billed but only up to 200 units.*","g":"CONTINENCE_SHARED_200"},"T4525":{"u":200,"l":"UP TO 200 PER MONTH Any combination of these codes can be billed but only up to 200 units.*","g":"CONTINENCE_SHARED_200"},"T4526":{"u":200,"l":"UP TO 200 PER MONTH Any combination of these codes can be billed but only up to 200 units.*","g":"CONTINENCE_SHARED_200"},"T4527":{"u":200,"l":"UP TO 200 PER MONTH Any combination of these codes can be billed but only up to 200 units.*","g":"CONTINENCE_SHARED_200"},"T4528":{"u":200,"l":"UP TO 200 PER MONTH Any combination of these codes can be billed but only up to 200 units.*","g":"CONTINENCE_SHARED_200"},"T4529":{"u":200,"l":"UP TO 200 PER MONTH Any combination of these codes can be billed but only up to 200 units.*","g":"CONTINENCE_SHARED_200"},"T4530":{"u":200,"l":"UP TO 200 PER MONTH Any combination of these codes can be billed but only up to 200 units.*","g":"CONTINENCE_SHARED_200"},"T4531":{"u":200,"l":"UP TO 200 PER MONTH Any combination of these codes can be billed but only up to 200 units.*","g":"CONTINENCE_SHARED_200"},"T4532":{"u":200,"l":"UP TO 200 PER MONTH Any combination of these codes can be billed but only up to 200 units.*","g":"CONTINENCE_SHARED_200"},"T4533":{"u":200,"l":"UP TO 200 PER MONTH Any combination of these codes can be billed but only up to 200 units.*","g":"CONTINENCE_SHARED_200"},"T4534":{"u":200,"l":"UP TO 200 PER MONTH Any combination of these codes can be billed but only up to 200 units.*","g":"CONTINENCE_SHARED_200"},"T4535":{"u":200,"l":"UP TO 200 PER MONTH Any combination of these codes can be billed but only up to 200 units.*","g":"CONTINENCE_SHARED_200"},"T4543":{"u":200,"l":"UP TO 200 PER MONTH Any combination of these codes can be billed but only up to 200 units.*","g":"CONTINENCE_SHARED_200"},"T4544":{"u":200,"l":"UP TO 200 PER MONTH Any combination of these codes can be billed but only up to 200 units.*","g":"CONTINENCE_SHARED_200"},"B4034":{"u":31,"l":"31 PER MONTH"},"B4035":{"u":31,"l":"31 PER MONTH"},"B4036":{"u":31,"l":"31 PER MONTH"},"B4081":{"u":8,"l":"96 PER YEAR"},"B4082":{"u":8,"l":"96 PER YEAR"},"B4083":{"u":15,"l":"180 PER YEAR"},"B4087":{"u":2,"l":"24 PER YEAR"},"B4088":{"u":1,"l":"6 PER YEAR"},"B4149":{"u":930,"l":"930 PER MONTH"},"B4150":{"u":930,"l":"930 PER MONTH"},"B4150SC":{"u":930,"l":"930 PER MONTH"},"B4152":{"u":930,"l":"930 PER MONTH"},"B4152SC":{"u":930,"l":"930 PER MONTH"},"B4153":{"u":930,"l":"930 PER MONTH"},"B4153SC":{"u":930,"l":"930 PER MONTH"},"B4154":{"u":930,"l":"930 PER MONTH"},"B4154SC":{"u":930,"l":"930 PER MONTH"},"B4155":{"u":930,"l":"930 PER MONTH"},"B4155SC":{"u":930,"l":"930 PER MONTH"},"B4157":{"u":930,"l":"930 PER MONTH"},"B4157SC":{"u":930,"l":"930 PER MONTH"},"B4160":{"u":930,"l":"930 PER MONTH"},"B4160SC":{"u":930,"l":"930 PER MONTH"},"B4161":{"u":930,"l":"930 PER MONTH"},"B4161SC":{"u":930,"l":"930 PER MONTH"},"B4162":{"u":930,"l":"930 PER MONTH"},"B4162SC":{"u":930,"l":"930 PER MONTH"}};
+
+function normalizeHcpcsCode(code){
+  return String(code || "").toUpperCase().replace(/[^A-Z0-9]/g,"");
+}
+
+function getSupplyQtyRule(hcpcsCode, insuranceType){
+  const code = normalizeHcpcsCode(hcpcsCode);
+  if(!code || insuranceType !== "medicaid") return null;
+  return MEDICAID_SUPPLY_QTY_RULES[code] || null;
+}
+
+function clearQtyMeta(qtyEl){
+  if(!qtyEl) return;
+  qtyEl.removeAttribute("title");
+  delete qtyEl.dataset.qtySource;
+  delete qtyEl.dataset.qtyRule;
+}
+
+function applySupplyQtyRule(qtyEl, rule){
+  if(!qtyEl || !rule) return false;
+  qtyEl.value = String(rule.u);
+  qtyEl.dataset.qtySource = "medicaid_supply_limit";
+  qtyEl.dataset.qtyRule = rule.l || "";
+  let title = `Florida Medicaid monthly units: ${rule.u}`;
+  if(rule.l) title += ` | Limit: ${rule.l}`;
+  if(rule.g) title += " | Shared cap across related continence codes.";
+  qtyEl.title = title;
+  return true;
 }
 
 // ── HCPCS PRICE LOOKUP TABLE ─────────────────────────────
@@ -2570,7 +2989,7 @@ const HCPCS_PRICES = {
 // Returns "rental" otherwise
 function getItemType(hcpcsCode, insuranceType){
   if(!hcpcsCode) return null;
-  const code = hcpcsCode.toUpperCase().trim();
+  const code = normalizeHcpcsCode(hcpcsCode);
   const letter = code[0];
 
   // ── SPECIAL CASES: insurance-dependent items ──────────
@@ -2610,14 +3029,27 @@ function getItemType(hcpcsCode, insuranceType){
 
 // ── AUTO QTY FILLER ──────────────────────────────────────
 function autoFillQty(row){
-  const hcpcs = (document.getElementById(`hcpcs_${row}`).value || "").trim();
+  const hcpcsRaw = (document.getElementById(`hcpcs_${row}`).value || "").trim();
   const qtyEl = document.getElementById(`qty_${row}`);
-  if(!hcpcs){ qtyEl.value = ""; return; }
+  if(!hcpcsRaw){
+    qtyEl.value = "";
+    clearQtyMeta(qtyEl);
+    return;
+  }
 
-  const insType  = getInsuranceType();
-  const itemType = getItemType(hcpcs, insType);
-
+  const insType = getInsuranceType();
   if(!insType) return; // no insurance selected yet — don't overwrite
+
+  const hcpcs = normalizeHcpcsCode(hcpcsRaw);
+  const supplyRule = getSupplyQtyRule(hcpcs, insType);
+
+  if(applySupplyQtyRule(qtyEl, supplyRule)){
+    fitText(qtyEl, 12.5, 7);
+    return;
+  }
+
+  clearQtyMeta(qtyEl);
+  const itemType = getItemType(hcpcs, insType);
 
   if(itemType === "purchase"){
     qtyEl.value = "1 NU";
@@ -2626,6 +3058,538 @@ function autoFillQty(row){
     qtyEl.value = insType === "medicaid" ? "10 RR" : "13 RR";
   }
   fitText(qtyEl, 12.5, 7);
+}
+
+function getStoredJson(key, fallback){
+  try{
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  }catch{
+    return fallback;
+  }
+}
+
+function setStoredJson(key, value){
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+function getDraftStore(){ return getStoredJson(STORAGE_KEYS.drafts, {}); }
+function setDraftStore(store){ setStoredJson(STORAGE_KEYS.drafts, store); }
+function getPatientPresetStore(){ return getStoredJson(STORAGE_KEYS.patients, []); }
+function setPatientPresetStore(items){ setStoredJson(STORAGE_KEYS.patients, items.slice(0,12)); }
+function getPhysicianPresetStore(){ return getStoredJson(STORAGE_KEYS.physicians, []); }
+function setPhysicianPresetStore(items){ setStoredJson(STORAGE_KEYS.physicians, items.slice(0,12)); }
+function getStaffProfile(){ return getStoredJson(STORAGE_KEYS.staff, null); }
+function setStaffProfile(profile){ setStoredJson(STORAGE_KEYS.staff, profile); }
+
+function formatTimestamp(ts){
+  if(!ts) return "";
+  try{
+    return new Date(ts).toLocaleString([], {month:"short", day:"numeric", hour:"numeric", minute:"2-digit"});
+  }catch{
+    return "";
+  }
+}
+
+function setWorkflowMessage(id, message, className){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.textContent = message;
+  el.className = `workflow-note${className ? ` ${className}` : ""}`;
+}
+
+function getStaffDisplayName(profile){
+  if(!profile) return "";
+  return [profile.firstName, profile.lastName].filter(Boolean).join(" ").trim();
+}
+
+function populateStaffProfileForm(){
+  const profile = getStaffProfile() || {};
+  if(document.getElementById("staff_first_name")) document.getElementById("staff_first_name").value = profile.firstName || "";
+  if(document.getElementById("staff_last_name")) document.getElementById("staff_last_name").value = profile.lastName || "";
+  if(document.getElementById("staff_extension")) document.getElementById("staff_extension").value = profile.extension || "";
+}
+
+function updateStaffStatus(){
+  const profile = getStaffProfile();
+  if(!profile || !profile.firstName || !profile.lastName || !profile.extension){
+    setWorkflowMessage("staff-status", "Staff profile not set yet.", "status-warn");
+    return;
+  }
+  setWorkflowMessage("staff-status", `${getStaffDisplayName(profile)} • Ext ${profile.extension} • ${OFFICE_PHONE} • ${OFFICE_FAX}`, "status-ok");
+}
+
+function openStaffProfileModal(){
+  populateStaffProfileForm();
+  document.getElementById("staff-profile-modal")?.classList.add("open");
+}
+
+function closeStaffProfileModal(){
+  const profile = getStaffProfile();
+  if(!profile?.firstName || !profile?.lastName || !profile?.extension) return;
+  document.getElementById("staff-profile-modal")?.classList.remove("open");
+}
+
+function ensureStaffProfile(){
+  const profile = getStaffProfile();
+  if(profile?.firstName && profile?.lastName && profile?.extension){
+    updateStaffStatus();
+    return true;
+  }
+  openStaffProfileModal();
+  updateStaffStatus();
+  return false;
+}
+
+function saveStaffProfile(){
+  const firstName = (document.getElementById("staff_first_name")?.value || "").trim();
+  const lastName = (document.getElementById("staff_last_name")?.value || "").trim();
+  const extension = (document.getElementById("staff_extension")?.value || "").trim();
+  if(!firstName || !lastName || !extension){
+    alert("Please enter first name, last name, and extension.");
+    return;
+  }
+  const profile = { firstName, lastName, extension };
+  setStaffProfile(profile);
+  updateStaffStatus();
+  syncFaxCover();
+  closeStaffProfileModal();
+}
+
+function getFormState(){
+  const state = { form: currentForm, wcVariant, bedVariant, fields: {}, icdSelections: {} };
+  document.querySelectorAll("#form-screen input, #form-screen select, #form-screen textarea").forEach(el => {
+    if(!el.id || el.type === "file") return;
+    state.fields[el.id] = (el.type === "checkbox" || el.type === "radio") ? !!el.checked : el.value;
+  });
+  for(let i=1;i<=4;i++) state.icdSelections[`dx${i}`] = document.getElementById(`dx${i}v`)?.value || "";
+  return state;
+}
+
+function restoreFormState(state){
+  if(!state) return false;
+  if(state.form && state.form !== currentForm) openForm(state.form);
+  if(state.wcVariant && typeof setWheelchairVariant === "function") setWheelchairVariant(state.wcVariant);
+  if(state.bedVariant && typeof setBedVariant === "function") setBedVariant(state.bedVariant);
+
+  Object.entries(state.fields || {}).forEach(([id, value]) => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    if(el.type === "checkbox" || el.type === "radio") el.checked = !!value;
+    else el.value = value ?? "";
+  });
+  for(let i=1;i<=4;i++){
+    const code = state.icdSelections?.[`dx${i}`] || "";
+    if(code) selectIcd(i, code, "");
+    else clearIcd(i);
+  }
+  if(document.getElementById("lon-lifetime")) toggleLon();
+  if(document.getElementById("bed-lon-lifetime")) toggleBedLon();
+  updateAllQty();
+  syncWorkflowPanel();
+  return true;
+}
+
+function saveDraft(showMessage){
+  const store = getDraftStore();
+  store[currentForm] = { savedAt: Date.now(), state: getFormState() };
+  setDraftStore(store);
+  setWorkflowMessage("draft-status", `${showMessage ? "Draft saved" : "Autosaved"} ${currentForm} form ${formatTimestamp(store[currentForm].savedAt)}.`, showMessage ? "status-ok" : "");
+  return store[currentForm];
+}
+
+function queueAutosave(){
+  clearTimeout(autosaveTimer);
+  autosaveTimer = setTimeout(() => {
+    if(document.getElementById("form-screen").style.display !== "none") saveDraft(false);
+    refreshChecklist();
+  }, AUTOSAVE_DELAY);
+}
+
+function loadDraft(){
+  const draft = getDraftStore()[currentForm];
+  if(!draft?.state){
+    setWorkflowMessage("draft-status", `No saved ${currentForm} draft found yet.`, "status-warn");
+    return;
+  }
+  restoreFormState(draft.state);
+  setWorkflowMessage("draft-status", `Loaded ${currentForm} draft from ${formatTimestamp(draft.savedAt)}.`, "status-ok");
+}
+
+function exportDraft(){
+  const payload = { exportedAt: new Date().toISOString(), state: getFormState() };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `dwo-${currentForm}-${new Date().toISOString().slice(0,19).replace(/[:T]/g,"-")}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  setWorkflowMessage("draft-status", "Draft exported as JSON.", "status-ok");
+}
+
+function triggerImport(){
+  document.getElementById("draft-import-input")?.click();
+}
+
+function importDraftFile(file){
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try{
+      const data = JSON.parse(reader.result);
+      if(!data?.state) throw new Error("Missing state");
+      restoreFormState(data.state);
+      saveDraft(true);
+    }catch{
+      setWorkflowMessage("draft-status", "Import failed. Please choose a valid draft JSON file.", "status-warn");
+    }
+  };
+  reader.readAsText(file);
+}
+
+function renderPresetSelect(selectId, items, placeholder){
+  const select = document.getElementById(selectId);
+  if(!select) return;
+  select.innerHTML = `<option value="">${placeholder}</option>`;
+  items.forEach(item => {
+    const opt = document.createElement("option");
+    opt.value = item.id;
+    opt.textContent = item.label;
+    select.appendChild(opt);
+  });
+}
+
+function getCurrentPatientPreset(){
+  if(currentForm === "oxygen"){
+    const name = (document.getElementById("oxy-pat-name")?.value || "").trim();
+    const dob = (document.getElementById("oxy-dob")?.value || "").trim();
+    if(!name) return null;
+    return {
+      id: `p_${Date.now()}`,
+      label: `${name}${dob ? ` • ${dob}` : ""}`,
+      fields: {
+        "oxy-pat-name": name,
+        "oxy-dob": dob,
+        "oxy-address": document.getElementById("oxy-address")?.value || "",
+        "oxy-phone": document.getElementById("oxy-phone")?.value || "",
+        "oxy-mobile": document.getElementById("oxy-mobile")?.value || "",
+        "oxy-gender-m": !!document.getElementById("oxy-gender-m")?.checked,
+        "oxy-gender-f": !!document.getElementById("oxy-gender-f")?.checked
+      }
+    };
+  }
+  const name = (document.getElementById("patient_name")?.value || "").trim();
+  const dob = (document.getElementById("dob")?.value || "").trim();
+  if(!name) return null;
+  return {
+    id: `p_${Date.now()}`,
+    label: `${name}${dob ? ` • ${dob}` : ""}`,
+    fields: {
+      patient_name: name,
+      dob,
+      pat_addr: document.getElementById("pat_addr")?.value || "",
+      phone: document.getElementById("phone")?.value || "",
+      insurance: document.getElementById("insurance")?.value || "",
+      insurance_id: document.getElementById("insurance_id")?.value || "",
+      height: document.getElementById("height")?.value || "",
+      weight: document.getElementById("weight")?.value || ""
+    }
+  };
+}
+
+function saveCurrentPatientPreset(){
+  const preset = getCurrentPatientPreset();
+  if(!preset){
+    setWorkflowMessage("patient-preset-status", "Add at least the patient name before saving a shortcut.", "status-warn");
+    return;
+  }
+  const items = getPatientPresetStore().filter(item => item.label !== preset.label);
+  items.unshift(preset);
+  setPatientPresetStore(items);
+  renderPatientPresets();
+  setWorkflowMessage("patient-preset-status", `Saved ${preset.label}.`, "status-ok");
+}
+
+function applyPatientPreset(id){
+  if(!id) return;
+  const preset = getPatientPresetStore().find(item => item.id === id);
+  if(!preset) return;
+  Object.entries(preset.fields || {}).forEach(([fieldId, value]) => {
+    const el = document.getElementById(fieldId);
+    if(!el) return;
+    if(el.type === "checkbox" || el.type === "radio") el.checked = !!value;
+    else el.value = value;
+  });
+  updateAllQty();
+  queueAutosave();
+  document.getElementById("patient-preset-select").value = "";
+  setWorkflowMessage("patient-preset-status", `Loaded ${preset.label}.`, "status-ok");
+}
+
+function renderPatientPresets(){
+  renderPresetSelect("patient-preset-select", getPatientPresetStore(), "Load a saved patient...");
+}
+
+function getCurrentPhysicianPreset(){
+  const prefix = currentForm === "oxygen" ? "oxy-" : "";
+  const ids = {
+    npi: prefix ? "oxy-npi-search" : "npi_input",
+    lic: prefix ? "oxy-lic-num" : "lic_num",
+    name: prefix ? "oxy-phys-name" : "phys_name",
+    type: prefix ? "oxy-phys-type" : "phys_type",
+    phone: prefix ? "oxy-phys-phone" : "phys_phone",
+    fax: prefix ? "oxy-phys-fax" : "phys_fax",
+    addr: prefix ? "oxy-phys-addr" : "phys_addr"
+  };
+  const name = (document.getElementById(ids.name)?.value || "").trim();
+  const npi = (document.getElementById(ids.npi)?.value || "").trim();
+  if(!name && !npi) return null;
+  return {
+    id: `d_${Date.now()}`,
+    label: `${name || "Physician"}${npi ? ` • ${npi}` : ""}`,
+    fields: {
+      [ids.npi]: npi,
+      [ids.lic]: document.getElementById(ids.lic)?.value || "",
+      [ids.name]: name,
+      [ids.type]: document.getElementById(ids.type)?.value || "",
+      [ids.phone]: document.getElementById(ids.phone)?.value || "",
+      [ids.fax]: document.getElementById(ids.fax)?.value || "",
+      [ids.addr]: document.getElementById(ids.addr)?.value || ""
+    }
+  };
+}
+
+function saveCurrentPhysicianPreset(){
+  const preset = getCurrentPhysicianPreset();
+  if(!preset){
+    setWorkflowMessage("physician-preset-status", "Add a physician name or NPI before saving a shortcut.", "status-warn");
+    return;
+  }
+  const items = getPhysicianPresetStore().filter(item => item.label !== preset.label);
+  items.unshift(preset);
+  setPhysicianPresetStore(items);
+  renderPhysicianPresets();
+  setWorkflowMessage("physician-preset-status", `Saved ${preset.label}.`, "status-ok");
+}
+
+function applyPhysicianPreset(id){
+  if(!id) return;
+  const preset = getPhysicianPresetStore().find(item => item.id === id);
+  if(!preset) return;
+  Object.entries(preset.fields || {}).forEach(([fieldId, value]) => {
+    const el = document.getElementById(fieldId);
+    if(el) el.value = value;
+  });
+  queueAutosave();
+  document.getElementById("physician-preset-select").value = "";
+  setWorkflowMessage("physician-preset-status", `Loaded ${preset.label}.`, "status-ok");
+}
+
+function renderPhysicianPresets(){
+  renderPresetSelect("physician-preset-select", getPhysicianPresetStore(), "Load a saved physician...");
+}
+
+function clearMissingHighlights(){
+  document.querySelectorAll(".field-missing").forEach(el => el.classList.remove("field-missing"));
+}
+
+function hasValue(id){
+  const el = document.getElementById(id);
+  if(!el) return false;
+  if(el.type === "checkbox" || el.type === "radio") return !!el.checked;
+  return !!String(el.value || "").trim();
+}
+
+function getChecklistItems(){
+  if(currentForm === "oxygen"){
+    return [
+      { id:"oxy-pat-name", label:"patient name" },
+      { id:"oxy-dob", label:"patient DOB" },
+      { id:"oxy-address", label:"patient address" },
+      { id:"oxy-phone", label:"patient phone" },
+      { id:"oxy-npi-search", label:"physician NPI" },
+      { id:"oxy-phys-name", label:"physician name" },
+      { id:"oxy-phys-phone", label:"physician phone" },
+      { id:"oxy-phys-fax", label:"physician fax" },
+      { id:"oxy-phys-addr", label:"physician address" },
+      { id:"oxy-saturation", label:"O2 saturation" }
+    ];
+  }
+  const items = [
+    { id:"patient_name", label:"patient name" },
+    { id:"dob", label:"patient DOB" },
+    { id:"pat_addr", label:"patient address" },
+    { id:"phone", label:"patient phone" },
+    { id:"insurance", label:"insurance plan" },
+    { id:"dx1v", label:"primary diagnosis" },
+    { id:"npi_input", label:"physician NPI" },
+    { id:"phys_name", label:"physician name" },
+    { id:"phys_phone", label:"physician phone" },
+    { id:"phys_fax", label:"physician fax" },
+    { id:"phys_addr", label:"physician address" }
+  ];
+  if(currentForm === "compression") items.push({ id:"cs-primary-dx", label:"primary diagnosis note" });
+  return items;
+}
+
+function hasOrderData(){
+  if(currentForm === "standard"){
+    for(let i=1;i<=8;i++) if(hasValue(`hcpcs_${i}`) || hasValue(`desc_${i}`)) return true;
+    return false;
+  }
+  if(currentForm === "compression") return hasValue("cs-primary-dx") || hasValue("cs-secondary-dx");
+  if(currentForm === "oxygen") return true;
+  return true;
+}
+
+function getMissingChecklistItems(){
+  const missing = getChecklistItems().filter(item => !hasValue(item.id));
+  if(!hasOrderData()) missing.push({ id: currentForm === "standard" ? "hcpcs_1" : "", label: "ordered item details" });
+  return missing;
+}
+
+function refreshChecklist(){
+  latestChecklist = getMissingChecklistItems();
+  clearMissingHighlights();
+  latestChecklist.forEach(item => {
+    const el = item.id ? document.getElementById(item.id) : null;
+    if(el) el.classList.add("field-missing");
+  });
+  if(!latestChecklist.length){
+    setWorkflowMessage("checklist-status", "Ready to print. Key fields look filled in.", "status-ok");
+  }else{
+    const preview = latestChecklist.slice(0,4).map(item => item.label).join(", ");
+    setWorkflowMessage("checklist-status", `Missing ${latestChecklist.length} item${latestChecklist.length === 1 ? "" : "s"}: ${preview}${latestChecklist.length > 4 ? ", ..." : ""}`, "status-warn");
+  }
+  return latestChecklist;
+}
+
+function showChecklistDetails(){
+  const missing = refreshChecklist();
+  if(!missing.length){
+    alert("Ready to print. No missing checklist items were found.");
+    return;
+  }
+  alert("Still missing:\n\n- " + missing.map(item => item.label).join("\n- "));
+}
+
+function handlePrint(){
+  const missing = refreshChecklist();
+  if(missing.length){
+    const proceed = confirm("Some fields still look incomplete:\n\n- " + missing.map(item => item.label).join("\n- ") + "\n\nPrint anyway?");
+    if(!proceed) return;
+  }
+  setFaxMode(false);
+  saveDraft(false);
+  window.print();
+}
+
+function syncWorkflowPanel(){
+  renderPatientPresets();
+  renderPhysicianPresets();
+  const draft = getDraftStore()[currentForm];
+  setWorkflowMessage("draft-status", draft?.savedAt ? `Autosave available for ${currentForm} from ${formatTimestamp(draft.savedAt)}.` : "Autosaves locally while you type.");
+  updateStaffStatus();
+  syncFaxCover();
+  refreshChecklist();
+}
+
+function getPatientFullName(){
+  return ((currentForm === "oxygen" ? document.getElementById("oxy-pat-name")?.value : document.getElementById("patient_name")?.value) || "").trim();
+}
+
+function getPatientFileBase(){
+  const raw = getPatientFullName();
+  if(!raw) return `UNKNOWN PATIENT - ${currentForm.toUpperCase()}`;
+  let cleaned = raw.replace(/\s+/g, " ").trim();
+  if(cleaned.includes(",")){
+    cleaned = cleaned.split(",").map(x => x.trim()).filter(Boolean).join(" ");
+  }else{
+    const parts = cleaned.split(" ").filter(Boolean);
+    if(parts.length > 1){
+      const last = parts[parts.length - 1];
+      const first = parts.slice(0, parts.length - 1).join(" ");
+      cleaned = `${last} ${first}`;
+    }
+  }
+  return `${cleaned.toUpperCase()} - ${currentForm.toUpperCase()}`.replace(/[\\/:*?"<>|]+/g, "");
+}
+
+function syncFaxCover(){
+  const staff = getStaffProfile();
+  const staffName = getStaffDisplayName(staff);
+  const staffLine = staff?.extension ? `Ext ${staff.extension}` : "";
+  const toName = (document.getElementById("cover_to_name")?.value || document.getElementById(currentForm === "oxygen" ? "oxy-phys-name" : "phys_name")?.value || "").trim();
+  const toFax = (document.getElementById("cover_to_fax")?.value || document.getElementById(currentForm === "oxygen" ? "oxy-phys-fax" : "phys_fax")?.value || "").trim();
+  const attn = (document.getElementById("cover_attn")?.value || "").trim();
+  const subject = (document.getElementById("cover_subject")?.value || `${document.getElementById("form-title-display")?.textContent || "DWO Form"} Signature Request`).trim();
+  const notes = (document.getElementById("cover_notes")?.value || "").trim();
+  const patient = getPatientFullName();
+  const set = (id, value) => {
+    const el = document.getElementById(id);
+    if(el) el.textContent = value || " ";
+  };
+  set("fax-preview-to-name", toName);
+  set("fax-preview-to-fax", toFax);
+  set("fax-preview-attn", attn);
+  set("fax-preview-date", new Date().toLocaleDateString());
+  set("fax-preview-patient", patient);
+  set("fax-preview-pages", "2 total (cover + 1-page form)");
+  set("fax-preview-subject", subject);
+  set("fax-preview-notes", notes || "Please sign and return the attached DWO form.");
+  const fromEl = document.getElementById("fax-preview-from");
+  if(fromEl){
+    fromEl.innerHTML = `${staffName || "Better Life Team"}<br/>Ph ${OFFICE_PHONE}${staffLine ? `<br/>${staffLine}` : ""}`;
+  }
+  setWorkflowMessage("fax-status", toFax ? `Fax package ready for ${toName || "doctor office"} at ${toFax}.` : "Use fax package print for a cover sheet plus the A4 form.");
+}
+
+function setFaxMode(enabled){
+  document.body.classList.toggle("fax-cover-enabled", !!enabled);
+  syncFaxCover();
+}
+
+function handleFaxPrint(){
+  if(!ensureStaffProfile()) return;
+  syncFaxCover();
+  setFaxMode(true);
+  window.print();
+}
+
+function buildStandalonePackageHtml(includeFaxCover){
+  syncFaxCover();
+  const style = document.querySelector("style")?.textContent || "";
+  const coverHtml = includeFaxCover ? document.querySelector(".fax-cover-wrap")?.outerHTML || "" : "";
+  const paperHtml = document.querySelector(".paper")?.outerHTML || "";
+  const bodyClass = includeFaxCover ? "fax-cover-enabled" : "";
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>${getPatientFileBase()}</title><style>${style}</style></head><body class="${bodyClass}">${coverHtml}${paperHtml}</body></html>`;
+}
+
+function downloadBlob(blob, filename){
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+async function saveRecordPackage(){
+  if(!ensureStaffProfile()) return;
+  const includeFaxCover = true;
+  const filename = `${getPatientFileBase()} - FAX PACKAGE.pdf`;
+  syncFaxCover();
+  setFaxMode(includeFaxCover);
+  const oldTitle = document.title;
+  document.title = filename.replace(/\.pdf$/i, "");
+  setWorkflowMessage("draft-status", `Opening PDF save flow for ${filename}. Choose Save as PDF in the print dialog.`, "status-ok");
+  window.print();
+  setTimeout(() => { document.title = oldTitle; }, 1000);
 }
 
 // Update all rows when insurance changes — handled by combined version above
@@ -2641,6 +3605,29 @@ document.addEventListener("DOMContentLoaded", function() {
     document.body.appendChild(drop); // move to body
   });
   initUSDateFields();
+  renderPatientPresets();
+  renderPhysicianPresets();
+  syncWorkflowPanel();
+  ensureStaffProfile();
+  document.addEventListener("input", e => {
+    if(!e.target?.id || !e.target.closest("#form-screen")) return;
+    queueAutosave();
+  });
+  document.addEventListener("change", e => {
+    if(!e.target?.id || !e.target.closest("#form-screen")) return;
+    queueAutosave();
+  });
+  const importInput = document.getElementById("draft-import-input");
+  if(importInput){
+    importInput.addEventListener("change", e => {
+      importDraftFile(e.target.files?.[0]);
+      e.target.value = "";
+    });
+  }
+  document.getElementById("staff-profile-modal")?.addEventListener("click", e => {
+    if(e.target?.id === "staff-profile-modal") closeStaffProfileModal();
+  });
+  window.addEventListener("afterprint", () => setFaxMode(false));
 });
 
 // Reposition open dropdowns on scroll or resize
@@ -2737,6 +3724,9 @@ clearForm = function(){
   if(bedLifetime) bedLifetime.checked = false;
 
   updateAllQty();
+  clearMissingHighlights();
+  queueAutosave();
+  syncWorkflowPanel();
 };
 </script>
 </body>
