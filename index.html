@@ -1060,7 +1060,7 @@ body{
     <div class="sec-label"><span class="stamp">I. Patient Information</span><span class="rule-line"></span></div>
     <div class="frow g2">
       <div class="f"><label>Full Name</label><input id="patient_name" type="text" placeholder="Last, First Middle" oninput="toUpper(this)"/></div>
-      <div class="f"><label>Date of Birth</label><input id="dob" type="date"/></div>
+      <div class="f"><label>Date of Birth</label><input id="dob" class="us-date" type="text" placeholder="MM/DD/YYYY" maxlength="10" inputmode="numeric" pattern="\d{2}/\d{2}/\d{4}" oninput="dateMask(this)" onblur="normalizeUSDate(this)" autocomplete="off" spellcheck="false"/></div>
     </div>
     <div class="frow g1">
       <div class="f ac">
@@ -1361,7 +1361,7 @@ body{
     <div style="padding:8px 14px 6px;background:rgba(255,255,255,.3);border-bottom:1px solid var(--rule);font-family:'Courier Prime',monospace;font-size:11px;color:var(--ink-lt);line-height:1.6">
       Dear Physician,<br>
       Please review, sign and fax the order to <strong style="color:var(--ink)">305-539-0880</strong><br>
-      If you have any questions, please call <strong style="color:var(--ink)">305-909-0880</strong> or email: <strong style="color:var(--ink)">info@blmed.net</strong>
+      If you have any questions, please call <strong style="color:var(--ink)">305-909-0880</strong> or email: <strong style="color:var(--ink)"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="85ecebe3eac5e7e9e8e0e1abebe0f1">[email&#160;protected]</a></strong>
     </div>
 
     <!-- Patient Information -->
@@ -1369,7 +1369,7 @@ body{
       <div class="sec-label"><span class="stamp">I. Patient Information</span><span class="rule-line"></span></div>
       <div class="frow g2" style="margin-bottom:6px">
         <div class="f"><label>Patient Name</label><input id="oxy-pat-name" type="text" oninput="toUpper(this)"/></div>
-        <div class="f" style="max-width:120px"><label>DOB</label><input id="oxy-dob" type="date"/></div>
+        <div class="f" style="max-width:120px"><label>DOB</label><input id="oxy-dob" class="us-date" type="text" placeholder="MM/DD/YYYY" maxlength="10" inputmode="numeric" pattern="\d{2}/\d{2}/\d{4}" oninput="dateMask(this)" onblur="normalizeUSDate(this)" autocomplete="off" spellcheck="false"/></div>
         <div class="f" style="max-width:110px;flex-shrink:0">
           <label>Gender</label>
           <div style="display:flex;gap:14px;align-items:center;padding-top:6px">
@@ -1524,7 +1524,7 @@ body{
 </div><!-- /paper -->
 </div><!-- /form-screen -->
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── FORM TYPE STATE ───────────────────────────────────────
 let currentForm = "standard";
 let wcVariant   = "standard"; // "standard" | "bariatric"
@@ -1941,6 +1941,74 @@ for(let i=1;i<=10;i++){
 const T={};
 
 // ── PHONE FORMAT: 4079873262 → (407) 987-3262 ──
+function dateMask(el){
+  // Force US format (MM/DD/YYYY) regardless of browser or computer locale.
+  let raw = String(el.value || "").trim();
+  if(!raw){ el.value = ""; return; }
+
+  let m = raw.match(/^(\d{4})[.\/-](\d{1,2})[.\/-](\d{1,2})$/);
+  if(m){
+    // YYYY-MM-DD -> MMDDYYYY
+    raw = `${m[2].padStart(2,"0")}${m[3].padStart(2,"0")}${m[1]}`;
+  } else {
+    m = raw.match(/^(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{4})$/);
+    if(m){
+      // If a non-US locale produced DD/MM/YYYY and it is unambiguous, swap it.
+      const a = parseInt(m[1],10);
+      const b = parseInt(m[2],10);
+      if(a > 12 && b <= 12){
+        raw = `${String(b).padStart(2,"0")}${String(a).padStart(2,"0")}${m[3]}`;
+      } else {
+        raw = `${String(a).padStart(2,"0")}${String(b).padStart(2,"0")}${m[3]}`;
+      }
+    } else {
+      raw = raw.replace(/\D/g,"");
+      if(raw.length === 8 && /^(19|20)\d{6}$/.test(raw)){
+        raw = raw.slice(4,6) + raw.slice(6,8) + raw.slice(0,4);
+      }
+    }
+  }
+
+  const v = raw.replace(/\D/g,"").slice(0,8);
+  let mm = v.slice(0,2);
+  let dd = v.slice(2,4);
+  let yyyy = v.slice(4,8);
+
+  if(mm.length === 2){
+    mm = String(Math.min(Math.max(parseInt(mm,10) || 1, 1), 12)).padStart(2,"0");
+  }
+  if(dd.length === 2){
+    dd = String(Math.min(Math.max(parseInt(dd,10) || 1, 1), 31)).padStart(2,"0");
+  }
+
+  let out = mm;
+  if(dd.length) out += "/" + dd;
+  if(yyyy.length) out += "/" + yyyy;
+  el.value = out;
+}
+
+function normalizeUSDate(el){
+  dateMask(el);
+  const m = String(el.value || "").match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+  if(!m) return;
+  const mm = parseInt(m[1],10);
+  let dd = parseInt(m[2],10);
+  const yyyy = parseInt(m[3],10);
+  const lastDay = new Date(yyyy, mm, 0).getDate();
+  if(dd > lastDay) dd = lastDay;
+  el.value = `${String(mm).padStart(2,"0")}/${String(dd).padStart(2,"0")}/${String(yyyy).padStart(4,"0")}`;
+}
+
+function initUSDateFields(){
+  document.querySelectorAll(".us-date").forEach(el => {
+    el.setAttribute("type", "text");
+    el.setAttribute("inputmode", "numeric");
+    el.setAttribute("autocomplete", "off");
+    el.setAttribute("placeholder", "MM/DD/YYYY");
+    if(el.value) normalizeUSDate(el);
+  });
+}
+
 function fmtPhone(el){
   // strip everything except digits
   let d=el.value.replace(/\D/g,"").substring(0,10);
@@ -2572,6 +2640,7 @@ document.addEventListener("DOMContentLoaded", function() {
     drop._linkedInput = input;
     document.body.appendChild(drop); // move to body
   });
+  initUSDateFields();
 });
 
 // Reposition open dropdowns on scroll or resize
@@ -2641,21 +2710,34 @@ async function oxyNpiSearch(el){
   }, 300);
 }
 
-// Patch clearForm to also reset criteria checkboxes and special rows
+// Patch clearForm so every form resets fully, including checkboxes and form variants.
 const _origClear = clearForm;
 clearForm = function(){
   if(!confirm("Clear all fields?")) return;
-  document.querySelectorAll("input:not([type=hidden]),textarea").forEach(el => el.value="");
-  document.getElementById("insurance").value = "";
-  for(let i=1;i<=4;i++) clearIcd(i);
-  document.querySelectorAll(".wc-yes,.wc-not,.bed-yes,.bed-not").forEach(el => el.checked=false);
-  document.querySelectorAll("#lon-lifetime,#bed-lon-lifetime").forEach(el => el.checked=false);
-};
 
-// Init — move drops to body when form opens
-document.addEventListener("DOMContentLoaded", function(){
-  buildStandardRows();
-});
+  document.querySelectorAll("input:not([type=hidden]), textarea").forEach(el => {
+    if(el.type === "checkbox" || el.type === "radio") el.checked = false;
+    else el.value = "";
+  });
+
+  document.querySelectorAll("select").forEach(el => el.value = "");
+  for(let i=1;i<=4;i++) clearIcd(i);
+
+  if(typeof setWheelchairVariant === "function") setWheelchairVariant("standard");
+  if(typeof setBedVariant === "function") setBedVariant("E0260");
+
+  const lon = document.getElementById("lon-months");
+  if(lon){ lon.disabled = false; lon.value = ""; }
+  const bedLon = document.getElementById("bed-lon-months");
+  if(bedLon){ bedLon.disabled = false; bedLon.value = ""; }
+
+  const wcLifetime = document.getElementById("lon-lifetime");
+  if(wcLifetime) wcLifetime.checked = false;
+  const bedLifetime = document.getElementById("bed-lon-lifetime");
+  if(bedLifetime) bedLifetime.checked = false;
+
+  updateAllQty();
+};
 </script>
 </body>
 </html>
