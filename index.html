@@ -2354,9 +2354,6 @@ function fmtPhone(el){
   else                 el.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
 }
 
-<!-- Replace the current addrSearch function (lines 2334-2399) with this: -->
-
-<script>
 // Initialize Places Autocomplete service
 const placesService = new google.maps.places.AutocompleteService();
 const placesDetailsService = new google.maps.places.PlacesService(
@@ -2523,7 +2520,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('Google Maps Places API not loaded');
   }
 });
-</script>
+  
 // ── ICD-10 ─────────────────────────────────────
 async function icdSearch(el,n){
   const q=el.value.trim();
