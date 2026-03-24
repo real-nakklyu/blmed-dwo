@@ -2354,134 +2354,176 @@ function fmtPhone(el){
   else                 el.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
 }
 
-// ── ADDRESS AUTOCOMPLETE (Nominatim) ───────────────────────────
+<!-- Replace the current addrSearch function (lines 2334-2399) with this: -->
+
+<script>
+// Initialize Places Autocomplete service
+const placesService = new google.maps.places.AutocompleteService();
+const placesDetailsService = new google.maps.places.PlacesService(
+  document.createElement('div')
+);
+
+// ── ADDRESS AUTOCOMPLETE (Google Places API) ───────────────────────────
 async function addrSearch(inputId, dropId) {
-  const el   = document.getElementById(inputId);
+  const el = document.getElementById(inputId);
   const drop = document.getElementById(dropId);
-  const q    = el.value.trim();
-  if (q.length < 3) { closeDrop(drop); return; }
+  const q = el.value.trim();
+
+  if (q.length < 3) {
+    closeDrop(drop);
+    return;
+  }
+
   clearTimeout(T[dropId]);
   T[dropId] = setTimeout(async () => {
     showLoad(drop, "Looking up address…", el);
     try {
-      const normalized = q.replace(/\s+/g, " ").trim();
-      const noComma = normalized.replace(/,/g, " ").replace(/\s+/g, " ").trim();
-      const parts = noComma.split(" ").filter(Boolean);
-      const hasLeadingNumber = /^\d+[A-Z\-\/]*$/i.test(parts[0] || "");
-      const streetOnly = hasLeadingNumber ? parts.slice(1).join(" ") : "";
-      const queries = [normalized];
-      if (noComma && noComma !== normalized) queries.push(noComma);
-      if (streetOnly && streetOnly.length >= 3) queries.push(streetOnly);
-
-      const results = (await Promise.all(
-        queries.slice(0, 3).map(term => {
-          const url = "https://nominatim.openstreetmap.org/search?format=jsonv2&limit=8&addressdetails=1&countrycodes=us&q="
-                    + encodeURIComponent(term);
-          return fetch(url, { headers: { "Accept-Language": "en" } })
-            .then(r => r.json())
-            .catch(() => []);
-        })
-      )).flat();
-
-      const seenKeys = new Set();
-      const data = [];
-      results.forEach(item => {
-        const key = `${item.place_id || ""}|${(item.display_name || "").toLowerCase()}`;
-        if (seenKeys.has(key)) return;
-        seenKeys.add(key);
-        data.push(item);
-      });
-
-      const typedNum = hasLeadingNumber ? parts[0].toUpperCase() : "";
-      const typedStreet = (hasLeadingNumber ? parts.slice(1) : parts).join(" ").toUpperCase();
-      data.sort((a, b) => {
-        const aa = a.address || {};
-        const ba = b.address || {};
-        const aStreet = [aa.house_number || "", aa.road || aa.pedestrian || aa.footway || aa.street || aa.path || aa.residential || ""].join(" ").trim().toUpperCase();
-        const bStreet = [ba.house_number || "", ba.road || ba.pedestrian || ba.footway || ba.street || ba.path || ba.residential || ""].join(" ").trim().toUpperCase();
-        const aScore =
-          (typedNum && (aa.house_number || "").toUpperCase().startsWith(typedNum) ? 5 : 0) +
-          (typedStreet && aStreet.includes(typedStreet) ? 3 : 0) +
-          (aStreet.startsWith((typedNum ? `${typedNum} ` : "") + typedStreet) ? 2 : 0);
-        const bScore =
-          (typedNum && (ba.house_number || "").toUpperCase().startsWith(typedNum) ? 5 : 0) +
-          (typedStreet && bStreet.includes(typedStreet) ? 3 : 0) +
-          (bStreet.startsWith((typedNum ? `${typedNum} ` : "") + typedStreet) ? 2 : 0);
-        return bScore - aScore;
-      });
-
-      drop.innerHTML = "";
-      if (!data.length) {
-        drop.innerHTML = `<div class="empty-row">No addresses found</div>`;
-        positionDrop(drop, el);
-        drop.classList.add("open");
-        return;
-      }
-
-      data.slice(0, 8).forEach(item => {
-        const a = item.address || {};
-
-        // --- build each part individually ---
-        const num    = a.house_number || "";
-        const road   = a.road || a.pedestrian || a.footway || a.street || a.path || a.residential || "";
-        const city   = a.city || a.town || a.village || a.hamlet || a.suburb || a.municipality || "";
-        const state  = a.state || "";
-        const zip    = (a.postcode || "").split("-")[0];
-
-        // Street line: number + road
-        const streetLine = [num, road].filter(Boolean).join(" ").trim();
-
-        let fmt = "";
-        if (streetLine) {
-          // We have a proper street — build Google Maps style
-          const parts = [streetLine];
-          if (city)  parts.push(city);
-          const sz = [state, zip].filter(Boolean).join(" ");
-          if (sz)    parts.push(sz);
-          parts.push("USA");
-          fmt = parts.join(", ");
-        } else {
-          // Fallback: Nominatim display_name already has everything in order
-          // e.g. "1464, East Hallandale Beach Boulevard, Golden Isles, Hallandale Beach, ..."
-          // Clean it up: take segments, remove duplicates, cap at 4 useful parts
-          const segs = item.display_name.split(",").map(s => s.trim()).filter(Boolean);
-          // Reassemble: first seg often IS the house number, second is road
-          const cleaned = [];
-          const seen = new Set();
-          for (const seg of segs) {
-            if (seen.has(seg.toLowerCase())) continue;
-            seen.add(seg.toLowerCase());
-            cleaned.push(seg);
-            if (cleaned.length === 4) break;
+      // Use Google Places Autocomplete API
+      const predictions = await new Promise((resolve, reject) => {
+        placesService.getPlacePredictions(
+          {
+            input: q,
+            componentRestrictions: { country: 'us' },
+            types: ['address']
+          },
+          (predictions, status) => {
+            if (status === google.maps.places.PlacesServiceStatus.OK && predictions) {
+              resolve(predictions);
+            } else {
+              resolve([]);
+            }
           }
-          fmt = cleaned.join(", ") + ", USA";
-        }
-
-        // Two-line display
-        const commaIdx = fmt.indexOf(", ");
-        const dLine1 = commaIdx !== -1 ? fmt.slice(0, commaIdx) : fmt;
-        const dLine2 = commaIdx !== -1 ? fmt.slice(commaIdx + 2) : "";
-
-        const div = document.createElement("div");
-        div.className = "di";
-        div.innerHTML = `<span class="dd" style="font-weight:500">${esc(dLine1)}</span>`
-                      + (dLine2 ? `<span class="ds">${esc(dLine2)}</span>` : "");
-        div.addEventListener("mousedown", e => {
-          e.preventDefault();
-          el.value = fmt;
-          closeDrop(drop);
-        });
-        drop.appendChild(div);
+        );
       });
 
-      drop.classList.add("open");
-    } catch(err) {
-      drop.innerHTML = `<div class="empty-row">Address lookup unavailable</div>`;
-      drop.classList.add("open");
+      // Get details for each prediction to extract address components
+      const results = await Promise.all(
+        predictions.slice(0, 8).map(prediction => {
+          return new Promise((resolve) => {
+            placesDetailsService.getDetails(
+              { placeId: prediction.place_id },
+              (details, status) => {
+                if (status === google.maps.places.PlacesServiceStatus.OK && details) {
+                  resolve({
+                    place_id: prediction.place_id,
+                    display_name: details.formatted_address,
+                    address: parseAddressComponents(details.address_components),
+                    geometry: details.geometry
+                  });
+                } else {
+                  resolve(null);
+                }
+              }
+            );
+          });
+        })
+      );
+
+      const validResults = results.filter(r => r !== null);
+      const data = validResults.slice(0, 8);
+
+      const typedNum = /^\d+[A-Z\-\/]*$/i.test(q.split(' ')[0]) ? q.split(' ')[0].toUpperCase() : '';
+      const typedStreet = q.toUpperCase();
+
+      data.sort((a, b) => {
+        // Prioritize exact matches
+        if (a.display_name.toUpperCase() === typedStreet) return -1;
+        if (b.display_name.toUpperCase() === typedStreet) return 1;
+        // Then by relevance
+        return 0;
+      });
+
+      dropEl(drop, data, inputId);
+      openDrop(drop);
+    } catch (error) {
+      console.error('Address search error:', error);
+      dropEl(drop, [], inputId);
+      showLoad(drop, 'Error looking up address', el);
     }
   }, 300);
 }
 
+// Parse Google Places address components into a structured format
+function parseAddressComponents(components) {
+  const address = {
+    street_number: '',
+    street: '',
+    city: '',
+    state: '',
+    postcode: '',
+    country: ''
+  };
+
+  components.forEach(component => {
+    const types = component.types;
+    if (types.includes('street_number')) address.street_number = component.long_name;
+    if (types.includes('route')) address.street = component.long_name;
+    if (types.includes('locality')) address.city = component.long_name;
+    if (types.includes('administrative_area_level_1')) address.state = component.short_name;
+    if (types.includes('postal_code')) address.postcode = component.long_name;
+    if (types.includes('country')) address.country = component.short_name;
+  });
+
+  return address;
+}
+
+// Build dropdown items from Places results
+function dropEl(drop, data, inputId) {
+  if (data.length === 0) {
+    drop.innerHTML = `<div class="empty-row">No addresses found</div>`;
+    return;
+  }
+
+  drop.innerHTML = data
+    .map(
+      (item, idx) => `
+      <div class="di" onclick="selectAddress('${inputId}', '${escapeHtml(item.display_name)}', ${JSON.stringify(item.address).replace(/'/g, '&#39;')})">
+        <div class="dc">${item.display_name}</div>
+        <div class="ds">Google Maps</div>
+      </div>
+    `
+    )
+    .join('');
+}
+
+// Select an address from the dropdown
+function selectAddress(inputId, displayName, addressObj) {
+  const el = document.getElementById(inputId);
+  el.value = displayName;
+  closeDrop(document.getElementById(inputId.replace('_addr', '_addr_drop')));
+  
+  // Store address components for potential use
+  el.dataset.addressObj = JSON.stringify(addressObj);
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function closeDrop(drop) {
+  drop.classList.remove('open');
+  drop.innerHTML = '';
+}
+
+function openDrop(drop) {
+  drop.classList.add('open');
+}
+
+function showLoad(drop, msg, el) {
+  drop.innerHTML = `<div class="loading-row"><span class="spin"></span>${msg}</div>`;
+  openDrop(drop);
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize Places library if not already done
+  if (!window.google || !google.maps || !google.maps.places) {
+    console.error('Google Maps Places API not loaded');
+  }
+});
+</script>
 // ── ICD-10 ─────────────────────────────────────
 async function icdSearch(el,n){
   const q=el.value.trim();
