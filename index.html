@@ -2474,23 +2474,34 @@ function dropEl(drop, data, inputId) {
   drop.innerHTML = data
     .map(
       (item, idx) => `
-      <div class="di" onclick="selectAddress('${inputId}', '${escapeHtml(item.display_name)}', ${JSON.stringify(item.address).replace(/'/g, '&#39;')})">
-        <div class="dc">${item.display_name}</div>
+      <div class="di" data-index="${idx}" onclick="selectAddressFromDrop(event)">
+        <div class="dc">${escapeHtml(item.display_name)}</div>
         <div class="ds">Google Maps</div>
       </div>
     `
     )
     .join('');
+
+  // Store address data on dropdown container
+  drop.dataset.addressData = JSON.stringify(data);
+  drop.dataset.inputId = inputId;
 }
 
 // Select an address from the dropdown
-function selectAddress(inputId, displayName, addressObj) {
-  const el = document.getElementById(inputId);
-  el.value = displayName;
-  closeDrop(document.getElementById(inputId.replace('_addr', '_addr_drop')));
+function selectAddressFromDrop(event) {
+  const dropItem = event.currentTarget;
+  const drop = dropItem.parentElement;
+  const inputId = drop.dataset.inputId;
+  const addressData = JSON.parse(drop.dataset.addressData);
+  const itemIndex = parseInt(dropItem.dataset.index);
   
-  // Store address components for potential use
-  el.dataset.addressObj = JSON.stringify(addressObj);
+  const selectedAddress = addressData[itemIndex];
+  const el = document.getElementById(inputId);
+  
+  el.value = selectedAddress.display_name;
+  el.dataset.addressObj = JSON.stringify(selectedAddress.address);
+  
+  closeDrop(drop);
 }
 
 function escapeHtml(text) {
