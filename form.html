@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -36,6 +36,7 @@ window.BLMED_FIREBASE_CONFIG = {
   --stamp:    #2f5d73;
   --sh:       0 18px 38px rgba(29,36,48,.10);
 }
+
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
@@ -192,7 +193,6 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   box-shadow:0 10px 28px rgba(29,36,48,.08);
   border-radius:8px;
   padding:24px 26px 22px;
-  min-height:260mm;
   position:relative;
 }
 .fax-cover::before{
@@ -203,7 +203,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   z-index:1;
   display:flex;
   flex-direction:column;
-  gap:14px;
+  gap:12px;
 }
 .fax-cover-title{
   font-family:'Manrope',Arial,sans-serif;
@@ -235,7 +235,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   border-bottom:1px solid rgba(148,138,123,.45);
   border-radius:0;
   padding:8px 0 9px;
-  min-height:54px;
+  min-height:46px;
 }
 .fax-label{
   display:block;
@@ -259,7 +259,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   border-bottom:1px solid rgba(148,138,123,.45);
   background:none;
   border-radius:0;
-  min-height:112px;
+  min-height:84px;
   padding:10px 0 12px;
   margin-bottom:0;
 }
@@ -459,8 +459,8 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   border-top:1px solid rgba(148,138,123,.45);
   background:none;
   padding-top:12px;
-  font-size:10px;
-  line-height:1.58;
+  font-size:9.4px;
+  line-height:1.45;
   color:#36424f;
 }
 .fax-cover-legal-title{
@@ -847,89 +847,96 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     display:block!important;
     max-width:100%!important;
     padding:0!important;
-    margin:0!important;
+    margin:0 0 4mm!important;
     page-break-after:always!important;
   }
   body.fax-cover-enabled .fax-cover{
-    min-height:0!important;
-    height:auto!important;
+    min-height:calc(297mm - 16mm)!important;
     box-shadow:none!important;
     border:none!important;
     background:#fff!important;
-    padding:14px 18px 12px!important;
+    padding:14px 16px 10px!important;
+    display:flex!important;
+    flex-direction:column!important;
   }
   body.fax-cover-enabled .fax-cover::before{display:none!important}
-
-  /* ── FAX COVER: compact all sections for single A4 page ── */
   body.fax-cover-enabled .fax-cover-content{
-    gap:6px!important;
+    gap:7px!important;
+    flex:1 1 auto!important;
+    min-height:0!important;
   }
   body.fax-cover-enabled .fax-cover-brand{
+    gap:14px!important;
     padding-bottom:8px!important;
-    margin-bottom:0!important;
   }
-  body.fax-cover-enabled .fax-cover-brand .brand-name{
-    font-size:20px!important;
-  }
-  body.fax-cover-enabled .fax-cover-brand .brand-sub{
-    font-size:9px!important;
-    margin-top:3px!important;
-  }
+  body.fax-cover-enabled .fax-cover-brand .brand-name{font-size:21pt!important}
+  body.fax-cover-enabled .fax-cover-brand .brand-sub,
   body.fax-cover-enabled .fax-cover-brand .brand-contact{
-    font-size:9px!important;
+    font-size:7.5pt!important;
     margin-top:4px!important;
+    line-height:1.3!important;
   }
-  body.fax-cover-enabled .fax-cover-kicker{
-    font-size:8px!important;
-    margin-bottom:4px!important;
+  body.fax-cover-enabled .fax-cover-badge{
+    min-width:180px!important;
+    padding-left:12px!important;
+  }
+  body.fax-cover-enabled .fax-cover-kicker,
+  body.fax-cover-enabled .fax-cover-sub{
+    font-size:6.8pt!important;
+    letter-spacing:.12em!important;
   }
   body.fax-cover-enabled .fax-cover-title{
-    font-size:16px!important;
-    margin-bottom:2px!important;
-  }
-  body.fax-cover-enabled .fax-cover-sub{
-    font-size:9px!important;
+    font-size:15pt!important;
+    margin-bottom:3px!important;
   }
   body.fax-cover-enabled .fax-cover-alert{
-    padding:5px 0 6px!important;
-    font-size:10px!important;
+    padding:4px 0 6px!important;
+    font-size:8pt!important;
+    line-height:1.3!important;
   }
-  /* Grid: 2 columns — 2 fields per row */
   body.fax-cover-enabled .fax-cover-grid{
-    grid-template-columns:1fr 1fr!important;
-    gap:0 24px!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:0 14px!important;
   }
   body.fax-cover-enabled .fax-line{
+    padding:4px 0 5px!important;
     min-height:0!important;
-    padding:5px 0 6px!important;
   }
   body.fax-cover-enabled .fax-label{
-    font-size:7.5px!important;
+    font-size:6.2pt!important;
     margin-bottom:2px!important;
   }
   body.fax-cover-enabled .fax-value{
-    font-size:11px!important;
-    line-height:1.35!important;
+    font-size:8pt!important;
+    line-height:1.22!important;
+  }
+  body.fax-cover-enabled .fax-line-from{
+    grid-column:auto!important;
+  }
+  body.fax-cover-enabled .fax-line-from .fax-value{
+    white-space:pre-line!important;
   }
   body.fax-cover-enabled .fax-message{
-    min-height:70px!important;
-    padding:7px 0 8px!important;
+    min-height:44px!important;
+    padding:6px 0 7px!important;
+    margin-bottom:12px!important;
   }
   body.fax-cover-enabled .fax-section-title{
-    font-size:8.5px!important;
-    margin-bottom:4px!important;
+    font-size:6.4pt!important;
+    margin-bottom:3px!important;
   }
   body.fax-cover-enabled .fax-cover-disclaimer{
-    padding-top:8px!important;
-    font-size:8px!important;
-    line-height:1.45!important;
+    margin-top:auto!important;
+    padding-top:12px!important;
+    font-size:6.8pt!important;
+    line-height:1.28!important;
   }
   body.fax-cover-enabled .fax-cover-legal-title{
-    font-size:8px!important;
+    font-size:6.8pt!important;
     margin-bottom:4px!important;
   }
   body.fax-cover-enabled .fax-cover-disclaimer p + p{
-    margin-top:5px!important;
+    margin-top:4px!important;
   }
 
   .paper{max-width:100%!important;padding:0!important;margin:0!important;height:100%!important}
@@ -2003,7 +2010,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
         </div>
       </div>
       <div class="fax-cover-alert">
-        <strong>Please call if there is any problem in transmission:</strong> 305-909-0880
+        <strong>Please call if there is any problem in transmission:</strong> 305-242-6069
       </div>
       <div class="fax-cover-grid">
         <div class="fax-line"><span class="fax-label">To</span><div class="fax-value" id="fax-preview-to-name"></div></div>
@@ -2013,7 +2020,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
         <div class="fax-line"><span class="fax-label">Patient</span><div class="fax-value" id="fax-preview-patient"></div></div>
         <div class="fax-line"><span class="fax-label">Pages</span><div class="fax-value" id="fax-preview-pages"></div></div>
         <div class="fax-line"><span class="fax-label">Subject</span><div class="fax-value" id="fax-preview-subject"></div></div>
-        <div class="fax-line"><span class="fax-label">From</span><div class="fax-value" id="fax-preview-from">Better Life Medical<br/>Ph (305) 909-0880<br/>Fx (305) 539-0880</div></div>
+        <div class="fax-line fax-line-from"><span class="fax-label">From</span><div class="fax-value" id="fax-preview-from">Better Life Medical<br/>Ph (305) 909-0880<br/>Fx (305) 539-0880</div></div>
       </div>
       <div class="fax-message">
         <span class="fax-section-title">Message</span>
@@ -2311,7 +2318,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
           Compression (mmHg) &nbsp;<span style="font-weight:400;font-size:8px;color:var(--rule-dk)">* 18-25 mmHg only available in Diabetic Compression Sock (Calf only)</span>
         </div>
         <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <label class="cs-check"><input type="checkbox" name="cs-mmhg" value="15-20"/> 15-20</label>
+          <label class="cs-check"><input id="cs-mmhg-15-20" type="checkbox" name="cs-mmhg" value="15-20"/> 15-20</label>
           <label class="cs-check"><input type="checkbox" name="cs-mmhg" value="18-25"/> 18-25 *</label>
           <label class="cs-check"><input type="checkbox" name="cs-mmhg" value="20-30"/> 20-30</label>
           <label class="cs-check"><input type="checkbox" name="cs-mmhg" value="30-40"/> 30-40</label>
@@ -2324,13 +2331,13 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
       <div style="display:flex;gap:24px;flex-wrap:wrap;margin-bottom:10px;align-items:center;border-top:1px solid var(--rule);padding-top:7px">
         <div style="display:flex;gap:10px;align-items:center">
           <span style="font-family:'Courier Prime',monospace;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-lt)">Toe:</span>
-          <label class="cs-check"><input type="checkbox" name="cs-toe" value="closed"/> Closed Toe</label>
+          <label class="cs-check"><input id="cs-toe-closed" type="checkbox" name="cs-toe" value="closed"/> Closed Toe</label>
           <label class="cs-check"><input type="checkbox" name="cs-toe" value="open"/> Open Toe</label>
           <label class="cs-check"><input type="checkbox" name="cs-toe" value="choice"/> Patient Choice</label>
         </div>
         <div style="display:flex;gap:10px;align-items:center">
           <span style="font-family:'Courier Prime',monospace;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-lt)">Laterality:</span>
-          <label class="cs-check"><input type="checkbox" name="cs-lat" value="LT"/> LT</label>
+          <label class="cs-check"><input id="cs-lat-lt" type="checkbox" name="cs-lat" value="LT"/> LT</label>
           <label class="cs-check"><input type="checkbox" name="cs-lat" value="RT"/> RT</label>
           <label class="cs-check"><input type="checkbox" name="cs-lat" value="both"/> Both</label>
         </div>
@@ -2341,7 +2348,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
       <div class="cs-garment-grid" style="grid-template-columns:repeat(7,1fr)">
         <div class="cs-garment-col">
           <div class="cs-leg-img"><img src="data:image/png;base64,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" style="width:90px;height:140px;object-fit:contain;display:block;margin:0 auto 4px;background:#fff" alt=""/></div>
-          <label class="cs-check cs-code"><input type="checkbox" name="cs-code" value="A6533"/> A6533</label>
+          <label class="cs-check cs-code"><input id="cs-code-a6533" type="checkbox" name="cs-code" value="A6533"/> A6533</label>
           <label class="cs-check cs-code"><input type="checkbox" name="cs-code" value="A6534"/> A6534</label>
         </div>
         <div class="cs-garment-col">
@@ -4838,6 +4845,18 @@ function hasNutritionMethodSelected(){
     .some(id => !!document.getElementById(id)?.checked);
 }
 
+function hasCheckedInput(name){
+  return !!document.querySelector(`input[name="${name}"]:checked`);
+}
+
+function hasCompressionCodeSelected(){
+  return hasCheckedInput("cs-code") || (!!document.getElementById("cs-other-chk")?.checked && hasValue("cs-other-input"));
+}
+
+function hasCompressionOrderData(){
+  return hasCheckedInput("cs-mmhg") && hasCheckedInput("cs-toe") && hasCheckedInput("cs-lat") && hasCompressionCodeSelected();
+}
+
 function getChecklistItems(){
   if(currentForm === "oxygen"){
     return [
@@ -4873,7 +4892,6 @@ function getChecklistItems(){
       { id:"nutrition-duration", label:"duration of infusion" }
     );
   }
-  if(currentForm === "compression") items.push({ id:"cs-primary-dx", label:"primary diagnosis note" });
   return items;
 }
 
@@ -4882,7 +4900,7 @@ function hasOrderData(){
     for(let i=1;i<=10;i++) if(hasValue(`hcpcs_${i}`) || hasValue(`desc_${i}`)) return true;
     return false;
   }
-  if(currentForm === "compression") return hasValue("cs-primary-dx") || hasValue("cs-secondary-dx");
+  if(currentForm === "compression") return hasCompressionOrderData();
   if(currentForm === "oxygen") return true;
   return true;
 }
@@ -4892,7 +4910,14 @@ function getMissingChecklistItems(){
   if(currentForm === "nutrition" && !hasNutritionMethodSelected()){
     missing.push({ id:"nutrition-method-oral", label:"method of administration" });
   }
-  if(!hasOrderData()) missing.push({ id: (currentForm === "standard" || currentForm === "nutrition") ? "hcpcs_1" : "", label: "ordered item details" });
+  if(currentForm === "compression"){
+    if(!hasCheckedInput("cs-mmhg")) missing.push({ id:"cs-mmhg-15-20", label:"compression level" });
+    if(!hasCheckedInput("cs-toe")) missing.push({ id:"cs-toe-closed", label:"toe type" });
+    if(!hasCheckedInput("cs-lat")) missing.push({ id:"cs-lat-lt", label:"laterality" });
+    if(!hasCompressionCodeSelected()) missing.push({ id:"cs-code-a6533", label:"garment code" });
+  }else if(!hasOrderData()){
+    missing.push({ id: (currentForm === "standard" || currentForm === "nutrition") ? "hcpcs_1" : "", label: "ordered item details" });
+  }
   return missing;
 }
 
@@ -4997,7 +5022,13 @@ function syncFaxCover(){
   if(fromEl){
     const topLine = staff?.accountName || authUser?.email || "Better Life Medical";
     const secondLine = staffName || "Better Life Team";
-    fromEl.innerHTML = `${topLine}<br/>${secondLine}<br/>Ph ${OFFICE_PHONE}<br/>Fx ${OFFICE_FAX}${staffLine ? `<br/>${staffLine}` : ""}`;
+    fromEl.textContent = [
+      topLine,
+      secondLine,
+      `Ph ${OFFICE_PHONE}`,
+      `Fx ${OFFICE_FAX}`,
+      staffLine || ""
+    ].filter(Boolean).join("\n");
   }
   setWorkflowMessage("fax-status", toFax ? `Fax package ready for ${toName || "doctor office"} at ${toFax}.` : "Use fax package print for a cover sheet plus the A4 form.");
 }
@@ -5137,9 +5168,19 @@ async function oxyNpiSearch(el){
   T["oxy-npi"] = setTimeout(async() => {
     showLoad(drop, "Searching NPI registry...", el);
     try{
-      const isNum = /^\d+$/.test(q);
-      const sf = isNum ? "npi" : "provider_name";
-      const url = `https://clinicaltables.nlm.nih.gov/api/npi_idv/v3/search?terms=${encodeURIComponent(q)}&sf=${sf}&maxList=8&ef=name.full,provider_type,addr_practice.phone,addr_practice.fax,addr_practice.line1,addr_practice.city,addr_practice.state,addr_practice.zip,licenses`;
+      const ef = [
+        "name.full",
+        "provider_type",
+        "addr_practice.phone",
+        "addr_practice.fax",
+        "addr_practice.line1",
+        "addr_practice.line2",
+        "addr_practice.city",
+        "addr_practice.state",
+        "addr_practice.zip",
+        "licenses"
+      ].join(",");
+      const url = `https://clinicaltables.nlm.nih.gov/api/npi_idv/v3/search?terms=${encodeURIComponent(q)}&maxList=8&ef=${encodeURIComponent(ef)}&sf=NPI,name.full`;
       const r = await fetch(url);
       const d = await r.json();
       const codes = d[1]||[];
@@ -5148,7 +5189,8 @@ async function oxyNpiSearch(el){
       const types = extra["provider_type"]||[];
       const phones= extra["addr_practice.phone"]||[];
       const faxes = extra["addr_practice.fax"]||[];
-      const lines = extra["addr_practice.line1"]||[];
+      const lines1 = extra["addr_practice.line1"]||[];
+      const lines2 = extra["addr_practice.line2"]||[];
       const cities= extra["addr_practice.city"]||[];
       const states= extra["addr_practice.state"]||[];
       const zips  = extra["addr_practice.zip"]||[];
@@ -5160,24 +5202,52 @@ async function oxyNpiSearch(el){
         row.className="drop-row";
         const name = (names[i]||"").trim();
         const type = (types[i]||"").trim();
-        row.innerHTML=`<strong>${name||npi}</strong><span style="color:#888;font-size:11px;margin-left:8px">${type}</span><span style="color:#aaa;font-size:10px;margin-left:8px">${npi}</span>`;
+        const phone = (phones[i] || "").trim();
+        const fax = (faxes[i] || "").trim();
+        const line1 = (lines1[i] || "").trim();
+        const line2 = (lines2[i] || "").trim();
+        const city = (cities[i] || "").trim();
+        const state = (states[i] || "").trim();
+        const zip = (zips[i] || "").trim();
+        const street = [line1, line2].filter(Boolean).join(" ");
+        const addrParts = [];
+        if(street) addrParts.push(street);
+        if(city) addrParts.push(city);
+        const stateZip = [state, zip].filter(Boolean).join(" ");
+        if(stateZip) addrParts.push(stateZip);
+        if(addrParts.length) addrParts.push("USA");
+        const addr = addrParts.join(", ");
+        let licNum = "";
+        try{
+          const rawLicenses = lics[i];
+          const parsedLicenses = typeof rawLicenses === "string" ? JSON.parse(rawLicenses) : rawLicenses;
+          if(Array.isArray(parsedLicenses) && parsedLicenses.length){
+            const primary = parsedLicenses.find(item => item.primary_taxonomy === true || item.primary_taxonomy === "Y") || parsedLicenses[0];
+            licNum = primary?.lic_number || primary?.number || primary?.id || "";
+          }
+        }catch(e){}
+        row.innerHTML=`<strong>${esc(name||npi)}</strong><span style="color:#888;font-size:11px;margin-left:8px">${esc(type)}</span><span style="color:#aaa;font-size:10px;margin-left:8px">${esc(npi)}</span>`;
         row.onclick=()=>{
           el.value=npi;
           document.getElementById("oxy-phys-name").value=name.toUpperCase();
           document.getElementById("oxy-phys-type").value=(type||"").toUpperCase();
-          const rawPhone=(phones[i]||"").replace(/\D/g,"");
+          const rawPhone=phone.replace(/\D/g,"");
           if(rawPhone.length===10) document.getElementById("oxy-phys-phone").value=`(${rawPhone.slice(0,3)}) ${rawPhone.slice(3,6)}-${rawPhone.slice(6)}`;
-          const rawFax=(faxes[i]||"").replace(/\D/g,"");
+          else document.getElementById("oxy-phys-phone").value = phone;
+          const rawFax=fax.replace(/\D/g,"");
           if(rawFax.length===10) document.getElementById("oxy-phys-fax").value=`(${rawFax.slice(0,3)}) ${rawFax.slice(3,6)}-${rawFax.slice(6)}`;
-          const addr=[lines[i],cities[i],states[i],zips[i]].filter(Boolean).join(", ");
+          else document.getElementById("oxy-phys-fax").value = fax;
           if(addr) document.getElementById("oxy-phys-addr").value=addr;
-          const lic=(lics[i]||[])[0];
-          if(lic && document.getElementById("oxy-lic-num")) document.getElementById("oxy-lic-num").value=(lic.number||"").toUpperCase();
+          if(licNum && document.getElementById("oxy-lic-num")) document.getElementById("oxy-lic-num").value=licNum.toUpperCase();
           closeDrop(drop);
         };
         drop.appendChild(row);
       });
-    }catch(e){ closeDrop(drop); }
+    }catch(e){
+      drop.innerHTML=`<div class="empty-row">NPI lookup unavailable</div>`;
+      positionDrop(drop,el);
+      drop.classList.add("open");
+    }
   }, 300);
 }
 

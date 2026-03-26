@@ -53,6 +53,36 @@
       </div>
 
       <div class="portal-status" id="profile-status">Profile changes save to your cloud account.</div>
+
+      <div class="portal-card" style="margin-top:18px;">
+        <h2>Change Password</h2>
+        <p>Confirm your account email and current password before setting a new password.</p>
+
+        <div class="portal-form">
+          <div class="portal-field">
+            <label for="profile-password-email">Account Email</label>
+            <input id="profile-password-email" type="email" placeholder="Confirm your email address"/>
+          </div>
+          <div class="portal-field">
+            <label for="profile-current-password">Current Password</label>
+            <input id="profile-current-password" type="password" placeholder="Enter current password" autocomplete="current-password"/>
+          </div>
+          <div class="portal-field">
+            <label for="profile-new-password">New Password</label>
+            <input id="profile-new-password" type="password" placeholder="Enter new password" autocomplete="new-password"/>
+          </div>
+          <div class="portal-field">
+            <label for="profile-confirm-password">Confirm New Password</label>
+            <input id="profile-confirm-password" type="password" placeholder="Repeat new password" autocomplete="new-password"/>
+          </div>
+        </div>
+
+        <div class="portal-actions">
+          <button class="btn btn-stamp" id="password-save-button" type="button" onclick="portalChangePassword()">Update Password</button>
+        </div>
+
+        <div class="portal-status" id="password-status">Use your current password to authorize the password change.</div>
+      </div>
     </section>
   </main>
 

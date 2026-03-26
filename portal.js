@@ -52,7 +52,9 @@
       "auth/email-already-in-use": "An account with that email already exists.",
       "auth/weak-password": "Password must be at least 6 characters.",
       "auth/invalid-email": "Enter a valid email address.",
-      "auth/too-many-requests": "Too many attempts. Please wait a moment and try again."
+      "auth/too-many-requests": "Too many attempts. Please wait a moment and try again.",
+      "auth/invalid-action-code": "That verification link or code is no longer valid.",
+      "auth/expired-action-code": "That verification link or code has expired."
     };
     return messages[code] || fallback;
   }
@@ -89,9 +91,47 @@
     return true;
   }
 
+  function getPage(){
+    return document.body.dataset.page || "";
+  }
+
+  function getQueryParam(name){
+    return new URLSearchParams(window.location.search).get(name) || "";
+  }
+
+  function redirectTo(path){
+    window.location.href = path;
+  }
+
+  function redirectToVerify(email){
+    const query = email ? `?email=${encodeURIComponent(email)}` : "";
+    redirectTo(`verify-email.html${query}`);
+  }
+
+  function getEmailValue(){
+    return (
+      document.getElementById("login-email")?.value ||
+      document.getElementById("signup-email")?.value ||
+      ""
+    ).trim();
+  }
+
+  function getPasswordValue(){
+    return (
+      document.getElementById("login-password")?.value ||
+      document.getElementById("signup-password")?.value ||
+      ""
+    );
+  }
+
+  function getConfirmPasswordValue(){
+    return document.getElementById("signup-password-confirm")?.value || "";
+  }
+
   async function applyLoginPersistence(){
     if(!auth) return;
-    const remember = !!document.getElementById("login-remember")?.checked;
+    const rememberInput = document.getElementById("login-remember") || document.getElementById("signup-remember");
+    const remember = rememberInput ? !!rememberInput.checked : true;
     await auth.setPersistence(
       remember ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION
     );
@@ -131,6 +171,56 @@
       if(saveButton){
         saveButton.disabled = false;
         saveButton.textContent = "Save Profile";
+      }
+    }
+  }
+
+  async function changePassword(){
+    if(!authUser || !authUser.email){
+      setStatus("password-status", "Sign in again before changing your password.", "status-warn");
+      return;
+    }
+    const emailConfirm = (document.getElementById("profile-password-email")?.value || "").trim();
+    const currentPassword = document.getElementById("profile-current-password")?.value || "";
+    const newPassword = document.getElementById("profile-new-password")?.value || "";
+    const confirmPassword = document.getElementById("profile-confirm-password")?.value || "";
+    const button = document.getElementById("password-save-button");
+    if(!emailConfirm || !currentPassword || !newPassword || !confirmPassword){
+      setStatus("password-status", "Fill in your email, current password, and new password fields.", "status-warn");
+      return;
+    }
+    if(emailConfirm.toLowerCase() !== String(authUser.email || "").toLowerCase()){
+      setStatus("password-status", "Enter the same email address as the signed-in account.", "status-warn");
+      return;
+    }
+    if(newPassword.length < 6){
+      setStatus("password-status", "New password must be at least 6 characters.", "status-warn");
+      return;
+    }
+    if(newPassword !== confirmPassword){
+      setStatus("password-status", "New password and confirmation do not match.", "status-warn");
+      return;
+    }
+    try{
+      if(button){
+        button.disabled = true;
+        button.textContent = "Updating...";
+      }
+      setStatus("password-status", "Verifying current password and updating your password...", "");
+      const credential = firebase.auth.EmailAuthProvider.credential(authUser.email, currentPassword);
+      await withTimeout(authUser.reauthenticateWithCredential(credential), 12000);
+      await withTimeout(authUser.updatePassword(newPassword), 12000);
+      ["profile-current-password", "profile-new-password", "profile-confirm-password"].forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.value = "";
+      });
+      setStatus("password-status", "Password updated successfully.", "status-ok");
+    }catch(err){
+      setStatus("password-status", getFriendlyAuthMessage(err, "Password could not be updated."), "status-warn");
+    }finally{
+      if(button){
+        button.disabled = false;
+        button.textContent = "Update Password";
       }
     }
   }
@@ -202,26 +292,43 @@
   }
 
   async function signIn(){
-    const email = (document.getElementById("login-email")?.value || "").trim();
-    const password = document.getElementById("login-password")?.value || "";
+    const email = getEmailValue();
+    const password = getPasswordValue();
     if(!email || !password){
       setStatus("login-status", "Enter both email and password.", "status-warn");
       return;
     }
     try{
       await applyLoginPersistence();
-      await auth.signInWithEmailAndPassword(email, password);
-      window.location.href = "index.html";
+      const cred = await auth.signInWithEmailAndPassword(email, password);
+      if(cred.user){
+        await withTimeout(cred.user.reload(), 12000);
+        if(!cred.user.emailVerified){
+          setStatus("login-status", "Verify your email before signing in.", "status-warn");
+          redirectToVerify(email);
+          return;
+        }
+      }
+      redirectTo("index.html");
     }catch(err){
       setStatus("login-status", getFriendlyAuthMessage(err, "Sign-in failed."), "status-warn");
     }
   }
 
   async function signUp(){
-    const email = (document.getElementById("login-email")?.value || "").trim();
-    const password = document.getElementById("login-password")?.value || "";
+    const email = getEmailValue();
+    const password = getPasswordValue();
+    const confirmPassword = getConfirmPasswordValue();
     if(!email || !password){
-      setStatus("login-status", "Enter both email and password.", "status-warn");
+      setStatus("signup-status", "Enter your email and password.", "status-warn");
+      return;
+    }
+    if(password.length < 6){
+      setStatus("signup-status", "Password must be at least 6 characters.", "status-warn");
+      return;
+    }
+    if(password !== confirmPassword){
+      setStatus("signup-status", "Passwords do not match.", "status-warn");
       return;
     }
     try{
@@ -229,18 +336,108 @@
       const cred = await auth.createUserWithEmailAndPassword(email, password);
       await withTimeout(db.collection("users").doc(cred.user.uid).set({
         email,
+        emailVerified: false,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       }, { merge:true }), 12000);
-      window.location.href = "index.html";
+      await withTimeout(cred.user.sendEmailVerification(), 12000);
+      setStatus("signup-status", "Account created. Check your email for the verification link.", "status-ok");
+      redirectToVerify(email);
     }catch(err){
-      setStatus("login-status", getFriendlyCloudMessage(err, getFriendlyAuthMessage(err, "Account could not be created.")), "status-warn");
+      setStatus("signup-status", getFriendlyCloudMessage(err, getFriendlyAuthMessage(err, "Account could not be created.")), "status-warn");
+    }
+  }
+
+  function getVerificationCodeValue(){
+    const raw = (document.getElementById("verify-code")?.value || "").trim();
+    if(!raw) return "";
+    try{
+      const parsed = new URL(raw);
+      return parsed.searchParams.get("oobCode") || raw;
+    }catch{
+      const match = raw.match(/[?&]oobCode=([^&]+)/i);
+      return match ? decodeURIComponent(match[1]) : raw;
+    }
+  }
+
+  async function processVerificationState(markVerified){
+    if(auth?.currentUser){
+      await withTimeout(auth.currentUser.reload(), 12000);
+      authUser = auth.currentUser;
+      if(markVerified && db && authUser){
+        await withTimeout(db.collection("users").doc(authUser.uid).set({
+          email: authUser.email || "",
+          emailVerified: !!authUser.emailVerified,
+          verifiedAt: authUser.emailVerified ? firebase.firestore.FieldValue.serverTimestamp() : null
+        }, { merge:true }), 12000);
+      }
+    }
+  }
+
+  async function resendVerificationEmail(){
+    if(!authUser){
+      setStatus("verify-status", "Sign in with your new account first if you need to resend the verification email.", "status-warn");
+      return;
+    }
+    try{
+      await withTimeout(authUser.sendEmailVerification(), 12000);
+      setStatus("verify-status", "A new verification email has been sent.", "status-ok");
+    }catch(err){
+      setStatus("verify-status", getFriendlyAuthMessage(err, "Verification email could not be sent."), "status-warn");
+    }
+  }
+
+  async function refreshVerificationStatus(){
+    if(!authUser){
+      setStatus("verify-status", "Open the verification email, then sign in again once your address is verified.", "status-warn");
+      return;
+    }
+    try{
+      await processVerificationState(true);
+      if(authUser?.emailVerified){
+        setStatus("verify-status", "Email verified. Redirecting to the home page...", "status-ok");
+        window.setTimeout(() => redirectTo("index.html"), 500);
+        return;
+      }
+      setStatus("verify-status", "Your email is not verified yet. Open the verification email and then try again.", "status-warn");
+    }catch(err){
+      setStatus("verify-status", getFriendlyAuthMessage(err, "Verification status could not be refreshed."), "status-warn");
+    }
+  }
+
+  async function applyVerificationCode(){
+    const code = getVerificationCodeValue();
+    if(!code){
+      setStatus("verify-status", "Paste the verification link or code from the email first.", "status-warn");
+      return;
+    }
+    try{
+      await withTimeout(auth.applyActionCode(code), 12000);
+      await processVerificationState(true);
+      if(authUser?.emailVerified){
+        setStatus("verify-status", "Email verified successfully. Redirecting to the home page...", "status-ok");
+        window.setTimeout(() => redirectTo("index.html"), 500);
+      }else{
+        setStatus("verify-status", "Email verified successfully. Please sign in to continue.", "status-ok");
+        window.setTimeout(() => redirectTo("login.html"), 800);
+      }
+    }catch(err){
+      setStatus("verify-status", getFriendlyAuthMessage(err, "That verification code is invalid or has expired."), "status-warn");
     }
   }
 
   async function signOut(){
     if(!auth) return;
     await auth.signOut();
-    window.location.href = "login.html";
+    redirectTo("login.html");
+  }
+
+  async function returnToLogin(){
+    try{
+      if(auth?.currentUser && !auth.currentUser.emailVerified){
+        await auth.signOut();
+      }
+    }catch{}
+    redirectTo("login.html");
   }
 
   function renderHome(user, profile){
@@ -259,16 +456,36 @@
   }
 
   function handlePage(user){
-    const page = document.body.dataset.page || "";
+    const page = getPage();
     authUser = user || null;
 
     if(page === "login"){
-      if(authUser) window.location.href = "index.html";
+      if(authUser?.emailVerified) redirectTo("index.html");
+      else if(authUser && !authUser.emailVerified){
+        setStatus("login-status", "An unverified account session is open. You can sign in again or finish verifying the email.", "status-warn");
+      }
+      return;
+    }
+
+    if(page === "signup"){
+      if(authUser?.emailVerified) redirectTo("index.html");
+      return;
+    }
+
+    if(page === "verify-email"){
+      const verifyEmailEl = document.getElementById("verify-email-address");
+      if(verifyEmailEl) verifyEmailEl.textContent = authUser?.email || getQueryParam("email") || "your email address";
+      if(authUser?.emailVerified) redirectTo("index.html");
       return;
     }
 
     if(!authUser){
-      window.location.href = "login.html";
+      redirectTo("login.html");
+      return;
+    }
+
+    if(!authUser.emailVerified){
+      redirectToVerify(authUser.email || "");
       return;
     }
 
@@ -283,6 +500,8 @@
     if(page === "profile"){
       const emailField = document.getElementById("profile-email");
       if(emailField) emailField.value = authUser.email || "";
+      const passwordEmailField = document.getElementById("profile-password-email");
+      if(passwordEmailField) passwordEmailField.value = authUser.email || "";
       loadProfile()
         .then(profile => {
           if(document.getElementById("profile-display-label")) document.getElementById("profile-display-label").value = profile.accountName || "";
@@ -305,10 +524,13 @@
 
   document.addEventListener("DOMContentLoaded", function(){
     if(!initFirebase()){
-      setStatus("login-status", "The website could not connect right now.", "status-warn");
+      ["login-status", "signup-status", "verify-status"].forEach(id => {
+        setStatus(id, "The website could not connect right now.", "status-warn");
+      });
       return;
     }
-    if(document.body.dataset.page === "login"){
+    const page = getPage();
+    if(page === "login"){
       ["login-email", "login-password"].forEach(id => {
         document.getElementById(id)?.addEventListener("keydown", event => {
           if(event.key !== "Enter") return;
@@ -317,13 +539,41 @@
         });
       });
     }
+    if(page === "signup"){
+      ["signup-email", "signup-password", "signup-password-confirm"].forEach(id => {
+        document.getElementById(id)?.addEventListener("keydown", event => {
+          if(event.key !== "Enter") return;
+          event.preventDefault();
+          signUp();
+        });
+      });
+    }
+    if(page === "verify-email"){
+      const codeField = document.getElementById("verify-code");
+      codeField?.addEventListener("keydown", event => {
+        if(event.key !== "Enter") return;
+        event.preventDefault();
+        applyVerificationCode();
+      });
+      const mode = getQueryParam("mode");
+      const oobCode = getQueryParam("oobCode");
+      if(mode === "verifyEmail" && oobCode){
+        document.getElementById("verify-code").value = oobCode;
+        applyVerificationCode();
+      }
+    }
     auth.onAuthStateChanged(handlePage);
   });
 
   window.portalSignIn = signIn;
   window.portalSignUp = signUp;
   window.portalSignOut = signOut;
+  window.portalReturnToLogin = returnToLogin;
+  window.portalResendVerification = resendVerificationEmail;
+  window.portalRefreshVerification = refreshVerificationStatus;
+  window.portalApplyVerificationCode = applyVerificationCode;
   window.portalSaveProfile = saveProfile;
+  window.portalChangePassword = changePassword;
   window.portalDeleteRecord = deleteRecord;
   window.portalOpenRecord = function(recordId){
     window.location.href = `form.html?record=${encodeURIComponent(recordId)}`;

@@ -11,34 +11,45 @@
 <link rel="stylesheet" href="portal.css"/>
 </head>
 <body class="portal-body" data-page="login">
-  <main class="portal-shell">
-    <section class="portal-panel" style="max-width:620px;margin:40px auto 0;">
-      <div class="portal-brand">
-        <h1>Better Life Medical</h1>
-        <p>Sign in to access the DWO system, saved records, and your staff profile.</p>
-      </div>
+  <main class="auth-shell">
+    <section class="auth-panel">
+      <aside class="auth-aside">
+        <div class="auth-kicker">Staff Portal</div>
+        <h1>Better Life Medical DWO Workspace</h1>
+        <p>Sign in to access forms, saved records, and your staff profile.</p>
+      </aside>
 
-      <div class="portal-form">
-        <div class="portal-field">
-          <label for="login-email">Email</label>
-          <input id="login-email" type="email" placeholder="name@company.com" autocomplete="username"/>
+      <section class="auth-main">
+        <div class="auth-main-header">
+          <h2>Sign in</h2>
+          <p>Use your verified Better Life Medical account to continue.</p>
         </div>
-        <div class="portal-field">
-          <label for="login-password">Password</label>
-          <input id="login-password" type="password" placeholder="Enter your password" autocomplete="current-password"/>
+
+        <div class="portal-form">
+          <div class="portal-field">
+            <label for="login-email">Email</label>
+            <input id="login-email" type="email" placeholder="name@company.com" autocomplete="username"/>
+          </div>
+          <div class="portal-field">
+            <label for="login-password">Password</label>
+            <input id="login-password" type="password" placeholder="Enter your password" autocomplete="current-password"/>
+          </div>
+          <label class="portal-check" for="login-remember">
+            <input id="login-remember" type="checkbox" checked/>
+            Remember login on this device
+          </label>
         </div>
-        <label class="portal-check" for="login-remember">
-          <input id="login-remember" type="checkbox" checked/>
-          Remember login on this device
-        </label>
-      </div>
 
-      <div class="portal-actions">
-        <button class="btn btn-stamp" type="button" onclick="portalSignIn()">Sign In</button>
-        <button class="btn btn-ghost" type="button" onclick="portalSignUp()">Create Account</button>
-      </div>
+        <div class="portal-actions">
+          <button class="btn btn-stamp" type="button" onclick="portalSignIn()">Sign In</button>
+        </div>
 
-      <div class="portal-status" id="login-status">Use your team email and password to continue.</div>
+        <div class="portal-status" id="login-status">Enter your email and password to continue.</div>
+
+        <div class="auth-switch">
+          Don't have an account? <a class="portal-link" href="signup.html">Sign Up</a>
+        </div>
+      </section>
     </section>
   </main>
 

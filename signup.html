@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Better Life Medical - Sign Up</title>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="portal.css"/>
+</head>
+<body class="portal-body" data-page="signup">
+  <main class="auth-shell">
+    <section class="auth-panel">
+      <aside class="auth-aside">
+        <div class="auth-kicker">New Account</div>
+        <h1>Create your staff account</h1>
+        <p>Create a secure account for access to the DWO workspace.</p>
+      </aside>
+
+      <section class="auth-main">
+        <div class="auth-main-header">
+          <h2>Sign up</h2>
+          <p>Create a verified email-and-password account for this DWO workspace.</p>
+        </div>
+
+        <div class="portal-form">
+          <div class="portal-field">
+            <label for="signup-email">Email</label>
+            <input id="signup-email" type="email" placeholder="name@company.com" autocomplete="username"/>
+          </div>
+
+          <div class="portal-form-grid two">
+            <div class="portal-field">
+              <label for="signup-password">Password</label>
+              <input id="signup-password" type="password" placeholder="Create password" autocomplete="new-password"/>
+            </div>
+            <div class="portal-field">
+              <label for="signup-password-confirm">Confirm Password</label>
+              <input id="signup-password-confirm" type="password" placeholder="Repeat password" autocomplete="new-password"/>
+            </div>
+          </div>
+
+          <label class="portal-check" for="signup-remember">
+            <input id="signup-remember" type="checkbox" checked/>
+            Remember login on this device after verification
+          </label>
+
+          <div class="portal-field-note">
+            Passwords must match and be at least 6 characters long.
+          </div>
+        </div>
+
+        <div class="portal-actions">
+          <button class="btn btn-stamp" type="button" onclick="portalSignUp()">Create Account</button>
+          <a class="btn btn-ghost portal-link" href="login.html">Back to Sign In</a>
+        </div>
+
+        <div class="portal-status" id="signup-status">Create your account, then verify the email address before signing in.</div>
+
+        <div class="auth-switch">
+          Already have an account? <a class="portal-link" href="login.html">Sign In</a>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="portal.js"></script>
+</body>
+</html>

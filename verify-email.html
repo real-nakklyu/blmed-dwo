@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Better Life Medical - Verify Email</title>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="portal.css"/>
+</head>
+<body class="portal-body" data-page="verify-email">
+  <main class="auth-shell">
+    <section class="auth-panel">
+      <aside class="auth-aside">
+        <div class="auth-kicker">Verification</div>
+        <h1>Verify your email address</h1>
+        <p>Complete verification for <strong id="verify-email-address">your email address</strong> to continue.</p>
+      </aside>
+
+      <section class="auth-main">
+        <div class="auth-main-header">
+          <h2>Email verification required</h2>
+          <p>Verify your account before accessing the workspace.</p>
+        </div>
+
+        <div class="verify-box">
+          <strong>Verification note</strong>
+          <div class="portal-field-note">Paste the verification link or action code from the email if needed.</div>
+        </div>
+
+        <div class="portal-form">
+          <div class="portal-field">
+            <label for="verify-code">Verification Link or Code</label>
+            <input id="verify-code" type="text" placeholder="Paste the verification email link or code here"/>
+          </div>
+        </div>
+
+        <div class="portal-actions">
+          <button class="btn btn-stamp" type="button" onclick="portalApplyVerificationCode()">Verify Email</button>
+          <button class="btn btn-ghost" type="button" onclick="portalRefreshVerification()">I Already Verified</button>
+          <button class="btn btn-ghost" type="button" onclick="portalResendVerification()">Resend Email</button>
+        </div>
+
+        <div class="portal-status" id="verify-status">Open the verification email, then verify your address to continue.</div>
+
+        <div class="auth-switch">
+          Need to return to sign in? <a class="portal-link" href="#" onclick="event.preventDefault(); portalReturnToLogin();">Back to Sign In</a>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="portal.js"></script>
+</body>
+</html>
