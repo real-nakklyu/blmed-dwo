@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -54,30 +54,56 @@ html.route-loading body{
 
 /* в”Ђв”Ђ TOOLBAR в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ */
 .toolbar{
-  max-width:820px;margin:20px auto 0;padding:0 12px;
-  display:flex;justify-content:flex-end;gap:8px;
+  max-width:1040px;
+  margin:20px auto 0;
+  padding:0 12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+}
+.toolbar-actions{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  gap:10px;
+  flex:1;
 }
 .btn{
   font-family:'Manrope',Arial,sans-serif;
-  font-size:12px;font-weight:700;letter-spacing:.06em;
-  padding:6px 16px;cursor:pointer;border:none;
-  text-transform:uppercase;transition:all .15s;
-  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.05em;
+  padding:10px 16px;
+  min-height:42px;
+  cursor:pointer;
+  border:none;
+  text-transform:uppercase;
+  transition:all .15s ease;
+  border-radius:14px;
 }
 .btn-ghost{
-  background:var(--paper);
-  border:2px solid var(--rule-dk);
-  color:var(--ink-lt);
-  box-shadow:0 6px 12px rgba(29,36,48,.07);
+  background:rgba(255,253,248,.94);
+  border:1.5px solid rgba(148,138,123,.78);
+  color:var(--ink);
+  box-shadow:0 8px 18px rgba(29,36,48,.08);
 }
-.btn-ghost:hover{background:#fffdf8;transform:translateY(-1px);}
+.btn-ghost:hover{
+  background:#fff;
+  color:var(--stamp);
+  border-color:rgba(47,93,115,.7);
+  transform:translateY(-1px);
+}
 .btn-stamp{
-  background:var(--stamp);
-  border:2px solid #1a2838;
+  background:linear-gradient(135deg, #3b738d 0%, #2f5d73 100%);
+  border:1.5px solid #244658;
   color:#fff;
-  box-shadow:0 8px 16px rgba(26,40,56,.18);
+  box-shadow:0 12px 22px rgba(36,70,88,.2);
 }
-.btn-stamp:hover{background:#285066;transform:translateY(-1px);}
+.btn-stamp:hover{
+  background:linear-gradient(135deg, #447f9a 0%, #35677f 100%);
+  transform:translateY(-1px);
+}
 
 .workflow-bar{
   max-width:820px;
@@ -1340,16 +1366,45 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   font-family:'Manrope',Arial,sans-serif;
   font-size:11px;font-weight:700;letter-spacing:.06em;
   text-transform:uppercase;cursor:pointer;
-  background:var(--paper);
-  border:2px solid var(--rule-dk);
+  background:rgba(255,253,248,.92);
+  border:1.5px solid rgba(148,138,123,.78);
   color:var(--stamp);
-  padding:8px 14px;
-  margin-bottom:12px;
-  border-radius:999px;
-  box-shadow:0 6px 12px rgba(29,36,48,.07);
+  padding:10px 14px;
+  margin-bottom:0;
+  min-height:42px;
+  border-radius:14px;
+  box-shadow:0 8px 18px rgba(29,36,48,.08);
   display:flex;align-items:center;gap:6px;
 }
-.back-btn:hover{background:#fffdf8;color:var(--stamp);transform:translateY(-1px);}
+.back-btn:hover{
+  background:#fff;
+  color:var(--stamp);
+  border-color:rgba(47,93,115,.7);
+  transform:translateY(-1px);
+}
+
+@media (max-width:900px){
+  .toolbar{
+    align-items:stretch;
+    flex-direction:column;
+  }
+  .toolbar-actions{
+    width:100%;
+    justify-content:flex-start;
+  }
+  .toolbar-actions .btn,
+  .back-btn{
+    flex:1 1 calc(50% - 10px);
+  }
+}
+
+@media (max-width:640px){
+  .toolbar-actions .btn,
+  .back-btn{
+    flex:1 1 100%;
+    width:100%;
+  }
+}
 
 /* в”Ђв”Ђ CRITERIA CHECKBOXES (for wheelchair/bed forms) в”Ђв”Ђв”Ђ */
 .criteria-section{
@@ -1740,11 +1795,12 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 
 <div class="toolbar" style="margin-top:16px">
   <button class="back-btn" onclick="goHome()">&larr; Back to Home</button>
-  <div style="flex:1"></div>
-  <button class="btn btn-ghost" onclick="saveRecordPackage()">[ SAVE RECORD ]</button>
-  <button class="btn btn-ghost" onclick="handleFaxPrint()">[ PRINT FAX PACKAGE ]</button>
-  <button class="btn btn-ghost" onclick="clearForm()">[ CLEAR FORM ]</button>
-  <button class="btn btn-stamp" onclick="handlePrint()">[ PRINT / SAVE PDF ]</button>
+  <div class="toolbar-actions">
+    <button class="btn btn-ghost" onclick="saveRecordPackage()">Save Record</button>
+    <button class="btn btn-ghost" onclick="handleFaxPrint()">Print Fax Package</button>
+    <button class="btn btn-ghost" onclick="clearForm()">Clear Form</button>
+    <button class="btn btn-stamp" onclick="handlePrint()">Print / Save PDF</button>
+  </div>
 </div>
 <div class="workflow-bar">
   <div class="workflow-panel">
