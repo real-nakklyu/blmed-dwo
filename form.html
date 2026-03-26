@@ -187,11 +187,11 @@ html.route-loading body{
 }
 body.fax-cover-enabled .fax-cover-wrap{display:block}
 .fax-cover{
-  background:var(--paper);
-  border:none;
-  box-shadow:var(--sh);
-  border-radius:26px;
-  padding:28px 30px 24px;
+  background:#fff;
+  border:1px solid rgba(148,138,123,.55);
+  box-shadow:0 10px 28px rgba(29,36,48,.08);
+  border-radius:8px;
+  padding:24px 26px 22px;
   min-height:260mm;
   position:relative;
 }
@@ -201,62 +201,83 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 .fax-cover-content{
   position:relative;
   z-index:1;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
 }
 .fax-cover-title{
-  font-family:'Special Elite',cursive;
-  font-size:26px;
-  color:var(--red);
-  margin-bottom:10px;
+  font-family:'Manrope',Arial,sans-serif;
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#23384a;
+  margin-bottom:4px;
 }
 .fax-cover-sub{
-  font-family:'Courier Prime',monospace;
-  font-size:11px;
-  letter-spacing:.08em;
+  font-family:'Manrope',Arial,sans-serif;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.14em;
   text-transform:uppercase;
   color:var(--ink-lt);
-  margin-bottom:16px;
+  margin-bottom:0;
 }
 .fax-cover-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px 18px;
-  margin-bottom:16px;
+  gap:0 24px;
+  margin-bottom:0;
 }
 .fax-line{
-  background:#fffdf8;
-  border:1px solid rgba(148,138,123,.45);
-  border-radius:14px;
-  padding:10px 12px;
-  min-height:58px;
+  background:none;
+  border:none;
+  border-bottom:1px solid rgba(148,138,123,.45);
+  border-radius:0;
+  padding:8px 0 9px;
+  min-height:54px;
 }
 .fax-label{
   display:block;
-  font-family:'Courier Prime',monospace;
+  font-family:'Manrope',Arial,sans-serif;
   font-size:9px;
-  letter-spacing:.08em;
+  font-weight:800;
+  letter-spacing:.14em;
   text-transform:uppercase;
-  color:var(--ink-lt);
-  margin-bottom:4px;
+  color:#5b6774;
+  margin-bottom:5px;
 }
 .fax-value{
-  font-family:'Courier Prime',monospace;
+  font-family:'Manrope',Arial,sans-serif;
   font-size:13px;
+  line-height:1.45;
   color:var(--ink);
   white-space:pre-wrap;
 }
 .fax-message{
-  border:none;
-  background:#fffdf8;
-  border-radius:18px;
-  min-height:120px;
-  padding:14px 16px;
-  margin-bottom:18px;
+  border-top:2px solid #2f5d73;
+  border-bottom:1px solid rgba(148,138,123,.45);
+  background:none;
+  border-radius:0;
+  min-height:112px;
+  padding:10px 0 12px;
+  margin-bottom:0;
 }
 .fax-footer{
   font-family:'Courier Prime',monospace;
   font-size:11px;
   line-height:1.6;
   color:var(--ink);
+}
+.fax-section-title{
+  display:block;
+  font-family:'Manrope',Arial,sans-serif;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#23384a;
+  margin-bottom:8px;
 }
 .modal-backdrop{
   position:fixed;
@@ -373,47 +394,112 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 .fax-cover-brand{
   display:flex;
   justify-content:space-between;
-  gap:20px;
-  padding-bottom:18px;
-  border-bottom:1px solid rgba(148,138,123,.45);
-  margin-bottom:18px;
+  align-items:flex-start;
+  gap:24px;
+  padding-bottom:14px;
+  border-bottom:2px solid #2f5d73;
+  margin-bottom:0;
 }
 .fax-cover-brand .brand-name{
-  font-size:28px;
+  font-family:'Fraunces',Georgia,serif;
+  font-size:30px;
+  line-height:1;
+  color:#223648;
 }
 .fax-cover-brand .brand-sub{
-  margin-top:6px;
+  margin-top:5px;
+  font-family:'Manrope',Arial,sans-serif;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#55616e;
+}
+.fax-cover-brand .brand-contact{
+  margin-top:8px;
+  font-family:'Manrope',Arial,sans-serif;
+  font-size:11px;
+  line-height:1.45;
+  color:#33404d;
 }
 .fax-cover-badge{
   text-align:right;
-  min-width:180px;
+  min-width:220px;
+  padding-left:22px;
+  border-left:1px solid rgba(148,138,123,.45);
+}
+.fax-cover-kicker{
+  font-family:'Manrope',Arial,sans-serif;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#5b6774;
+  margin-bottom:7px;
 }
 .fax-cover-badge .fax-cover-title{
-  margin-bottom:4px;
+  margin-bottom:6px;
 }
 .fax-cover-badge .fax-cover-sub{
   margin-bottom:0;
 }
 .fax-cover-alert{
-  border:none;
-  background:none;
-  padding:0;
-  margin-bottom:16px;
+  padding:8px 0 10px;
+  margin-bottom:0;
+  border-bottom:1px solid rgba(148,138,123,.45);
+  font-family:'Manrope',Arial,sans-serif;
   font-size:11px;
-  line-height:1.6;
+  line-height:1.55;
+  color:#33404d;
+}
+.fax-cover-alert strong{
+  color:#223648;
 }
 .fax-cover-disclaimer{
-  border:none;
+  border-top:1px solid rgba(148,138,123,.45);
   background:none;
-  padding:0;
-  font-size:10.5px;
-  line-height:1.65;
+  padding-top:12px;
+  font-size:10px;
+  line-height:1.58;
+  color:#36424f;
+}
+.fax-cover-legal-title{
+  font-family:'Manrope',Arial,sans-serif;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#223648;
+  margin-bottom:8px;
 }
 .fax-cover-disclaimer strong{
   color:var(--ink);
 }
 .fax-cover-disclaimer p + p{
-  margin-top:10px;
+  margin-top:8px;
+}
+
+@media (max-width:760px){
+  .fax-cover{
+    padding:20px 18px 18px;
+  }
+  .fax-cover-brand{
+    flex-direction:column;
+    gap:14px;
+  }
+  .fax-cover-badge{
+    min-width:0;
+    width:100%;
+    text-align:left;
+    padding-left:0;
+    padding-top:12px;
+    border-left:none;
+    border-top:1px solid rgba(148,138,123,.45);
+  }
+  .fax-cover-grid{
+    grid-template-columns:1fr;
+    gap:0;
+  }
 }
 
 /* в”Ђв”Ђ MAIN PAPER в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ */
@@ -761,16 +847,90 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     display:block!important;
     max-width:100%!important;
     padding:0!important;
-    margin:0 0 6mm!important;
+    margin:0!important;
     page-break-after:always!important;
   }
   body.fax-cover-enabled .fax-cover{
-    min-height:calc(297mm - 12mm)!important;
+    min-height:0!important;
+    height:auto!important;
     box-shadow:none!important;
     border:none!important;
     background:#fff!important;
+    padding:14px 18px 12px!important;
   }
   body.fax-cover-enabled .fax-cover::before{display:none!important}
+
+  /* ── FAX COVER: compact all sections for single A4 page ── */
+  body.fax-cover-enabled .fax-cover-content{
+    gap:6px!important;
+  }
+  body.fax-cover-enabled .fax-cover-brand{
+    padding-bottom:8px!important;
+    margin-bottom:0!important;
+  }
+  body.fax-cover-enabled .fax-cover-brand .brand-name{
+    font-size:20px!important;
+  }
+  body.fax-cover-enabled .fax-cover-brand .brand-sub{
+    font-size:9px!important;
+    margin-top:3px!important;
+  }
+  body.fax-cover-enabled .fax-cover-brand .brand-contact{
+    font-size:9px!important;
+    margin-top:4px!important;
+  }
+  body.fax-cover-enabled .fax-cover-kicker{
+    font-size:8px!important;
+    margin-bottom:4px!important;
+  }
+  body.fax-cover-enabled .fax-cover-title{
+    font-size:16px!important;
+    margin-bottom:2px!important;
+  }
+  body.fax-cover-enabled .fax-cover-sub{
+    font-size:9px!important;
+  }
+  body.fax-cover-enabled .fax-cover-alert{
+    padding:5px 0 6px!important;
+    font-size:10px!important;
+  }
+  /* Grid: 2 columns — 2 fields per row */
+  body.fax-cover-enabled .fax-cover-grid{
+    grid-template-columns:1fr 1fr!important;
+    gap:0 24px!important;
+  }
+  body.fax-cover-enabled .fax-line{
+    min-height:0!important;
+    padding:5px 0 6px!important;
+  }
+  body.fax-cover-enabled .fax-label{
+    font-size:7.5px!important;
+    margin-bottom:2px!important;
+  }
+  body.fax-cover-enabled .fax-value{
+    font-size:11px!important;
+    line-height:1.35!important;
+  }
+  body.fax-cover-enabled .fax-message{
+    min-height:70px!important;
+    padding:7px 0 8px!important;
+  }
+  body.fax-cover-enabled .fax-section-title{
+    font-size:8.5px!important;
+    margin-bottom:4px!important;
+  }
+  body.fax-cover-enabled .fax-cover-disclaimer{
+    padding-top:8px!important;
+    font-size:8px!important;
+    line-height:1.45!important;
+  }
+  body.fax-cover-enabled .fax-cover-legal-title{
+    font-size:8px!important;
+    margin-bottom:4px!important;
+  }
+  body.fax-cover-enabled .fax-cover-disclaimer p + p{
+    margin-top:5px!important;
+  }
 
   .paper{max-width:100%!important;padding:0!important;margin:0!important;height:100%!important}
 
@@ -1837,12 +1997,13 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
           <div class="brand-contact">Phone (305) 909-0880 &nbsp;&middot;&nbsp; Fax (305) 539-0880</div>
         </div>
         <div class="fax-cover-badge">
+          <div class="fax-cover-kicker">Confidential Transmission</div>
           <div class="fax-cover-title">Fax Cover Sheet</div>
-          <div class="fax-cover-sub">DWO Transmission</div>
+          <div class="fax-cover-sub">Detailed Written Order Package</div>
         </div>
       </div>
       <div class="fax-cover-alert">
-        <strong>Transmission Support:</strong> Please call <strong>305-909-0880</strong> if there is any problem with transmission.
+        <strong>Please call if there is any problem in transmission:</strong> 305-242-6069
       </div>
       <div class="fax-cover-grid">
         <div class="fax-line"><span class="fax-label">To</span><div class="fax-value" id="fax-preview-to-name"></div></div>
@@ -1855,11 +2016,11 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
         <div class="fax-line"><span class="fax-label">From</span><div class="fax-value" id="fax-preview-from">Better Life Medical<br/>Ph (305) 909-0880<br/>Fx (305) 539-0880</div></div>
       </div>
       <div class="fax-message">
-        <span class="fax-label">Message</span>
+        <span class="fax-section-title">Message</span>
         <div class="fax-value" id="fax-preview-notes"></div>
       </div>
       <div class="fax-cover-disclaimer">
-        <p><strong>Confidential and Privileged</strong></p>
+        <p class="fax-cover-legal-title">Confidential and Privileged</p>
         <p><strong>Protected Health Information (PHI):</strong> Protected Health Information (PHI) is personal and sensitive information related to a person's healthcare. It is being printed or faxed to you after appropriate authorization from the patient or under circumstances that do not require patient authorization. The recipient of this information is obligated to maintain it in a safe, secure, and confidential manner. Re-disclosure without additional patient consent or as permitted by law is prohibited. Unauthorized re-disclosure or failure to maintain confidentiality could subject you to penalties described in federal and state law.</p>
         <p><strong>Important Notice:</strong> This message is intended only for the use of the individual or entity to which it is addressed. It may contain information that is privileged, confidential and exempt from disclosure under law. If the reader of this message is not the intended recipient, you are hereby notified that any dissemination, distribution or copying of this communication is strictly prohibited. If you have received this communication in error, please notify us immediately by telephone, and return the original message to us at the below address via the United States Postal Service. Thank you.</p>
       </div>
