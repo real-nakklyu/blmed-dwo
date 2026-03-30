@@ -16,7 +16,7 @@
       <div class="portal-topbar">
         <div class="portal-brand">
           <h1>Saved Records</h1>
-          <p>Search by patient name or date of birth, then reopen the DWO in the form page.</p>
+          <p>Search your saved DWOs by patient, doctor, insurance, HCPCS, diagnosis, or form type, then reopen or start a fresh DWO from a previous one.</p>
         </div>
         <div class="portal-nav">
           <a class="btn btn-ghost portal-link" href="index.html">Home</a>
@@ -25,15 +25,61 @@
         </div>
       </div>
 
-      <div class="portal-field" style="max-width:420px;">
+      <section class="portal-section">
+        <div class="section-heading">
+          <div>
+            <h2>My Shortcuts</h2>
+            <p>Private to your account. Recent items update automatically from your saved DWOs, and pinned items stay available until you remove them.</p>
+          </div>
+        </div>
+        <div class="portal-grid shortcut-grid">
+          <article class="portal-card shortcut-card">
+            <h3>Recent Patients</h3>
+            <div class="shortcut-list" id="recent-patients-list"></div>
+          </article>
+          <article class="portal-card shortcut-card">
+            <h3>Recent Doctors</h3>
+            <div class="shortcut-list" id="recent-doctors-list"></div>
+          </article>
+          <article class="portal-card shortcut-card">
+            <h3>Pinned Patients</h3>
+            <div class="shortcut-list" id="pinned-patients-list"></div>
+          </article>
+          <article class="portal-card shortcut-card">
+            <h3>Pinned Doctors</h3>
+            <div class="shortcut-list" id="pinned-doctors-list"></div>
+          </article>
+        </div>
+      </section>
+
+      <div class="portal-field records-search-field">
         <label for="records-search">Search</label>
-        <input id="records-search" type="text" placeholder="Patient name or DOB"/>
+        <input id="records-search" type="text" placeholder="Patient, doctor, DOB, phone, insurance, HCPCS, diagnosis, or form"/>
       </div>
 
       <div class="portal-status" id="records-status">Loading records...</div>
       <div class="records-list" id="records-list"></div>
     </section>
   </main>
+
+  <div class="portal-modal-backdrop" id="shortcut-dwo-modal">
+    <div class="portal-modal-card">
+      <div class="portal-modal-title" id="shortcut-dwo-modal-title">Choose DWO Form</div>
+      <div class="portal-modal-text" id="shortcut-dwo-modal-text">Select which DWO form should open for this shortcut.</div>
+      <div class="portal-modal-grid">
+        <button class="btn btn-ghost" type="button" onclick="portalConfirmShortcutDwo('standard')">Standard DWO</button>
+        <button class="btn btn-ghost" type="button" onclick="portalConfirmShortcutDwo('wheelchair')">Manual Wheelchair</button>
+        <button class="btn btn-ghost" type="button" onclick="portalConfirmShortcutDwo('bed')">Hospital Bed</button>
+        <button class="btn btn-ghost" type="button" onclick="portalConfirmShortcutDwo('compression')">Compression Stockings</button>
+        <button class="btn btn-ghost" type="button" onclick="portalConfirmShortcutDwo('oxygen')">Oxygen</button>
+        <button class="btn btn-ghost" type="button" onclick="portalConfirmShortcutDwo('nutrition')">Nutrition</button>
+        <button class="btn btn-ghost" type="button" onclick="portalConfirmShortcutDwo('hoyer')">Hoyer Lift</button>
+      </div>
+      <div class="portal-actions">
+        <button class="btn btn-stamp" type="button" onclick="portalCloseShortcutDwoModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
 
   <script src="portal.js"></script>
 </body>

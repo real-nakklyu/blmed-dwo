@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Better Life Medical - User Manual</title>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="portal.css"/>
+</head>
+<body class="portal-body" data-page="manual">
+  <main class="portal-shell">
+    <section class="portal-panel">
+      <div class="portal-topbar">
+        <div class="portal-brand">
+          <h1>User Manual</h1>
+          <p>Learn the fastest way to create DWOs, reuse saved information, and get clean print-ready forms out of the app.</p>
+        </div>
+        <div class="portal-nav">
+          <a class="btn btn-ghost portal-link" href="index.html">Home</a>
+          <a class="btn btn-ghost portal-link" href="records.html">Saved Records</a>
+          <a class="btn btn-ghost portal-link" href="profile.html">Profile</a>
+          <button class="btn btn-stamp" type="button" onclick="portalSignOut()">Sign Out</button>
+        </div>
+      </div>
+
+      <div class="guide-layout">
+        <article class="portal-card hero-card guide-hero">
+          <div class="guide-kicker">Staff Guide</div>
+          <div class="hero-header">
+            <div>
+              <h2>Use the app like a DWO workspace, not just a blank form.</h2>
+              <div class="hero-copy">
+                The fastest workflow is: start the right form, reuse existing patient and doctor details whenever possible, save every completed DWO, and use Saved Records as your personal library for future work.
+              </div>
+            </div>
+            <div class="hero-account">
+              <span>Signed in as</span>
+              <strong id="home-email"></strong>
+            </div>
+          </div>
+          <div class="hero-note" id="home-profile-note">Set up your profile for fax cover details.</div>
+          <div class="portal-actions">
+            <a class="btn btn-stamp portal-link" href="index.html">Start a New DWO</a>
+            <a class="btn btn-ghost portal-link" href="records.html">Open Saved Records</a>
+          </div>
+        </article>
+
+        <section class="guide-summary">
+          <article class="guide-stat">
+            <strong>1. Start Smart</strong>
+            <p>Choose the exact DWO form type first so the built-in code rules, criteria, and defaults work for you.</p>
+          </article>
+          <article class="guide-stat">
+            <strong>2. Reuse Data</strong>
+            <p>Pull patient and doctor details from saved DWOs instead of retyping them on every new order.</p>
+          </article>
+          <article class="guide-stat">
+            <strong>3. Save Everything</strong>
+            <p>Each saved DWO becomes searchable later for quick cloning, patient lookup, and physician reuse.</p>
+          </article>
+        </section>
+
+        <div class="portal-grid three">
+          <article class="portal-card guide-card">
+            <h3>Quick Start</h3>
+            <ol class="guide-steps">
+              <li>Open <a class="portal-link" href="index.html">Home</a> and choose the correct DWO form.</li>
+              <li>Fill patient details, diagnosis, physician details, and ordered items.</li>
+              <li>Use the built-in search or saved-record tools if the patient or doctor already exists in your account.</li>
+              <li>Save the record to keep it searchable for future forms.</li>
+              <li>Print or Save PDF once the checklist is complete.</li>
+            </ol>
+          </article>
+
+          <article class="portal-card guide-card">
+            <h3>Best Daily Workflow</h3>
+            <ol class="guide-steps">
+              <li>Check <a class="portal-link" href="records.html">Saved Records</a> first if the patient was handled before.</li>
+              <li>Use <strong>New From This</strong> when you want the same patient and doctor on a different DWO type.</li>
+              <li>Use recent or pinned patients/doctors for one-click reuse when the same names come up often.</li>
+              <li>Save the new DWO immediately after reviewing it so it stays in your personal library.</li>
+            </ol>
+          </article>
+
+          <article class="portal-card guide-card">
+            <h3>What Saves Time Most</h3>
+            <ul class="guide-list">
+              <li>Inline patient and doctor suggestions while typing names.</li>
+              <li>Quick Fill buttons inside forms for patient, doctor, or full saved-record import.</li>
+              <li>Recent and pinned shortcuts on the Saved Records page.</li>
+              <li>Automatic quantity defaults for supported form-specific code rules.</li>
+            </ul>
+          </article>
+        </div>
+
+        <article class="portal-card guide-card">
+          <h3>Home Page</h3>
+          <div class="guide-mini-grid">
+            <div class="guide-mini">
+              <h4>Pick the Right Form</h4>
+              <p>Each form on Home is already configured for a different DWO workflow. Choosing the correct form first activates the correct criteria section, order structure, and quantity logic.</p>
+            </div>
+            <div class="guide-mini">
+              <h4>Use Profile Early</h4>
+              <p>Your profile controls the identity details that appear on fax cover output. Set that once in <a class="portal-link" href="profile.html">Profile</a> and keep it updated.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="portal-card guide-card">
+          <h3>Working Inside a Form</h3>
+          <ul class="guide-list">
+            <li><strong>Patient and doctor smart suggestions:</strong> start typing a patient name or physician name and the form will search your saved DWOs for matches.</li>
+            <li><strong>Quick Fill section:</strong> use <em>Find Patient</em>, <em>Find Doctor</em>, or <em>Use Saved Record</em> when you want to pull information from an existing saved DWO.</li>
+            <li><strong>Carry-forward behavior:</strong> the app remembers useful form-level preferences like the fax cover subject and usual physician details by form type, plus patient-linked insurance details when name and DOB match.</li>
+            <li><strong>Checklist protection:</strong> the form highlights missing key fields before saving or printing so incomplete DWOs are easier to catch.</li>
+            <li><strong>Autosave drafts:</strong> while you type, the current form autosaves locally so accidental refreshes are less painful.</li>
+          </ul>
+          <div class="guide-callout">
+            <strong>Tip:</strong> when a patient already exists in your account, it is usually faster to reuse their details from a saved DWO than to type them again manually.
+          </div>
+        </article>
+
+        <article class="portal-card guide-card">
+          <h3>Saved Records Page</h3>
+          <ul class="guide-list">
+            <li><strong>Search deeply:</strong> search can find records by patient, doctor, insurance, HCPCS, diagnosis, phone, DOB, and form type.</li>
+            <li><strong>Open Record:</strong> use this when you want to continue editing the same saved DWO.</li>
+            <li><strong>New From This:</strong> use this when you want a fresh DWO that starts with the same patient and doctor information from a saved record.</li>
+            <li><strong>Recent Patients / Recent Doctors:</strong> these let you start a new DWO using commonly reused people from your own account history.</li>
+            <li><strong>Pinned Patients / Pinned Doctors:</strong> pin frequent names so they stay easy to reach without searching every time.</li>
+          </ul>
+        </article>
+
+        <article class="portal-card guide-card">
+          <h3>Keyboard Shortcuts</h3>
+          <div class="guide-shortcuts">
+            <div class="guide-shortcut">
+              <code>Ctrl/Cmd + S</code>
+              <p>Save the current DWO to cloud records.</p>
+            </div>
+            <div class="guide-shortcut">
+              <code>Ctrl/Cmd + P</code>
+              <p>Print or save the current DWO as PDF using the form's print output.</p>
+            </div>
+            <div class="guide-shortcut">
+              <code>/</code>
+              <p>Open patient lookup quickly when you are not typing inside a field.</p>
+            </div>
+            <div class="guide-shortcut">
+              <code>Alt + Shift + P</code>
+              <p>Open the patient quick-fill search directly.</p>
+            </div>
+            <div class="guide-shortcut">
+              <code>Alt + Shift + D</code>
+              <p>Open the doctor quick-fill search directly.</p>
+            </div>
+            <div class="guide-shortcut">
+              <code>Enter</code>
+              <p>Select the first autocomplete suggestion or move to the next visible field while filling out the form.</p>
+            </div>
+          </div>
+        </article>
+
+        <div class="portal-grid">
+          <article class="portal-card guide-card">
+            <h3>Printing and PDFs</h3>
+            <ul class="guide-list">
+              <li>The app uses the patient name, form name, and current date to create cleaner PDF/browser titles.</li>
+              <li>Use Print/Save PDF only after the checklist is clear so the final output is ready to send.</li>
+              <li>If you need a fax cover, make sure your profile is correct and physician fax details are filled in.</li>
+            </ul>
+          </article>
+
+          <article class="portal-card guide-card">
+            <h3>Profile Page</h3>
+            <ul class="guide-list">
+              <li>Set your display label, first name, last name, and extension.</li>
+              <li>These details support your fax-cover identity and staff-specific workflow.</li>
+              <li>Each staff account works with its own saved records, shortcuts, and tracking.</li>
+            </ul>
+          </article>
+        </div>
+
+        <article class="portal-card guide-card">
+          <h3>Feature Highlights by Workflow</h3>
+          <div class="guide-mini-grid">
+            <div class="guide-mini">
+              <h4>Standard DWO</h4>
+              <p>Flexible HCPCS search and quantity logic for general equipment and supplies.</p>
+            </div>
+            <div class="guide-mini">
+              <h4>Wheelchair / Bed / Hoyer</h4>
+              <p>Built-in criteria sections and form-specific code defaults to reduce manual setup.</p>
+            </div>
+            <div class="guide-mini">
+              <h4>Compression / Oxygen / Nutrition</h4>
+              <p>Structured order flow for specialty cases where field layout matters more than a generic DWO grid.</p>
+            </div>
+            <div class="guide-mini">
+              <h4>Saved DWO Reuse</h4>
+              <p>Use old records as a working library for patients, doctors, and new forms instead of only as archives.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="portal-card guide-card">
+          <h3>Best Practices to Get the Most Out of the App</h3>
+          <ul class="guide-list">
+            <li>Save every completed DWO, even if it seems one-time. Future reuse is where the app becomes much faster.</li>
+            <li>Pin high-volume doctors and common repeat patients so they stay one click away.</li>
+            <li>Use <strong>New From This</strong> when the patient and doctor stay the same but the form type changes.</li>
+            <li>Keep physician fax numbers and profile details accurate so print and fax packages come out clean.</li>
+            <li>Let the form defaults help you, but always review editable fields before finalizing.</li>
+          </ul>
+          <div class="guide-callout">
+            <strong>Simple rule:</strong> if the information already exists in one saved DWO under your account, try to reuse it instead of typing it again.
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script src="portal.js"></script>
+</body>
+</html>

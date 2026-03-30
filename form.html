@@ -107,7 +107,7 @@ html.route-loading body{
 }
 
 .workflow-bar{
-  max-width:820px;
+  max-width:1040px;
   margin:0 auto 10px;
   padding:0 12px;
 }
@@ -118,7 +118,7 @@ html.route-loading body{
   border-radius:22px;
   padding:10px 12px;
   display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-columns:repeat(3,minmax(0,1fr));
   gap:10px;
 }
 .workflow-card{
@@ -343,6 +343,92 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   gap:8px;
   margin-top:16px;
 }
+.lookup-modal-card{
+  width:min(760px,100%);
+  max-height:calc(100vh - 36px);
+  display:flex;
+  flex-direction:column;
+}
+.lookup-toolbar{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+}
+.lookup-toolbar .modal-field{
+  flex:1;
+}
+.lookup-status{
+  font-family:'Courier Prime',monospace;
+  font-size:12px;
+  line-height:1.5;
+  color:var(--ink-lt);
+  margin-bottom:12px;
+}
+.lookup-results{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  overflow:auto;
+  padding-right:4px;
+  min-height:120px;
+}
+.lookup-result{
+  border:1px solid var(--rule);
+  border-radius:14px;
+  background:rgba(255,248,238,.95);
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.lookup-result-head{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
+}
+.lookup-result h3{
+  font-size:15px;
+  line-height:1.3;
+}
+.lookup-result-sub{
+  font-size:11px;
+  color:var(--ink-lt);
+  line-height:1.4;
+}
+.lookup-pill{
+  flex-shrink:0;
+  border:1px solid rgba(47,93,115,.28);
+  background:rgba(47,93,115,.08);
+  color:var(--stamp);
+  border-radius:999px;
+  padding:4px 9px;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.lookup-result-meta{
+  font-size:12px;
+  line-height:1.55;
+  color:var(--ink);
+}
+.lookup-result-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+}
+.lookup-empty{
+  border:1px dashed var(--rule);
+  border-radius:14px;
+  padding:18px 16px;
+  background:rgba(255,255,255,.5);
+  font-size:12px;
+  line-height:1.6;
+  color:var(--ink-lt);
+}
+
 .records-list{
   display:flex;
   flex-direction:column;
@@ -1305,6 +1391,10 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     padding:31px 10px 6px!important;
   }
   .sheet[data-form="wheelchair"] .sig-line{margin-top:81px!important}
+  .sheet[data-form="hoyer"] .sig-block{
+    padding:54px 10px 6px!important;
+  }
+  .sheet[data-form="hoyer"] .sig-line{margin-top:110px!important}
 
   .sheet[data-form="compression"] .sig-block{
     padding:100px 10px 6px!important;
@@ -1645,6 +1735,26 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 .variant-btn.active{
   background:var(--stamp);color:#fff;border-color:#1a2838;
 }
+.hoyer-options{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 18px;
+  padding:6px 32px 4px;
+  position:relative;
+  z-index:1;
+}
+.hoyer-option{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-family:'Courier Prime',monospace;
+  font-size:10px;
+  color:var(--ink);
+  cursor:pointer;
+}
+.hoyer-option input{
+  accent-color:var(--red);
+}
 
 /* PRINT additions for criteria */
 @media print{
@@ -1704,33 +1814,61 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     padding:2px 5px!important;font-size:7pt!important;
     background:#2a3d5c!important;color:#fff!important;
   }
-  #wc-rows tr td,#bed-rows tr td{
+  #wc-rows tr td,#bed-rows tr td,#hoyer-rows tr td{
     padding:2px 4px!important;
     border-bottom:0.7px solid #ccc!important;
     border-right:0.5px solid #e0e0e0!important;
   }
-  #wc-rows input,#bed-rows input{font-size:7.5pt!important;padding:1px 2px!important}
-  #wc-rows span,#bed-rows span{font-size:7.5pt!important;padding:0 3px!important;display:block!important}
+  #wc-rows input,#bed-rows input,#hoyer-rows input{font-size:7.5pt!important;padding:1px 2px!important}
+  #wc-rows span,#bed-rows span,#hoyer-rows span{font-size:7.5pt!important;padding:0 3px!important;display:block!important}
   #section-order-wheelchair .sec-label,
-  #section-order-bed .sec-label{padding:2px 0 1px!important}
+  #section-order-bed .sec-label,
+  #section-order-hoyer .sec-label{padding:2px 0 1px!important}
 
   /* в”Ђв”Ђ LENGTH OF NEED в”Ђв”Ђ */
   .lon-row{
     padding:2px 10px!important;font-size:7pt!important;
     flex-shrink:0!important;gap:10px!important;
   }
+  .hoyer-options{
+    padding:2px 10px 3px!important;
+    gap:8px 14px!important;
+  }
+  .hoyer-option{
+    font-size:7pt!important;
+    gap:4px!important;
+  }
+  .hoyer-option input{
+    width:9px!important;
+    height:9px!important;
+  }
 
   /* в”Ђв”Ђ HIDE WRONG CRITERIA SECTION в”Ђв”Ђ */
   .sheet[data-form="wheelchair"] #section-criteria-bed,
+  .sheet[data-form="wheelchair"] #section-criteria-hoyer,
   .sheet[data-form="bed"] #section-criteria-wheelchair,
+  .sheet[data-form="bed"] #section-criteria-hoyer,
+  .sheet[data-form="hoyer"] #section-criteria-wheelchair,
+  .sheet[data-form="hoyer"] #section-criteria-bed,
   .sheet[data-form="standard"] #section-criteria-wheelchair,
-  .sheet[data-form="standard"] #section-criteria-bed{
+  .sheet[data-form="standard"] #section-criteria-bed,
+  .sheet[data-form="standard"] #section-criteria-hoyer,
+  .sheet[data-form="compression"] #section-criteria-wheelchair,
+  .sheet[data-form="compression"] #section-criteria-bed,
+  .sheet[data-form="compression"] #section-criteria-hoyer,
+  .sheet[data-form="nutrition"] #section-criteria-wheelchair,
+  .sheet[data-form="nutrition"] #section-criteria-bed,
+  .sheet[data-form="nutrition"] #section-criteria-hoyer,
+  .sheet[data-form="oxygen"] #section-criteria-wheelchair,
+  .sheet[data-form="oxygen"] #section-criteria-bed,
+  .sheet[data-form="oxygen"] #section-criteria-hoyer{
     display:none!important;
   }
 
   /* в”Ђв”Ђ CRITERIA вЂ” grows to fill remaining height в”Ђв”Ђ */
   .sheet[data-form="wheelchair"] #section-criteria-wheelchair,
-  .sheet[data-form="bed"] #section-criteria-bed{
+  .sheet[data-form="bed"] #section-criteria-bed,
+  .sheet[data-form="hoyer"] #section-criteria-hoyer{
     flex:1 1 0!important;
     display:flex!important;
     flex-direction:column!important;
@@ -1781,6 +1919,9 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   }
   /* Hospital Bed: 2x = 144px */
   .sheet[data-form="bed"] #sec-notes .f textarea{
+    min-height:144px!important;max-height:144px!important;height:144px!important;
+  }
+  .sheet[data-form="hoyer"] #sec-notes .f textarea{
     min-height:144px!important;max-height:144px!important;height:144px!important;
   }
   /* Standard form keeps the previous size */
@@ -1927,10 +2068,10 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
         <div class="codes">Nutrition HCPCS Codes</div>
       </div>
 
-      <div class="form-card" style="opacity:.5;pointer-events:none;cursor:default">
+      <div class="form-card" onclick="startNewForm('hoyer')">
         <h3>Hoyer Lift</h3>
-        <p>Coming soon - patient lift equipment DWO form.</p>
-        <div class="codes">E0621 &middot; E0635 &middot; E0636</div>
+        <p>Patient lift order with selectable lift and sling HCPCS options plus medical necessity criteria.</p>
+        <div class="codes">E0630 &middot; E0635 &middot; E0621</div>
       </div>
 
     </div>
@@ -1981,6 +2122,16 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
       <div class="workflow-note">Profile details for the fax cover are managed on the Profile page.</div>
     </div>
     <div class="workflow-card">
+      <div class="workflow-title">Quick Fill</div>
+      <div class="workflow-actions">
+        <button class="btn btn-ghost" type="button" onclick="openRecordLookupModal('patient')">Find Patient</button>
+        <button class="btn btn-ghost" type="button" onclick="openRecordLookupModal('doctor')">Find Doctor</button>
+        <button class="btn btn-ghost" type="button" onclick="openRecordLookupModal('record')">Use Saved Record</button>
+      </div>
+      <div class="workflow-note" id="quick-fill-status">Search your saved records to reuse patient or doctor info in this form.</div>
+      <div class="workflow-note">Only patient and physician details are imported. Order items stay on the current form.</div>
+    </div>
+    <div class="workflow-card">
       <div class="workflow-title">Fax Cover Sheet</div>
       <div class="workflow-note" id="fax-profile-status">Your saved profile details will be used automatically for the fax cover.</div>
       <input id="cover_to_name" type="text" placeholder="Doctor or office name"/>
@@ -2010,7 +2161,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
         </div>
       </div>
       <div class="fax-cover-alert">
-        <strong>Please call if there is any problem in transmission:</strong> 305-909-0880
+        <strong>Please call if there is any problem in transmission:</strong> 305-242-6069
       </div>
       <div class="fax-cover-grid">
         <div class="fax-line"><span class="fax-label">To</span><div class="fax-value" id="fax-preview-to-name"></div></div>
@@ -2062,8 +2213,8 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   <div class="sec">
     <div class="sec-label"><span class="stamp">I. Patient Information</span><span class="rule-line"></span></div>
     <div class="frow g2">
-      <div class="f"><label>Full Name</label><input id="patient_name" type="text" placeholder="Last, First Middle" oninput="toUpper(this)"/></div>
-      <div class="f"><label>Date of Birth</label><input id="dob" class="us-date" type="text" placeholder="MM/DD/YYYY" maxlength="10" inputmode="numeric" pattern="\d{2}/\d{2}/\d{4}" oninput="dateMask(this)" onblur="normalizeUSDate(this)" autocomplete="off" spellcheck="false"/></div>
+      <div class="f ac"><label>Full Name</label><input id="patient_name" type="text" placeholder="Last, First Middle" autocomplete="off" oninput="toUpper(this); patientSmartSearch(this)" onblur="window.setTimeout(() => closeDrop(document.getElementById('patient_name_drop')), 120)"/><div class="drop" id="patient_name_drop"></div></div>
+      <div class="f"><label>Date of Birth</label><input id="dob" class="us-date" type="text" placeholder="MM/DD/YYYY" maxlength="10" inputmode="numeric" pattern="\d{2}/\d{2}/\d{4}" oninput="dateMask(this)" onblur="normalizeUSDate(this); applyPatientInsuranceCarryForward()" autocomplete="off" spellcheck="false"/></div>
     </div>
     <div class="frow g1">
       <div class="f ac">
@@ -2207,6 +2358,27 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     </div>
   </div>
 
+  <!-- 02 ORDER — HOYER LIFT form -->
+  <div id="section-order-hoyer" style="display:none">
+    <div class="order-wrap">
+      <div class="sec-label"><span class="stamp">II. Equipment &amp; Supply Order</span><span class="rule-line"></span></div>
+      <div class="hoyer-options">
+        <label class="hoyer-option"><input type="checkbox" id="hoyer-code-e0630" onchange="syncHoyerRows({ preserveExisting: true })"/> E0630 Hydraulic / Mechanical Lift</label>
+        <label class="hoyer-option"><input type="checkbox" id="hoyer-code-e0635" onchange="syncHoyerRows({ preserveExisting: true })"/> E0635 Electric Lift</label>
+        <label class="hoyer-option"><input type="checkbox" id="hoyer-code-e0621" onchange="syncHoyerRows({ preserveExisting: true })"/> E0621 Sling / Seat</label>
+      </div>
+      <table>
+        <thead><tr><th>#</th><th class="col-hcpcs">HCPCS Code</th><th>Item Description</th><th class="col-qty">Qty</th></tr></thead>
+        <tbody id="hoyer-rows"></tbody>
+      </table>
+    </div>
+    <div class="lon-row">
+      <span class="lon-label">Length of Need :</span>
+      <label class="lon-check"><input type="checkbox" id="hoyer-lon-lifetime" onchange="toggleHoyerLon()"/> Lifetime</label>
+      <span class="lon-months">Other Months: <input type="text" id="hoyer-lon-months" placeholder="__"/></span>
+    </div>
+  </div>
+
   <!-- 03 CRITERIA вЂ” wheelchair (hidden for standard) -->
   <div id="section-criteria-wheelchair" style="display:none">
     <div class="criteria-section">
@@ -2303,6 +2475,28 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
           <label class="criteria-check"><input type="checkbox" class="bed-not" data-n="5"/> NOT</label>
         </div>
         <div class="criteria-text bed-criteria-text"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 CRITERIA — hoyer lift -->
+  <div id="section-criteria-hoyer" style="display:none">
+    <div class="criteria-section">
+      <div class="sec-label"><span class="stamp">III. Medical Necessity Criteria</span><span class="rule-line"></span></div>
+      <div class="criteria-title">Complete the patient lift medical necessity checklist.</div>
+      <div class="criteria-row">
+        <div class="criteria-checks">
+          <label class="criteria-check"><input type="checkbox" class="hoyer-yes" data-n="1"/> YES</label>
+          <label class="criteria-check"><input type="checkbox" class="hoyer-not" data-n="1"/> NOT</label>
+        </div>
+        <div class="criteria-text hoyer-criteria-text"></div>
+      </div>
+      <div class="criteria-row">
+        <div class="criteria-checks">
+          <label class="criteria-check"><input type="checkbox" class="hoyer-yes" data-n="2"/> YES</label>
+          <label class="criteria-check"><input type="checkbox" class="hoyer-not" data-n="2"/> NOT</label>
+        </div>
+        <div class="criteria-text hoyer-criteria-text"></div>
       </div>
     </div>
   </div>
@@ -2413,8 +2607,8 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     <!-- Patient Information -->
     <div class="sec" style="padding-bottom:4px">
       <div class="sec-label"><span class="stamp">I. Patient Information</span><span class="rule-line"></span></div>
-      <div class="frow g2" style="margin-bottom:6px">
-        <div class="f"><label>Patient Name</label><input id="oxy-pat-name" type="text" oninput="toUpper(this)"/></div>
+    <div class="frow g2" style="margin-bottom:6px">
+        <div class="f ac"><label>Patient Name</label><input id="oxy-pat-name" type="text" autocomplete="off" oninput="toUpper(this); patientSmartSearch(this)" onblur="window.setTimeout(() => closeDrop(document.getElementById('oxy-pat-name_drop')), 120)"/><div class="drop" id="oxy-pat-name_drop"></div></div>
         <div class="f" style="max-width:120px"><label>DOB</label><input id="oxy-dob" class="us-date" type="text" placeholder="MM/DD/YYYY" maxlength="10" inputmode="numeric" pattern="\d{2}/\d{2}/\d{4}" oninput="dateMask(this)" onblur="normalizeUSDate(this)" autocomplete="off" spellcheck="false"/></div>
         <div class="f" style="max-width:110px;flex-shrink:0">
           <label>Gender</label>
@@ -2446,7 +2640,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
           <div class="drop" id="oxy-npi-drop"></div>
         </div>
         <div class="f"><label>License #</label><input id="oxy-lic-num" type="text" oninput="toUpper(this)"/></div>
-        <div class="f"><label>Physician Name</label><input id="oxy-phys-name" type="text" oninput="toUpper(this)"/></div>
+        <div class="f ac"><label>Physician Name</label><input id="oxy-phys-name" type="text" autocomplete="off" oninput="toUpper(this); doctorSmartSearch(this)" onblur="window.setTimeout(() => closeDrop(document.getElementById('oxy-phys-name_drop')), 120)"/><div class="drop" id="oxy-phys-name_drop"></div></div>
       </div>
       <div class="frow g3" style="margin-bottom:6px">
         <div class="f"><label>Specialty</label><input id="oxy-phys-type" type="text" oninput="toUpper(this)"/></div>
@@ -2539,7 +2733,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
         <div class="drop" id="npi_drop"></div>
       </div>
       <div class="f"><label>License #</label><input id="lic_num" type="text" oninput="toUpper(this)"/></div>
-      <div class="f"><label>Physician Name</label><input id="phys_name" type="text" placeholder="Dr. Full Name" oninput="toUpper(this)"/></div>
+      <div class="f ac"><label>Physician Name</label><input id="phys_name" type="text" placeholder="Dr. Full Name" autocomplete="off" oninput="toUpper(this); doctorSmartSearch(this)" onblur="window.setTimeout(() => closeDrop(document.getElementById('phys_name_drop')), 120)"/><div class="drop" id="phys_name_drop"></div></div>
     </div>
     <div class="frow g3" style="margin-bottom:14px">
       <div class="f"><label>Specialty</label><input id="phys_type" type="text" oninput="toUpper(this)"/></div>
@@ -2570,6 +2764,25 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 </div><!-- /paper -->
 </div><!-- /form-screen -->
 
+<div class="modal-backdrop" id="record-lookup-modal">
+  <div class="modal-card lookup-modal-card">
+    <div class="modal-title" id="record-lookup-title">Search Saved Records</div>
+    <div class="modal-text" id="record-lookup-text">Search your saved records and pull reusable patient or doctor details into the form you are working on now.</div>
+    <div class="lookup-toolbar">
+      <div class="modal-field">
+        <label for="record-lookup-search">Search</label>
+        <input id="record-lookup-search" type="text" placeholder="Search saved records"/>
+      </div>
+      <button class="btn btn-ghost" type="button" onclick="refreshRecordLookupResults()">Refresh</button>
+    </div>
+    <div class="lookup-status" id="record-lookup-status">Recent saved records will appear here.</div>
+    <div class="lookup-results" id="record-lookup-results"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" type="button" onclick="closeRecordLookupModal()">Close</button>
+    </div>
+  </div>
+</div>
+
 <script>
 // в”Ђв”Ђ FORM TYPE STATE в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 let currentForm = "standard";
@@ -2580,24 +2793,40 @@ const STORAGE_KEYS = {
   patients: "bl_dwo_patient_presets_v1",
   physicians: "bl_dwo_physician_presets_v1",
   staff: "bl_dwo_staff_profile_v2",
-  firebase: "bl_dwo_firebase_config_v1"
+  firebase: "bl_dwo_firebase_config_v1",
+  preferences: "bl_dwo_form_preferences_v1"
 };
 const AUTOSAVE_DELAY = 500;
 let autosaveTimer = null;
+let preferenceSaveTimer = null;
 let latestChecklist = [];
 let selectedRecordId = "";
 let currentCloudRecordId = "";
 let cloudRecordsCache = [];
+let recordLookupMode = "patient";
+let recordLookupResultsCache = [];
 let firebaseReady = false;
 let auth = null;
 let db = null;
 let authUser = null;
 let authStateBound = false;
+const FORM_FILE_LABELS = {
+  standard: "DME",
+  wheelchair: "WHEELCHAIR",
+  bed: "HOSPITAL BED",
+  hoyer: "HOYER LIFT",
+  compression: "COMPRESSION",
+  oxygen: "OXYGEN",
+  nutrition: "NUTRITION"
+};
 const requestedParams = new URLSearchParams(window.location.search);
 const requestedFormType = requestedParams.get("form");
 const requestedRecordId = requestedParams.get("record");
+const requestedCloneId = requestedParams.get("clone");
+const requestedSeedRecordId = requestedParams.get("seedRecord");
+const requestedSeedType = requestedParams.get("seedType");
 let requestedRouteApplied = false;
-if(requestedFormType || requestedRecordId){
+if(requestedFormType || requestedRecordId || requestedCloneId || requestedSeedRecordId){
   document.documentElement.classList.add("route-loading");
 }
 const OFFICE_PHONE = "(305) 909-0880";
@@ -2621,6 +2850,11 @@ const BED_CRITERIA = [
   "The beneficiary requires the head of the bed to be elevated more than 30 degrees most of the time due to congestive heart failure, chronic pulmonary disease, or problems with aspiration.",
   "The beneficiary requires frequent changes in body position and/or has an immediate need for a change in body position.",
   "The beneficiary requires traction equipment, which can only be attached to a hospital bed."
+];
+
+const HOYER_CRITERIA = [
+  "The beneficiary would be bed confined without the use of a patient lift.",
+  "Transfer between the bed and a chair, wheelchair, or commode is required."
 ];
 
 // в”Ђв”Ђ WHEELCHAIR CODES в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
@@ -2670,6 +2904,12 @@ const BED_CODES = {
     {code:"", desc:""},
   ]
 };
+
+const HOYER_CODES = [
+  {code:"E0630", desc:"PATIENT LIFT, HYDRAULIC OR MECHANICAL, INCLUDES ANY SEAT, SLING"},
+  {code:"E0635", desc:"PATIENT LIFT, ELECTRIC WITH SEAT OR SLING"},
+  {code:"E0621", desc:"SLING OR SEAT, PATIENT LIFT, CANVAS OR NYLON"}
+];
 
 // в”Ђв”Ђ HOME / FORM NAVIGATION в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 function showScreen(name){
@@ -2758,9 +2998,11 @@ function openForm(type, preserveRecord){
   document.getElementById("section-order-standard").style.display    = (type === "standard" || type === "nutrition") ? "" : "none";
   document.getElementById("section-order-wheelchair").style.display  = type === "wheelchair"  ? "" : "none";
   document.getElementById("section-order-bed").style.display         = type === "bed"         ? "" : "none";
+  document.getElementById("section-order-hoyer").style.display       = type === "hoyer"       ? "" : "none";
   document.getElementById("section-nutrition").style.display         = type === "nutrition"   ? "" : "none";
   document.getElementById("section-criteria-wheelchair").style.display = type === "wheelchair" ? "" : "none";
   document.getElementById("section-criteria-bed").style.display      = type === "bed"         ? "" : "none";
+  document.getElementById("section-criteria-hoyer").style.display    = type === "hoyer"       ? "" : "none";
   document.getElementById("section-compression").style.display       = type === "compression" ? "" : "none";
   document.getElementById("section-oxygen").style.display            = type === "oxygen"       ? "" : "none";
   // Tag the sheet so print CSS knows which form is active
@@ -2774,7 +3016,7 @@ function openForm(type, preserveRecord){
   const mainFootnote = document.querySelector(".sheet > .footnote"); if(mainFootnote) mainFootnote.style.display = isOxygen ? "none" : "";
   // Hide shared patient section for oxygen (it has its own)
   document.querySelectorAll(".sec").forEach(el => {
-    if(el.id !== "sec-notes" && el.id !== "sec-physician" && !el.closest("#section-oxygen") && !el.closest("#section-compression") && !el.closest("#section-criteria-wheelchair") && !el.closest("#section-criteria-bed")) {
+    if(el.id !== "sec-notes" && el.id !== "sec-physician" && !el.closest("#section-oxygen") && !el.closest("#section-compression") && !el.closest("#section-criteria-wheelchair") && !el.closest("#section-criteria-bed") && !el.closest("#section-criteria-hoyer")) {
       // Only hide the FIRST patient section (id-less .sec at top)
     }
   });
@@ -2791,10 +3033,12 @@ function openForm(type, preserveRecord){
   document.getElementById("shared-refills-row").style.display = type === "nutrition" ? "none" : "";
 
   // Update form title
-  const titles = {standard:"Durable Medical Equipment", wheelchair:"Manual Wheelchair DWO", bed:"Hospital Bed DWO", compression:"Compression Stocking Order", oxygen:"Oxygen Prescription", nutrition:"Nutrition DWO"};
-  const ids    = {standard:"FORM BL-DWO", wheelchair:"FORM BL-WC", bed:"FORM BL-BED", compression:"FORM BL-CS", oxygen:"FORM BL-O2", nutrition:"FORM BL-NUT"};
+  const titles = {standard:"Durable Medical Equipment", wheelchair:"Manual Wheelchair DWO", bed:"Hospital Bed DWO", hoyer:"Hoyer Lift DWO", compression:"Compression Stocking Order", oxygen:"Oxygen Prescription", nutrition:"Nutrition DWO"};
+  const ids    = {standard:"FORM BL-DWO", wheelchair:"FORM BL-WC", bed:"FORM BL-BED", hoyer:"FORM BL-HL", compression:"FORM BL-CS", oxygen:"FORM BL-O2", nutrition:"FORM BL-NUT"};
   document.getElementById("form-title-display").textContent = titles[type] || "Durable Medical Equipment";
   document.getElementById("form-id-display").textContent    = ids[type]    || "FORM BL-DWO";
+  if(!preserveRecord) applyFormCarryForward(type);
+  syncDocumentTitle();
 
   // Inject criteria text using specific selectors
   if(type === "wheelchair"){
@@ -2802,24 +3046,41 @@ function openForm(type, preserveRecord){
       el.textContent = WC_CRITERIA[i] || "";
     });
     setWheelchairVariant("standard");
-    // Check all YES boxes and Lifetime by default
-    setTimeout(() => {
-      document.querySelectorAll(".wc-yes").forEach(cb => cb.checked = true);
-      const lt = document.getElementById("lon-lifetime");
-      if(lt){ lt.checked = true; toggleLon(); }
-    }, 50);
+    if(!preserveRecord){
+      // Check all YES boxes and Lifetime by default
+      setTimeout(() => {
+        document.querySelectorAll(".wc-yes").forEach(cb => cb.checked = true);
+        const lt = document.getElementById("lon-lifetime");
+        if(lt){ lt.checked = true; toggleLon(); }
+      }, 50);
+    }
   }
   if(type === "bed"){
     document.querySelectorAll(".bed-criteria-text").forEach((el,i) => {
       el.textContent = BED_CRITERIA[i] || "";
     });
     setBedVariant("E0260");
-    // Check all YES boxes and Lifetime by default
-    setTimeout(() => {
-      document.querySelectorAll(".bed-yes").forEach(cb => cb.checked = true);
-      const lt = document.getElementById("bed-lon-lifetime");
-      if(lt){ lt.checked = true; toggleBedLon(); }
-    }, 50);
+    if(!preserveRecord){
+      // Check all YES boxes and Lifetime by default
+      setTimeout(() => {
+        document.querySelectorAll(".bed-yes").forEach(cb => cb.checked = true);
+        const lt = document.getElementById("bed-lon-lifetime");
+        if(lt){ lt.checked = true; toggleBedLon(); }
+      }, 50);
+    }
+  }
+  if(type === "hoyer"){
+    document.querySelectorAll(".hoyer-criteria-text").forEach((el,i) => {
+      el.textContent = HOYER_CRITERIA[i] || "";
+    });
+    syncHoyerRows();
+    if(!preserveRecord){
+      setTimeout(() => {
+        document.querySelectorAll(".hoyer-yes").forEach(cb => cb.checked = true);
+        const lt = document.getElementById("hoyer-lon-lifetime");
+        if(lt){ lt.checked = true; toggleHoyerLon(); }
+      }, 50);
+    }
   }
 
   // Build standard rows
@@ -2835,6 +3096,7 @@ function openForm(type, preserveRecord){
         document.body.appendChild(drop);
       }
     });
+    syncDocumentTitle();
     syncWorkflowPanel();
   }, 50);
 }
@@ -2944,6 +3206,79 @@ function buildBedRows(bedCode){
       <td style="text-align:center"><input type="text" id="bed-qty-${i}-${bedCode}" value="${qty}" style="width:100%;border:none;background:transparent;font-family:'Courier Prime',monospace;font-size:12px;color:var(--ink);outline:none;padding:3px;text-align:center"/></td>`;
     tbody.appendChild(tr);
   });
+}
+
+function toggleHoyerLon(){
+  const chk = document.getElementById("hoyer-lon-lifetime");
+  const months = document.getElementById("hoyer-lon-months");
+  if(!chk || !months) return;
+  months.disabled = chk.checked;
+  if(chk.checked) months.value = "";
+}
+
+function getSelectedHoyerCodes(){
+  return HOYER_CODES.filter(item => document.getElementById(`hoyer-code-${item.code.toLowerCase()}`)?.checked);
+}
+
+function getHoyerDefaultQty(code){
+  const ins = getInsuranceType();
+  if(code === "E0635") return "1 NU";
+  if(code === "E0630"){
+    if(!ins) return "";
+    return ins === "medicaid" ? "10 RR" : "13 RR";
+  }
+  if(!ins) return "";
+  const itemType = getItemType(code, ins);
+  return itemType === "purchase" ? "1 NU" : (ins === "medicaid" ? "10 RR" : "13 RR");
+}
+
+function syncHoyerRows(options = {}){
+  const tbody = document.getElementById("hoyer-rows");
+  if(!tbody) return;
+  const preserveExisting = !!options.preserveExisting;
+  const forceDefaultQty = !!options.forceDefaultQty;
+  const existing = {};
+  const currentOrder = [];
+  tbody.querySelectorAll("tr").forEach(tr => {
+    const code = (tr.querySelector("[data-role='code']")?.value || "").trim().toUpperCase();
+    if(!code) return;
+    currentOrder.push(code);
+    existing[code] = {
+      desc: tr.querySelector("[data-role='desc']")?.value || "",
+      qty: tr.querySelector("[data-role='qty']")?.value || ""
+    };
+  });
+
+  const checkedCodes = getSelectedHoyerCodes().map(item => item.code);
+  const orderedCodes = [
+    ...currentOrder.filter(code => checkedCodes.includes(code)),
+    ...checkedCodes.filter(code => !currentOrder.includes(code))
+  ];
+
+  tbody.innerHTML = "";
+  for(let i=0;i<5;i++){
+    const code = orderedCodes[i] || "";
+    const item = HOYER_CODES.find(entry => entry.code === code) || null;
+    const prior = code ? (existing[code] || {}) : {};
+    const defaultQty = code ? getHoyerDefaultQty(code) : "";
+    const qtyValue = code
+      ? (forceDefaultQty ? defaultQty : (preserveExisting && prior.qty !== undefined ? prior.qty : defaultQty))
+      : "";
+    const descValue = code
+      ? (preserveExisting && prior.desc !== undefined && prior.desc !== "" ? prior.desc : item.desc)
+      : "";
+    const tr = document.createElement("tr");
+    tr.style.background = i%2===0 ? "rgba(255,255,255,.3)" : "transparent";
+    tr.innerHTML = `
+      <td style="text-align:center;font-size:10.5px;color:var(--rule-dk);font-weight:600">${i+1}</td>
+      <td style="padding:3px 6px"><input type="text" id="hoyer-hcpcs-${i}" data-role="code" value="${esc(code)}" readonly style="width:100%;border:none;background:transparent;font-family:'Courier Prime',monospace;font-size:12.5px;color:var(--ink);outline:none;padding:3px 4px"/></td>
+      <td><input type="text" id="hoyer-desc-${i}" data-role="desc" value="${esc(descValue)}" style="width:100%;border:none;background:transparent;font-family:'Courier Prime',monospace;font-size:11.5px;color:var(--ink);outline:none;padding:3px 4px" oninput="fitText(this,11.5,7)"/></td>
+      <td style="text-align:center"><input type="text" id="hoyer-qty-${i}" data-role="qty" value="${esc(qtyValue)}" style="width:100%;border:none;background:transparent;font-family:'Courier Prime',monospace;font-size:12px;color:var(--ink);outline:none;padding:3px;text-align:center" oninput="fitText(this,12,7)"/></td>`;
+    tbody.appendChild(tr);
+    fitText(tr.querySelector("[data-role='code']"), 12.5, 7);
+    fitText(tr.querySelector("[data-role='desc']"), 11.5, 7);
+    fitText(tr.querySelector("[data-role='qty']"), 12, 7);
+  }
 }
 
 // в”Ђв”Ђ VARIANT SELECTORS в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
@@ -3071,6 +3406,7 @@ function updateAllQty(){
   _origUpdateAllQty();
   if(currentForm === "wheelchair") buildWheelchairRows(wcVariant);
   if(currentForm === "bed")        buildBedRows(bedVariant);
+  if(currentForm === "hoyer")      syncHoyerRows({ preserveExisting: true, forceDefaultQty: true });
 }
 
 // в”Ђв”Ђ CLEAR FORM OVERRIDE в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
@@ -3749,6 +4085,25 @@ document.addEventListener("click",e=>{
   });
 });
 
+function syncCriteriaPair(target, yesClass, noClass){
+  if(!target?.classList) return false;
+  const isYes = target.classList.contains(yesClass);
+  const isNo = target.classList.contains(noClass);
+  if(!isYes && !isNo) return false;
+  if(!target.checked) return true;
+  const otherClass = isYes ? noClass : yesClass;
+  const other = document.querySelector(`.${otherClass}[data-n="${target.dataset.n}"]`);
+  if(other) other.checked = false;
+  return true;
+}
+
+document.addEventListener("change", e => {
+  const target = e.target;
+  if(syncCriteriaPair(target, "wc-yes", "wc-not")) return;
+  if(syncCriteriaPair(target, "bed-yes", "bed-not")) return;
+  syncCriteriaPair(target, "hoyer-yes", "hoyer-not");
+});
+
 function resetCurrentFormState(){
   document.querySelectorAll("#form-screen input:not([type=hidden]),#form-screen select,#form-screen textarea").forEach(el => {
     if(el.type === "checkbox" || el.type === "radio") el.checked = false;
@@ -4081,6 +4436,18 @@ function setStoredJson(key, value){
   localStorage.setItem(key, JSON.stringify(value));
 }
 
+function getUserScopedStorageKey(base){
+  return `${base}_${authUser?.uid || "local"}`;
+}
+
+function getUserStoredJson(base, fallback){
+  return getStoredJson(getUserScopedStorageKey(base), fallback);
+}
+
+function setUserStoredJson(base, value){
+  setStoredJson(getUserScopedStorageKey(base), value);
+}
+
 function getDraftStore(){ return getStoredJson(STORAGE_KEYS.drafts, {}); }
 function setDraftStore(store){ setStoredJson(STORAGE_KEYS.drafts, store); }
 function getPatientPresetStore(){ return getStoredJson(STORAGE_KEYS.patients, []); }
@@ -4089,6 +4456,8 @@ function getPhysicianPresetStore(){ return getStoredJson(STORAGE_KEYS.physicians
 function setPhysicianPresetStore(items){ setStoredJson(STORAGE_KEYS.physicians, items.slice(0,12)); }
 function getStaffProfile(){ return getStoredJson(STORAGE_KEYS.staff, null); }
 function setStaffProfile(profile){ setStoredJson(STORAGE_KEYS.staff, profile); }
+function getFormPreferenceStore(){ return getUserStoredJson(STORAGE_KEYS.preferences, { forms:{}, patients:{} }); }
+function setFormPreferenceStore(store){ setUserStoredJson(STORAGE_KEYS.preferences, store); }
 
 function formatTimestamp(ts){
   if(!ts) return "";
@@ -4432,6 +4801,7 @@ function createRecordSnapshot(){
 function renderCloudRecords(){
   const grid = document.getElementById("records-grid");
   if(!grid) return;
+  updateQuickFillStatus();
   if(!authUser){
     grid.innerHTML = `<div class="records-empty">Sign in to view saved records.</div>`;
     return;
@@ -4542,6 +4912,934 @@ function deleteSelectedRecord(){
   deleteCloudRecord(selectedRecordId);
 }
 
+function updateQuickFillStatus(){
+  if(!document.getElementById("quick-fill-status")) return;
+  if(!authUser){
+    setWorkflowMessage("quick-fill-status", "Sign in to search your saved records for patients and doctors.", "status-warn");
+    return;
+  }
+  if(!cloudRecordsCache.length){
+    setWorkflowMessage("quick-fill-status", "No saved records yet. Save one form first, then you can search and reuse those patient and doctor details.", "status-warn");
+    return;
+  }
+  setWorkflowMessage("quick-fill-status", `Search ${cloudRecordsCache.length} saved record${cloudRecordsCache.length === 1 ? "" : "s"} for patient or physician details.`, "status-ok");
+}
+
+function getRecordLookupConfig(mode){
+  if(mode === "doctor"){
+    return {
+      title: "Find Doctor",
+      text: "Search through saved records by physician name, NPI, fax, or phone, then reuse that doctor on the current form.",
+      placeholder: "Search by physician name, NPI, fax, or phone",
+      empty: "No physician matches were found in saved records.",
+      action: "Use Doctor"
+    };
+  }
+  if(mode === "record"){
+    return {
+      title: "Use Saved Record",
+      text: "Search saved records and pull both patient and physician details into the form you are working on now. Order lines stay untouched.",
+      placeholder: "Search by patient, doctor, DOB, NPI, or form type",
+      empty: "No saved records matched that search.",
+      action: "Use Patient + Doctor"
+    };
+  }
+  return {
+    title: "Find Patient",
+    text: "Search through saved records by patient name, DOB, phone, or insurance ID, then reuse that patient on the current form.",
+    placeholder: "Search by patient name, DOB, phone, or insurance ID",
+    empty: "No patient matches were found in saved records.",
+    action: "Use Patient"
+  };
+}
+
+function getLookupFieldValue(fields, id){
+  const value = fields?.[id];
+  if(value === true) return true;
+  if(value === false) return false;
+  return String(value || "").trim();
+}
+
+function normalizeLookupText(value){
+  return String(value || "").toLowerCase().replace(/\s+/g, " ").trim();
+}
+
+function buildLookupDigits(){
+  return Array.from(arguments).map(value => String(value || "").replace(/\D/g, "")).filter(Boolean).join(" ");
+}
+
+function buildLookupSearchText(){
+  return Array.from(arguments).map(value => String(value || "").toLowerCase().trim()).filter(Boolean).join(" ");
+}
+
+function extractPatientProfileFromRecord(record){
+  const fields = record?.state?.fields || {};
+  const sourceForm = record?.state?.form || record?.form || "";
+  const isOxygenSource = sourceForm === "oxygen";
+  const name = isOxygenSource ? getLookupFieldValue(fields, "oxy-pat-name") : (getLookupFieldValue(fields, "patient_name") || String(record?.patientName || "").trim());
+  const dob = isOxygenSource ? getLookupFieldValue(fields, "oxy-dob") : (getLookupFieldValue(fields, "dob") || String(record?.patientDob || "").trim());
+  const address = isOxygenSource ? getLookupFieldValue(fields, "oxy-address") : getLookupFieldValue(fields, "pat_addr");
+  const phone = isOxygenSource ? getLookupFieldValue(fields, "oxy-phone") : getLookupFieldValue(fields, "phone");
+  const mobile = isOxygenSource ? getLookupFieldValue(fields, "oxy-mobile") : "";
+  const insurance = isOxygenSource ? "" : getLookupFieldValue(fields, "insurance");
+  const insuranceId = isOxygenSource ? "" : getLookupFieldValue(fields, "insurance_id");
+  const height = isOxygenSource ? "" : getLookupFieldValue(fields, "height");
+  const weight = isOxygenSource ? "" : getLookupFieldValue(fields, "weight");
+  const genderMale = isOxygenSource ? !!fields["oxy-gender-m"] : false;
+  const genderFemale = isOxygenSource ? !!fields["oxy-gender-f"] : false;
+  if(!name && !dob && !phone && !insuranceId) return null;
+  const normalizedName = normalizeLookupText(name);
+  const normalizedDob = normalizeDob(dob);
+  const normalizedInsuranceId = normalizeLookupText(insuranceId);
+  const normalizedPhone = buildLookupDigits(phone, mobile);
+  const dedupeKey = [normalizedName, normalizedDob, normalizedInsuranceId, normalizedPhone].some(Boolean)
+    ? [normalizedName, normalizedDob, normalizedInsuranceId, normalizedPhone].join("|")
+    : `patient:${record.id}`;
+  return {
+    kind: "patient",
+    recordId: record.id,
+    recordLabel: getRecordLabel(record),
+    sourceForm,
+    savedAt: record.savedAtMs || record.savedAt || 0,
+    name,
+    dob,
+    address,
+    phone,
+    mobile,
+    insurance,
+    insuranceId,
+    height,
+    weight,
+    genderMale,
+    genderFemale,
+    dedupeKey,
+    searchBlob: buildLookupSearchText(name, dob, address, phone, mobile, insurance, insuranceId, record.form, record.patientName),
+    digitsBlob: buildLookupDigits(dob, phone, mobile, insuranceId)
+  };
+}
+
+function extractPhysicianProfileFromRecord(record){
+  const fields = record?.state?.fields || {};
+  const sourceForm = record?.state?.form || record?.form || "";
+  const isOxygenSource = sourceForm === "oxygen";
+  const npi = isOxygenSource ? getLookupFieldValue(fields, "oxy-npi-search") : getLookupFieldValue(fields, "npi_input");
+  const lic = isOxygenSource ? getLookupFieldValue(fields, "oxy-lic-num") : getLookupFieldValue(fields, "lic_num");
+  const name = isOxygenSource ? getLookupFieldValue(fields, "oxy-phys-name") : getLookupFieldValue(fields, "phys_name");
+  const type = isOxygenSource ? getLookupFieldValue(fields, "oxy-phys-type") : getLookupFieldValue(fields, "phys_type");
+  const phone = isOxygenSource ? getLookupFieldValue(fields, "oxy-phys-phone") : getLookupFieldValue(fields, "phys_phone");
+  const fax = isOxygenSource ? getLookupFieldValue(fields, "oxy-phys-fax") : getLookupFieldValue(fields, "phys_fax");
+  const address = isOxygenSource ? getLookupFieldValue(fields, "oxy-phys-addr") : getLookupFieldValue(fields, "phys_addr");
+  if(!name && !npi && !phone && !fax) return null;
+  const normalizedName = normalizeLookupText(name);
+  const normalizedNpi = normalizeLookupText(npi);
+  const normalizedFax = buildLookupDigits(fax);
+  const normalizedPhone = buildLookupDigits(phone);
+  const dedupeKey = [normalizedNpi || normalizedName, normalizedFax, normalizedPhone].some(Boolean)
+    ? [normalizedNpi || normalizedName, normalizedFax, normalizedPhone].join("|")
+    : `doctor:${record.id}`;
+  return {
+    kind: "doctor",
+    recordId: record.id,
+    recordLabel: getRecordLabel(record),
+    sourceForm,
+    savedAt: record.savedAtMs || record.savedAt || 0,
+    npi,
+    lic,
+    name,
+    type,
+    phone,
+    fax,
+    address,
+    dedupeKey,
+    searchBlob: buildLookupSearchText(name, npi, lic, type, phone, fax, address, record.form),
+    digitsBlob: buildLookupDigits(npi, phone, fax)
+  };
+}
+
+function dedupeLookupProfiles(items){
+  const map = new Map();
+  items.forEach(item => {
+    if(!item) return;
+    const existing = map.get(item.dedupeKey);
+    const existingScore = getLookupProfileScore(existing);
+    const nextScore = getLookupProfileScore(item);
+    if(!existing || nextScore > existingScore || (nextScore === existingScore && Number(item.savedAt || 0) > Number(existing.savedAt || 0))){
+      map.set(item.dedupeKey, item);
+    }
+  });
+  return Array.from(map.values()).sort((a,b) => Number(b.savedAt || 0) - Number(a.savedAt || 0));
+}
+
+function getLookupProfileScore(item){
+  if(!item) return 0;
+  if(item.kind === "doctor"){
+    return [item.npi, item.lic, item.name, item.type, item.phone, item.fax, item.address].filter(Boolean).length;
+  }
+  return [item.name, item.dob, item.address, item.phone, item.mobile, item.insurance, item.insuranceId, item.height, item.weight, item.genderMale, item.genderFemale].filter(Boolean).length;
+}
+
+function getRecordLookupResults(mode, query){
+  const search = normalizeLookupText(query);
+  const digits = String(query || "").replace(/\D/g, "");
+  if(mode === "doctor"){
+    return dedupeLookupProfiles(cloudRecordsCache.map(extractPhysicianProfileFromRecord)).filter(item => {
+      if(!search) return true;
+      return item.searchBlob.includes(search) || (digits && item.digitsBlob.includes(digits));
+    });
+  }
+  if(mode === "record"){
+    return cloudRecordsCache.map(record => {
+      const patient = extractPatientProfileFromRecord(record);
+      const physician = extractPhysicianProfileFromRecord(record);
+      return {
+        kind: "record",
+        recordId: record.id,
+        record,
+        patient,
+        physician,
+        sourceForm: record.form || record.state?.form || "",
+        savedAt: record.savedAtMs || record.savedAt || 0,
+        title: getRecordLabel(record),
+        searchBlob: buildLookupSearchText(
+          record.patientName,
+          record.patientDob,
+          record.form,
+          patient?.name,
+          patient?.dob,
+          patient?.phone,
+          patient?.insurance,
+          patient?.insuranceId,
+          physician?.name,
+          physician?.npi,
+          physician?.phone,
+          physician?.fax
+        ),
+        digitsBlob: buildLookupDigits(
+          record.patientDob,
+          patient?.phone,
+          patient?.insuranceId,
+          physician?.npi,
+          physician?.phone,
+          physician?.fax
+        )
+      };
+    }).filter(item => {
+      if(!search) return true;
+      return item.searchBlob.includes(search) || (digits && item.digitsBlob.includes(digits));
+    }).sort((a,b) => Number(b.savedAt || 0) - Number(a.savedAt || 0));
+  }
+  return dedupeLookupProfiles(cloudRecordsCache.map(extractPatientProfileFromRecord)).filter(item => {
+    if(!search) return true;
+    return item.searchBlob.includes(search) || (digits && item.digitsBlob.includes(digits));
+  });
+}
+
+function setRecordLookupStatus(message, className){
+  const el = document.getElementById("record-lookup-status");
+  if(!el) return;
+  el.textContent = message;
+  el.className = `lookup-status${className ? ` ${className}` : ""}`;
+}
+
+function renderRecordLookupResults(){
+  const wrap = document.getElementById("record-lookup-results");
+  if(!wrap) return;
+  const cfg = getRecordLookupConfig(recordLookupMode);
+  if(!authUser){
+    recordLookupResultsCache = [];
+    setRecordLookupStatus("Sign in to search saved records.", "status-warn");
+    wrap.innerHTML = `<div class="lookup-empty">Saved patient and doctor lookups work from your cloud records, so sign in first to use this tool.</div>`;
+    return;
+  }
+  if(!cloudRecordsCache.length){
+    recordLookupResultsCache = [];
+    setRecordLookupStatus("No saved records are available yet.", "status-warn");
+    wrap.innerHTML = `<div class="lookup-empty">Save one record first, then this search will let you reuse that patient and physician on other forms.</div>`;
+    return;
+  }
+  const query = document.getElementById("record-lookup-search")?.value || "";
+  const items = getRecordLookupResults(recordLookupMode, query).slice(0, 24);
+  recordLookupResultsCache = items;
+  if(!items.length){
+    setRecordLookupStatus(cfg.empty, "status-warn");
+    wrap.innerHTML = `<div class="lookup-empty">${esc(cfg.empty)}</div>`;
+    return;
+  }
+  setRecordLookupStatus(`${items.length} match${items.length === 1 ? "" : "es"} found${query ? " for that search" : " in recent saved records"}.`, "status-ok");
+  wrap.innerHTML = items.map((item, index) => {
+    if(recordLookupMode === "doctor"){
+      const meta = [
+        item.npi ? `NPI: ${item.npi}` : "",
+        item.phone ? `Phone: ${item.phone}` : "",
+        item.fax ? `Fax: ${item.fax}` : "",
+        item.type ? `Specialty: ${item.type}` : "",
+        item.address ? `Address: ${item.address}` : "",
+        `Saved: ${formatTimestamp(item.savedAt)}`,
+        `From: ${String(item.sourceForm || "").toUpperCase() || "UNKNOWN"}`
+      ].filter(Boolean).join("<br/>");
+      return `
+        <article class="lookup-result">
+          <div class="lookup-result-head">
+            <div>
+              <h3>${esc(item.name || item.npi || "Unnamed physician")}</h3>
+              <div class="lookup-result-sub">${esc(item.recordLabel)}</div>
+            </div>
+            <span class="lookup-pill">${esc(String(item.sourceForm || "").toUpperCase() || "FORM")}</span>
+          </div>
+          <div class="lookup-result-meta">${meta}</div>
+          <div class="lookup-result-actions">
+            <button class="btn btn-stamp" type="button" onclick="useRecordLookupResult(${index})">${cfg.action}</button>
+          </div>
+        </article>
+      `;
+    }
+    if(recordLookupMode === "record"){
+      const meta = [
+        item.patient?.name ? `Patient: ${item.patient.name}` : "Patient: Not saved",
+        item.patient?.dob ? `DOB: ${item.patient.dob}` : "",
+        item.physician?.name ? `Doctor: ${item.physician.name}` : "Doctor: Not saved",
+        item.physician?.npi ? `NPI: ${item.physician.npi}` : "",
+        `Saved: ${formatTimestamp(item.savedAt)}`
+      ].filter(Boolean).join("<br/>");
+      return `
+        <article class="lookup-result">
+          <div class="lookup-result-head">
+            <div>
+              <h3>${esc(item.title)}</h3>
+              <div class="lookup-result-sub">${esc((item.physician?.name || item.patient?.dob) ? [item.patient?.dob ? `DOB ${item.patient.dob}` : "", item.physician?.name || ""].filter(Boolean).join(" • ") : "Saved record")}</div>
+            </div>
+            <span class="lookup-pill">${esc(String(item.sourceForm || "").toUpperCase() || "FORM")}</span>
+          </div>
+          <div class="lookup-result-meta">${meta}</div>
+          <div class="lookup-result-actions">
+            <button class="btn btn-stamp" type="button" onclick="useRecordLookupResult(${index})">${cfg.action}</button>
+          </div>
+        </article>
+      `;
+    }
+    const meta = [
+      item.dob ? `DOB: ${item.dob}` : "",
+      item.phone ? `Phone: ${item.phone}` : "",
+      item.insurance ? `Insurance: ${item.insurance}` : "",
+      item.insuranceId ? `Insurance ID: ${item.insuranceId}` : "",
+      item.address ? `Address: ${item.address}` : "",
+      `Saved: ${formatTimestamp(item.savedAt)}`,
+      `From: ${String(item.sourceForm || "").toUpperCase() || "UNKNOWN"}`
+    ].filter(Boolean).join("<br/>");
+    return `
+      <article class="lookup-result">
+        <div class="lookup-result-head">
+          <div>
+            <h3>${esc(item.name || "Unnamed patient")}</h3>
+            <div class="lookup-result-sub">${esc(item.recordLabel)}</div>
+          </div>
+          <span class="lookup-pill">${esc(String(item.sourceForm || "").toUpperCase() || "FORM")}</span>
+        </div>
+        <div class="lookup-result-meta">${meta}</div>
+        <div class="lookup-result-actions">
+          <button class="btn btn-stamp" type="button" onclick="useRecordLookupResult(${index})">${cfg.action}</button>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+async function ensureCloudRecordsForLookup(forceRefresh){
+  if(!authUser || !firebaseReady || !db){
+    return false;
+  }
+  if(forceRefresh || !cloudRecordsCache.length){
+    await refreshCloudRecords();
+  }
+  return true;
+}
+
+async function openRecordLookupModal(mode){
+  recordLookupMode = mode || "patient";
+  const cfg = getRecordLookupConfig(recordLookupMode);
+  const modal = document.getElementById("record-lookup-modal");
+  const search = document.getElementById("record-lookup-search");
+  if(document.getElementById("record-lookup-title")) document.getElementById("record-lookup-title").textContent = cfg.title;
+  if(document.getElementById("record-lookup-text")) document.getElementById("record-lookup-text").textContent = cfg.text;
+  if(search){
+    search.value = "";
+    search.placeholder = cfg.placeholder;
+  }
+  modal?.classList.add("open");
+  setRecordLookupStatus("Loading saved records...", "");
+  await ensureCloudRecordsForLookup(false);
+  renderRecordLookupResults();
+  search?.focus();
+}
+
+function closeRecordLookupModal(){
+  document.getElementById("record-lookup-modal")?.classList.remove("open");
+}
+
+async function refreshRecordLookupResults(){
+  setRecordLookupStatus("Refreshing saved records...", "");
+  await ensureCloudRecordsForLookup(true);
+  renderRecordLookupResults();
+}
+
+function setFieldValue(id, value){
+  const el = document.getElementById(id);
+  if(!el) return;
+  if(el.type === "checkbox" || el.type === "radio") el.checked = !!value;
+  else el.value = value ?? "";
+}
+
+function applyPhoneFieldValue(id, value){
+  setFieldValue(id, value || "");
+  const el = document.getElementById(id);
+  if(el && value) fmtPhone(el);
+}
+
+function fillCurrentPatientFields(profile){
+  if(!profile) return false;
+  if(currentForm === "oxygen"){
+    setFieldValue("oxy-pat-name", profile.name || "");
+    setFieldValue("oxy-dob", profile.dob || "");
+    setFieldValue("oxy-address", profile.address || "");
+    applyPhoneFieldValue("oxy-phone", profile.phone || "");
+    applyPhoneFieldValue("oxy-mobile", profile.mobile || "");
+    setFieldValue("oxy-gender-m", !!profile.genderMale);
+    setFieldValue("oxy-gender-f", !!profile.genderFemale);
+    return !!(profile.name || profile.dob || profile.phone || profile.address);
+  }
+  setFieldValue("patient_name", profile.name || "");
+  setFieldValue("dob", profile.dob || "");
+  setFieldValue("pat_addr", profile.address || "");
+  applyPhoneFieldValue("phone", profile.phone || "");
+  setFieldValue("insurance", profile.insurance || "");
+  setFieldValue("insurance_id", profile.insuranceId || "");
+  setFieldValue("height", profile.height || "");
+  setFieldValue("weight", profile.weight || "");
+  return !!(profile.name || profile.dob || profile.phone || profile.insurance);
+}
+
+function fillCurrentPhysicianFields(profile){
+  if(!profile) return false;
+  if(currentForm === "oxygen"){
+    setFieldValue("oxy-npi-search", profile.npi || "");
+    setFieldValue("oxy-lic-num", profile.lic || "");
+    setFieldValue("oxy-phys-name", profile.name || "");
+    setFieldValue("oxy-phys-type", profile.type || "");
+    applyPhoneFieldValue("oxy-phys-phone", profile.phone || "");
+    applyPhoneFieldValue("oxy-phys-fax", profile.fax || "");
+    setFieldValue("oxy-phys-addr", profile.address || "");
+    return !!(profile.name || profile.npi || profile.phone || profile.fax);
+  }
+  setFieldValue("npi_input", profile.npi || "");
+  setFieldValue("lic_num", profile.lic || "");
+  setFieldValue("phys_name", profile.name || "");
+  setFieldValue("phys_type", profile.type || "");
+  applyPhoneFieldValue("phys_phone", profile.phone || "");
+  applyPhoneFieldValue("phys_fax", profile.fax || "");
+  setFieldValue("phys_addr", profile.address || "");
+  return !!(profile.name || profile.npi || profile.phone || profile.fax);
+}
+
+function getCurrentDoctorProfile(){
+  if(currentForm === "oxygen"){
+    return {
+      npi: (document.getElementById("oxy-npi-search")?.value || "").trim(),
+      lic: (document.getElementById("oxy-lic-num")?.value || "").trim(),
+      name: (document.getElementById("oxy-phys-name")?.value || "").trim(),
+      type: (document.getElementById("oxy-phys-type")?.value || "").trim(),
+      phone: (document.getElementById("oxy-phys-phone")?.value || "").trim(),
+      fax: (document.getElementById("oxy-phys-fax")?.value || "").trim(),
+      address: (document.getElementById("oxy-phys-addr")?.value || "").trim()
+    };
+  }
+  return {
+    npi: (document.getElementById("npi_input")?.value || "").trim(),
+    lic: (document.getElementById("lic_num")?.value || "").trim(),
+    name: (document.getElementById("phys_name")?.value || "").trim(),
+    type: (document.getElementById("phys_type")?.value || "").trim(),
+    phone: (document.getElementById("phys_phone")?.value || "").trim(),
+    fax: (document.getElementById("phys_fax")?.value || "").trim(),
+    address: (document.getElementById("phys_addr")?.value || "").trim()
+  };
+}
+
+function hasDoctorProfileValue(profile){
+  return !!(profile?.name || profile?.npi || profile?.phone || profile?.fax || profile?.address);
+}
+
+function getPatientPreferenceKey(name, dob){
+  const normalizedName = normalizeLookupText(name);
+  const normalizedDob = normalizeDob(dob);
+  if(!normalizedName || !normalizedDob) return "";
+  return `${normalizedName}|${normalizedDob}`;
+}
+
+function getCurrentPatientPreferenceKey(){
+  if(currentForm === "oxygen") return "";
+  const name = document.getElementById("patient_name")?.value || "";
+  const dob = document.getElementById("dob")?.value || "";
+  return getPatientPreferenceKey(name, dob);
+}
+
+function captureCurrentFormPreferences(){
+  const store = getFormPreferenceStore();
+  store.forms = store.forms || {};
+  store.patients = store.patients || {};
+
+  const nextFormPref = { ...(store.forms[currentForm] || {}) };
+  const subject = (document.getElementById("cover_subject")?.value || "").trim();
+  if(subject) nextFormPref.coverSubject = subject;
+  else delete nextFormPref.coverSubject;
+
+  const doctorProfile = getCurrentDoctorProfile();
+  if(hasDoctorProfileValue(doctorProfile)) nextFormPref.doctor = doctorProfile;
+  else delete nextFormPref.doctor;
+
+  nextFormPref.updatedAt = Date.now();
+  if(Object.keys(nextFormPref).some(key => key !== "updatedAt")){
+    store.forms[currentForm] = nextFormPref;
+  }else{
+    delete store.forms[currentForm];
+  }
+
+  if(currentForm !== "oxygen"){
+    const patientKey = getCurrentPatientPreferenceKey();
+    if(patientKey){
+      const insurance = (document.getElementById("insurance")?.value || "").trim();
+      const insuranceId = (document.getElementById("insurance_id")?.value || "").trim();
+      const height = (document.getElementById("height")?.value || "").trim();
+      const weight = (document.getElementById("weight")?.value || "").trim();
+      if(insurance || insuranceId || height || weight){
+        store.patients[patientKey] = {
+          insurance,
+          insuranceId,
+          height,
+          weight,
+          updatedAt: Date.now()
+        };
+      }
+    }
+  }
+
+  setFormPreferenceStore(store);
+  return store;
+}
+
+function queuePreferenceSave(){
+  clearTimeout(preferenceSaveTimer);
+  preferenceSaveTimer = setTimeout(() => {
+    captureCurrentFormPreferences();
+  }, 180);
+}
+
+function applyFormCarryForward(formType){
+  const store = getFormPreferenceStore();
+  const formPref = store.forms?.[formType] || {};
+  const subjectEl = document.getElementById("cover_subject");
+  if(subjectEl && !String(subjectEl.value || "").trim() && formPref.coverSubject){
+    subjectEl.value = formPref.coverSubject;
+  }
+  const doctorProfile = formPref.doctor;
+  if(doctorProfile && !hasDoctorProfileValue(getCurrentDoctorProfile())){
+    fillCurrentPhysicianFields(doctorProfile);
+  }
+  if(formType !== "oxygen") applyPatientInsuranceCarryForward();
+}
+
+function applyPatientInsuranceCarryForward(force){
+  if(currentForm === "oxygen") return false;
+  const patientKey = getCurrentPatientPreferenceKey();
+  if(!patientKey) return false;
+  const store = getFormPreferenceStore();
+  const patientPref = store.patients?.[patientKey];
+  if(!patientPref) return false;
+  const insuranceEl = document.getElementById("insurance");
+  const insuranceIdEl = document.getElementById("insurance_id");
+  const heightEl = document.getElementById("height");
+  const weightEl = document.getElementById("weight");
+  let changed = false;
+  if(insuranceEl && patientPref.insurance && (force || !String(insuranceEl.value || "").trim())){
+    insuranceEl.value = patientPref.insurance;
+    changed = true;
+  }
+  if(insuranceIdEl && patientPref.insuranceId && (force || !String(insuranceIdEl.value || "").trim())){
+    insuranceIdEl.value = patientPref.insuranceId;
+    changed = true;
+  }
+  if(heightEl && patientPref.height && (force || !String(heightEl.value || "").trim())){
+    heightEl.value = patientPref.height;
+    changed = true;
+  }
+  if(weightEl && patientPref.weight && (force || !String(weightEl.value || "").trim())){
+    weightEl.value = patientPref.weight;
+    changed = true;
+  }
+  if(changed){
+    updateAllQty();
+    queueAutosave();
+    syncDocumentTitle();
+  }
+  return changed;
+}
+
+function getLinkedOpenDropForInput(inputEl){
+  if(!inputEl) return null;
+  return Array.from(document.querySelectorAll(".drop.open")).find(drop => drop._linkedInput === inputEl) || null;
+}
+
+function getSmartMatchScore(profile, query){
+  const search = normalizeLookupText(query);
+  const digits = String(query || "").replace(/\D/g, "");
+  if(!search && !digits) return 0;
+  let score = 0;
+  const name = normalizeLookupText(profile?.name || "");
+  if(search){
+    if(name === search) score += 500;
+    else if(name.startsWith(search)) score += 320;
+    else if(name.includes(search)) score += 180;
+    else if(profile?.searchBlob?.includes(search)) score += 90;
+  }
+  if(digits && profile?.digitsBlob?.includes(digits)) score += 140;
+  score += Math.min(Number(profile?.savedAt || 0) / 100000000000, 20);
+  return score;
+}
+
+function getSmartLookupProfiles(kind, query){
+  const source = kind === "doctor"
+    ? dedupeLookupProfiles(cloudRecordsCache.map(extractPhysicianProfileFromRecord))
+    : dedupeLookupProfiles(cloudRecordsCache.map(extractPatientProfileFromRecord));
+  return source
+    .map(profile => ({ profile, score: getSmartMatchScore(profile, query) }))
+    .filter(item => item.score > 0)
+    .sort((a, b) => b.score - a.score || Number(b.profile.savedAt || 0) - Number(a.profile.savedAt || 0))
+    .map(item => item.profile)
+    .slice(0, 6);
+}
+
+function renderSmartProfileSuggestions(drop, profiles, kind, inputEl){
+  if(!drop) return;
+  if(!profiles.length){
+    drop.innerHTML = `<div class="empty-row">No saved ${kind === "doctor" ? "doctor" : "patient"} matches found.</div>`;
+    positionDrop(drop, inputEl);
+    drop.classList.add("open");
+    return;
+  }
+  drop.innerHTML = "";
+  profiles.forEach(profile => {
+    const row = document.createElement("div");
+    row.className = "di";
+    const secondary = kind === "doctor"
+      ? [
+          profile.npi ? `NPI: ${profile.npi}` : "",
+          profile.fax ? `Fax: ${profile.fax}` : "",
+          profile.phone ? `Phone: ${profile.phone}` : ""
+        ].filter(Boolean).join(" · ")
+      : [
+          profile.dob ? `DOB: ${profile.dob}` : "",
+          profile.insurance ? `Insurance: ${profile.insurance}` : "",
+          profile.phone ? `Phone: ${profile.phone}` : ""
+        ].filter(Boolean).join(" · ");
+    const source = [
+      `From ${String(profile.sourceForm || "").toUpperCase() || "FORM"}`,
+      formatTimestamp(profile.savedAt)
+    ].filter(Boolean).join(" · ");
+    row.innerHTML = `
+      <span class="dn">${esc(profile.name || (kind === "doctor" ? "Saved doctor" : "Saved patient"))}</span>
+      <span class="ds">${esc(secondary || profile.recordLabel || "")}</span>
+      <span class="ds">${esc(source)}</span>
+    `;
+    row.addEventListener("mousedown", e => {
+      e.preventDefault();
+      if(kind === "doctor"){
+        fillCurrentPhysicianFields(profile);
+        setWorkflowMessage("quick-fill-status", `Loaded doctor ${profile.name || profile.npi || "profile"} from saved DWOs.`, "status-ok");
+      }else{
+        fillCurrentPatientFields(profile);
+        applyPatientInsuranceCarryForward();
+        setWorkflowMessage("quick-fill-status", `Loaded patient ${profile.name || "profile"} from saved DWOs.`, "status-ok");
+      }
+      closeDrop(drop);
+      updateAllQty();
+      queueAutosave();
+      queuePreferenceSave();
+      syncDocumentTitle();
+      syncWorkflowPanel();
+    });
+    drop.appendChild(row);
+  });
+  positionDrop(drop, inputEl);
+  drop.classList.add("open");
+}
+
+async function smartProfileSearch(inputEl, kind){
+  const dropId = `${inputEl?.id || ""}_drop`;
+  const drop = document.getElementById(dropId);
+  if(!inputEl || !drop) return;
+  const query = String(inputEl.value || "").trim();
+  const digits = query.replace(/\D/g, "");
+  if(query.length < 2 && digits.length < 3){
+    closeDrop(drop);
+    return;
+  }
+  clearTimeout(T[`smart-${inputEl.id}`]);
+  T[`smart-${inputEl.id}`] = setTimeout(async() => {
+    if(!authUser){
+      drop.innerHTML = `<div class="empty-row">Sign in to search saved DWOs.</div>`;
+      positionDrop(drop, inputEl);
+      drop.classList.add("open");
+      return;
+    }
+    showLoad(drop, "Searching saved DWOs...", inputEl);
+    const ready = await ensureCloudRecordsForLookup(false);
+    if(!ready || !cloudRecordsCache.length){
+      drop.innerHTML = `<div class="empty-row">No saved DWOs available yet.</div>`;
+      positionDrop(drop, inputEl);
+      drop.classList.add("open");
+      return;
+    }
+    renderSmartProfileSuggestions(drop, getSmartLookupProfiles(kind, query), kind, inputEl);
+  }, 180);
+}
+
+function patientSmartSearch(inputEl){
+  smartProfileSearch(inputEl, "patient");
+}
+
+function doctorSmartSearch(inputEl){
+  smartProfileSearch(inputEl, "doctor");
+}
+
+function focusFieldAndSelect(el){
+  if(!el || typeof el.focus !== "function") return;
+  el.focus({ preventScroll:true });
+  if(el.tagName === "INPUT" && el.type !== "checkbox" && el.type !== "radio" && typeof el.select === "function"){
+    el.select();
+  }
+}
+
+function isEditableElement(el){
+  if(!el) return false;
+  const tag = el.tagName;
+  return el.isContentEditable || tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT";
+}
+
+function isVisibleField(el){
+  if(!el) return false;
+  const style = window.getComputedStyle(el);
+  return style.display !== "none" && style.visibility !== "hidden" && !!(el.offsetParent || el.getClientRects().length);
+}
+
+function selectFirstDropResultForInput(inputEl){
+  const drop = getLinkedOpenDropForInput(inputEl);
+  const item = drop?.querySelector(".di, .drop-row");
+  if(!item) return false;
+  item.dispatchEvent(new MouseEvent("mousedown", { bubbles:true, cancelable:true }));
+  return true;
+}
+
+function focusNextFormField(currentEl){
+  const fields = Array.from(document.querySelectorAll("#form-screen input:not([type=hidden]):not([disabled]), #form-screen select:not([disabled]), #form-screen textarea:not([disabled])"))
+    .filter(el => !el.readOnly && isVisibleField(el));
+  if(!fields.length) return;
+  const currentIndex = fields.indexOf(currentEl);
+  const next = fields[currentIndex + 1] || fields[0];
+  focusFieldAndSelect(next);
+}
+
+function handleGlobalFormShortcuts(event){
+  if(event.defaultPrevented) return;
+  const target = event.target;
+  const key = String(event.key || "");
+  const lowerKey = key.toLowerCase();
+  const modalSearch = document.getElementById("record-lookup-search");
+  const modalOpen = document.getElementById("record-lookup-modal")?.classList.contains("open");
+
+  if((event.ctrlKey || event.metaKey) && lowerKey === "s"){
+    event.preventDefault();
+    captureCurrentFormPreferences();
+    saveRecordPackage();
+    return;
+  }
+  if((event.ctrlKey || event.metaKey) && lowerKey === "p"){
+    event.preventDefault();
+    captureCurrentFormPreferences();
+    handlePrint();
+    return;
+  }
+  if(!event.ctrlKey && !event.metaKey && !event.altKey && key === "/" && !isEditableElement(target)){
+    event.preventDefault();
+    if(modalOpen){
+      focusFieldAndSelect(modalSearch);
+    }else{
+      openRecordLookupModal("patient");
+    }
+    return;
+  }
+  if(event.altKey && event.shiftKey && !event.ctrlKey && !event.metaKey && lowerKey === "p"){
+    event.preventDefault();
+    openRecordLookupModal("patient");
+    return;
+  }
+  if(event.altKey && event.shiftKey && !event.ctrlKey && !event.metaKey && lowerKey === "d"){
+    event.preventDefault();
+    openRecordLookupModal("doctor");
+    return;
+  }
+  if(key === "Escape"){
+    closeRecordLookupModal();
+    document.querySelectorAll(".drop.open").forEach(closeDrop);
+    return;
+  }
+  if(key !== "Enter" || event.altKey || event.ctrlKey || event.metaKey) return;
+  if(target?.id === "record-lookup-search" && modalOpen && recordLookupResultsCache.length){
+    event.preventDefault();
+    useRecordLookupResult(0);
+    return;
+  }
+  if(!target?.closest?.("#form-screen") || target.tagName === "TEXTAREA") return;
+  if(selectFirstDropResultForInput(target)) {
+    event.preventDefault();
+    return;
+  }
+  if(isEditableElement(target)){
+    event.preventDefault();
+    focusNextFormField(target);
+  }
+}
+
+function getCurrentDateFileStamp(){
+  const now = new Date();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  const year = String(now.getFullYear());
+  return `${month}-${day}-${year}`;
+}
+
+function syncDocumentTitle(){
+  document.title = getPatientFileBase();
+}
+
+function finalizeRecordLookup(message, className){
+  updateAllQty();
+  queueAutosave();
+  queuePreferenceSave();
+  syncDocumentTitle();
+  syncWorkflowPanel();
+  closeRecordLookupModal();
+  setWorkflowMessage("quick-fill-status", message, className || "status-ok");
+}
+
+function useRecordLookupResult(index){
+  const item = recordLookupResultsCache[index];
+  if(!item) return;
+  if(recordLookupMode === "doctor"){
+    if(!fillCurrentPhysicianFields(item)){
+      setRecordLookupStatus("That saved record does not contain doctor details.", "status-warn");
+      return;
+    }
+    finalizeRecordLookup(`Loaded doctor ${item.name || item.npi || "profile"} from saved records.`, "status-ok");
+    return;
+  }
+  if(recordLookupMode === "record"){
+    const patientApplied = fillCurrentPatientFields(item.patient);
+    const physicianApplied = fillCurrentPhysicianFields(item.physician);
+    if(!patientApplied && !physicianApplied){
+      setRecordLookupStatus("That saved record does not contain reusable patient or doctor details.", "status-warn");
+      return;
+    }
+    const summary = patientApplied && physicianApplied ? "patient and doctor" : (patientApplied ? "patient" : "doctor");
+    finalizeRecordLookup(`Loaded ${summary} from ${item.title}.`, "status-ok");
+    return;
+  }
+  if(!fillCurrentPatientFields(item)){
+    setRecordLookupStatus("That saved record does not contain patient details.", "status-warn");
+    return;
+  }
+  finalizeRecordLookup(`Loaded patient ${item.name || "profile"} from saved records.`, "status-ok");
+}
+
+function createCloneStateFromRecord(record, targetForm){
+  const sourceState = record?.state || {};
+  const sourceFormType = record?.form || sourceState.form || "standard";
+  const formType = targetForm || sourceFormType;
+  const patientProfile = extractPatientProfileFromRecord(record);
+  const doctorProfile = extractPhysicianProfileFromRecord(record);
+  const cloneState = {
+    form: formType,
+    fields: {
+      ...buildSeedPatientFields(patientProfile, formType),
+      ...buildSeedDoctorFields(doctorProfile, formType)
+    },
+    icdSelections: formType === "oxygen" ? {} : { ...(sourceState.icdSelections || {}) }
+  };
+  if(formType === sourceFormType && formType === "wheelchair" && sourceState.wcVariant) cloneState.wcVariant = sourceState.wcVariant;
+  if(formType === sourceFormType && formType === "bed" && sourceState.bedVariant) cloneState.bedVariant = sourceState.bedVariant;
+  return cloneState;
+}
+
+function buildSeedPatientFields(profile, targetForm){
+  if(!profile) return {};
+  if(targetForm === "oxygen"){
+    return {
+      "oxy-pat-name": profile.name || "",
+      "oxy-dob": profile.dob || "",
+      "oxy-address": profile.address || "",
+      "oxy-phone": profile.phone || "",
+      "oxy-mobile": profile.mobile || "",
+      "oxy-gender-m": !!profile.genderMale,
+      "oxy-gender-f": !!profile.genderFemale
+    };
+  }
+  return {
+    patient_name: profile.name || "",
+    dob: profile.dob || "",
+    pat_addr: profile.address || "",
+    phone: profile.phone || "",
+    insurance: profile.insurance || "",
+    insurance_id: profile.insuranceId || "",
+    height: profile.height || "",
+    weight: profile.weight || ""
+  };
+}
+
+function buildSeedDoctorFields(profile, targetForm){
+  if(!profile) return {};
+  if(targetForm === "oxygen"){
+    return {
+      "oxy-npi-search": profile.npi || "",
+      "oxy-lic-num": profile.lic || "",
+      "oxy-phys-name": profile.name || "",
+      "oxy-phys-type": profile.type || "",
+      "oxy-phys-phone": profile.phone || "",
+      "oxy-phys-fax": profile.fax || "",
+      "oxy-phys-addr": profile.address || ""
+    };
+  }
+  return {
+    npi_input: profile.npi || "",
+    lic_num: profile.lic || "",
+    phys_name: profile.name || "",
+    phys_type: profile.type || "",
+    phys_phone: profile.phone || "",
+    phys_fax: profile.fax || "",
+    phys_addr: profile.address || ""
+  };
+}
+
+function createSeedStateFromRecord(record, targetForm, seedType){
+  const formType = targetForm || record?.form || record?.state?.form || "standard";
+  const normalizedSeedType = seedType === "doctor" ? "doctor" : "patient";
+  const patientProfile = extractPatientProfileFromRecord(record);
+  const doctorProfile = extractPhysicianProfileFromRecord(record);
+  return {
+    form: formType,
+    fields: normalizedSeedType === "doctor"
+      ? buildSeedDoctorFields(doctorProfile, formType)
+      : buildSeedPatientFields(patientProfile, formType),
+    icdSelections: normalizedSeedType === "patient" && formType !== "oxygen" ? { ...(record?.state?.icdSelections || {}) } : {}
+  };
+}
+
 async function applyRequestedRoute(){
   if(requestedRouteApplied) return;
   if(requestedRecordId){
@@ -4571,6 +5869,72 @@ async function applyRequestedRoute(){
       return;
     }
   }
+  if(requestedSeedRecordId){
+    if(!authUser || !db) return;
+    try{
+      const snap = await withCloudTimeout(
+        db.collection("users").doc(authUser.uid).collection("records").doc(requestedSeedRecordId).get(),
+        12000
+      );
+      if(!snap.exists){
+        setWorkflowMessage("record-status", "That saved shortcut source was not found.", "status-warn");
+        requestedRouteApplied = true;
+        finishRouteLoading();
+        return;
+      }
+      const sourceRecord = { id: snap.id, ...snap.data() };
+      const targetForm = requestedFormType || sourceRecord.form || sourceRecord.state?.form || "standard";
+      const seedState = createSeedStateFromRecord(sourceRecord, targetForm, requestedSeedType);
+      resetCurrentFormState();
+      openForm(targetForm);
+      restoreFormState(seedState);
+      currentCloudRecordId = "";
+      selectedRecordId = "";
+      setWorkflowMessage(
+        "record-status",
+        `Started a new ${String(targetForm).toUpperCase()} DWO with ${requestedSeedType === "doctor" ? "doctor" : "patient"} details from ${getRecordLabel(sourceRecord)}.`,
+        "status-ok"
+      );
+      requestedRouteApplied = true;
+      finishRouteLoading();
+      return;
+    }catch(error){
+      setWorkflowMessage("record-status", getCloudErrorMessage(error, "That shortcut could not open a new DWO right now."), "status-warn");
+      finishRouteLoading();
+      return;
+    }
+  }
+  if(requestedCloneId){
+    if(!authUser || !db) return;
+    try{
+      const snap = await withCloudTimeout(
+        db.collection("users").doc(authUser.uid).collection("records").doc(requestedCloneId).get(),
+        12000
+      );
+      if(!snap.exists){
+        setWorkflowMessage("record-status", "That source DWO was not found for cloning.", "status-warn");
+        requestedRouteApplied = true;
+        finishRouteLoading();
+        return;
+      }
+      const sourceRecord = { id: snap.id, ...snap.data() };
+      const targetForm = requestedFormType || sourceRecord.form || sourceRecord.state?.form || "standard";
+      const cloneState = createCloneStateFromRecord(sourceRecord, targetForm);
+      resetCurrentFormState();
+      openForm(targetForm);
+      restoreFormState(cloneState);
+      currentCloudRecordId = "";
+      selectedRecordId = "";
+      setWorkflowMessage("record-status", `Started a new ${String(targetForm).toUpperCase()} DWO from ${getRecordLabel(sourceRecord)} with the same patient and doctor information.`, "status-ok");
+      requestedRouteApplied = true;
+      finishRouteLoading();
+      return;
+    }catch(error){
+      setWorkflowMessage("record-status", getCloudErrorMessage(error, "That DWO could not be copied right now."), "status-warn");
+      finishRouteLoading();
+      return;
+    }
+  }
   if(requestedFormType){
     startNewForm(requestedFormType);
     requestedRouteApplied = true;
@@ -4588,18 +5952,25 @@ function getFormState(){
   return state;
 }
 
-function restoreFormState(state){
-  if(!state) return false;
-  if(state.form && state.form !== currentForm) openForm(state.form);
-  if(state.wcVariant && typeof setWheelchairVariant === "function") setWheelchairVariant(state.wcVariant);
-  if(state.bedVariant && typeof setBedVariant === "function") setBedVariant(state.bedVariant);
-
-  Object.entries(state.fields || {}).forEach(([id, value]) => {
+function applySavedFieldState(fields){
+  Object.entries(fields || {}).forEach(([id, value]) => {
     const el = document.getElementById(id);
     if(!el) return;
     if(el.type === "checkbox" || el.type === "radio") el.checked = !!value;
     else el.value = value ?? "";
   });
+}
+
+function restoreFormState(state){
+  if(!state) return false;
+  if(state.form && state.form !== currentForm) openForm(state.form, true);
+  if(state.wcVariant && typeof setWheelchairVariant === "function") setWheelchairVariant(state.wcVariant);
+  if(state.bedVariant && typeof setBedVariant === "function") setBedVariant(state.bedVariant);
+  applySavedFieldState(state.fields);
+  if(state.form === "hoyer" || currentForm === "hoyer"){
+    syncHoyerRows();
+    applySavedFieldState(state.fields);
+  }
   for(let i=1;i<=4;i++){
     const code = state.icdSelections?.[`dx${i}`] || "";
     if(code) selectIcd(i, code, "");
@@ -4607,7 +5978,13 @@ function restoreFormState(state){
   }
   if(document.getElementById("lon-lifetime")) toggleLon();
   if(document.getElementById("bed-lon-lifetime")) toggleBedLon();
+  if(document.getElementById("hoyer-lon-lifetime")) toggleHoyerLon();
   updateAllQty();
+  if(state.form === "hoyer" || currentForm === "hoyer"){
+    applySavedFieldState(state.fields);
+    if(document.getElementById("hoyer-lon-lifetime")) toggleHoyerLon();
+  }
+  syncDocumentTitle();
   syncWorkflowPanel();
   return true;
 }
@@ -4747,6 +6124,8 @@ function applyPatientPreset(id){
   });
   updateAllQty();
   queueAutosave();
+  queuePreferenceSave();
+  syncDocumentTitle();
   document.getElementById("patient-preset-select").value = "";
   setWorkflowMessage("patient-preset-status", `Loaded ${preset.label}.`, "status-ok");
 }
@@ -4806,6 +6185,8 @@ function applyPhysicianPreset(id){
     if(el) el.value = value;
   });
   queueAutosave();
+  queuePreferenceSave();
+  syncDocumentTitle();
   document.getElementById("physician-preset-select").value = "";
   setWorkflowMessage("physician-preset-status", `Loaded ${preset.label}.`, "status-ok");
 }
@@ -4901,6 +6282,7 @@ function hasOrderData(){
     return false;
   }
   if(currentForm === "compression") return hasCompressionOrderData();
+  if(currentForm === "hoyer") return getSelectedHoyerCodes().length > 0;
   if(currentForm === "oxygen") return true;
   return true;
 }
@@ -4915,6 +6297,8 @@ function getMissingChecklistItems(){
     if(!hasCheckedInput("cs-toe")) missing.push({ id:"cs-toe-closed", label:"toe type" });
     if(!hasCheckedInput("cs-lat")) missing.push({ id:"cs-lat-lt", label:"laterality" });
     if(!hasCompressionCodeSelected()) missing.push({ id:"cs-code-a6533", label:"garment code" });
+  }else if(currentForm === "hoyer" && !hasOrderData()){
+    missing.push({ id:"hoyer-code-e0630", label:"selected lift code" });
   }else if(!hasOrderData()){
     missing.push({ id: (currentForm === "standard" || currentForm === "nutrition") ? "hcpcs_1" : "", label: "ordered item details" });
   }
@@ -4961,8 +6345,10 @@ function handlePrint(){
     setWorkflowMessage("checklist-status", `Printing is paused until the highlighted fields are filled. Start with ${missing[0].label}.`, "status-warn");
     return;
   }
+  captureCurrentFormPreferences();
   setFaxMode(false);
   saveDraft(false);
+  syncDocumentTitle();
   window.print();
 }
 
@@ -4971,6 +6357,7 @@ function syncWorkflowPanel(){
   const draft = getDraftStore()[currentForm];
   setWorkflowMessage("draft-status", draft?.savedAt ? `Autosave available for ${currentForm} from ${formatTimestamp(draft.savedAt)}.` : "Autosaves locally while you type.");
   updateStaffStatus();
+  updateQuickFillStatus();
   syncFaxCover();
   refreshChecklist();
 }
@@ -4981,7 +6368,9 @@ function getPatientFullName(){
 
 function getPatientFileBase(){
   const raw = getPatientFullName();
-  if(!raw) return `UNKNOWN PATIENT - ${currentForm.toUpperCase()}`;
+  const formLabel = FORM_FILE_LABELS[currentForm] || currentForm.toUpperCase();
+  const dateStamp = getCurrentDateFileStamp();
+  if(!raw) return `UNKNOWN PATIENT - ${formLabel} - ${dateStamp}`;
   let cleaned = raw.replace(/\s+/g, " ").trim();
   if(cleaned.includes(",")){
     cleaned = cleaned.split(",").map(x => x.trim()).filter(Boolean).join(" ");
@@ -4993,7 +6382,7 @@ function getPatientFileBase(){
       cleaned = `${last} ${first}`;
     }
   }
-  return `${cleaned.toUpperCase()} - ${currentForm.toUpperCase()}`.replace(/[\\/:*?"<>|]+/g, "");
+  return `${cleaned.toUpperCase()} - ${formLabel} - ${dateStamp}`.replace(/[\\/:*?"<>|]+/g, "");
 }
 
 function syncFaxCover(){
@@ -5045,8 +6434,10 @@ function handleFaxPrint(){
     setWorkflowMessage("checklist-status", `Fax printing is paused until the highlighted fields are filled. Start with ${missing[0].label}.`, "status-warn");
     return;
   }
+  captureCurrentFormPreferences();
   syncFaxCover();
   setFaxMode(true);
+  syncDocumentTitle();
   window.print();
 }
 
@@ -5072,6 +6463,8 @@ async function saveRecordPackage(){
     return;
   }
   try{
+    captureCurrentFormPreferences();
+    syncDocumentTitle();
     setWorkflowMessage("record-status", "Saving record to cloud...", "");
     const record = createRecordSnapshot();
     const ref = currentCloudRecordId
@@ -5098,7 +6491,7 @@ async function saveRecordPackage(){
 // Move all .drop elements to <body> so they are NEVER clipped by any parent
 // This is the only reliable way to ensure they always appear on top
 document.addEventListener("DOMContentLoaded", function() {
-  if(!requestedFormType && !requestedRecordId){
+  if(!requestedFormType && !requestedRecordId && !requestedCloneId && !requestedSeedRecordId){
     window.location.replace("index.html");
     return;
   }
@@ -5117,7 +6510,7 @@ document.addEventListener("DOMContentLoaded", function() {
   renderPhysicianPresets();
   syncWorkflowPanel();
   renderCloudRecords();
-  if(requestedFormType && !requestedRecordId){
+  if((requestedFormType || requestedCloneId || requestedSeedRecordId) && !requestedRecordId){
     applyRequestedRoute();
   }
   const recordsSearch = document.getElementById("records-search");
@@ -5127,10 +6520,15 @@ document.addEventListener("DOMContentLoaded", function() {
   document.addEventListener("input", e => {
     if(!e.target?.id || !e.target.closest("#form-screen")) return;
     queueAutosave();
+    queuePreferenceSave();
+    syncDocumentTitle();
   });
   document.addEventListener("change", e => {
     if(!e.target?.id || !e.target.closest("#form-screen")) return;
     queueAutosave();
+    queuePreferenceSave();
+    if(e.target.id === "patient_name" || e.target.id === "dob") applyPatientInsuranceCarryForward();
+    syncDocumentTitle();
   });
   const importInput = document.getElementById("draft-import-input");
   if(importInput){
@@ -5139,10 +6537,19 @@ document.addEventListener("DOMContentLoaded", function() {
       e.target.value = "";
     });
   }
+  const recordLookupSearch = document.getElementById("record-lookup-search");
+  if(recordLookupSearch){
+    recordLookupSearch.addEventListener("input", () => renderRecordLookupResults());
+  }
+  document.getElementById("record-lookup-modal")?.addEventListener("click", e => {
+    if(e.target?.id === "record-lookup-modal") closeRecordLookupModal();
+  });
+  document.addEventListener("keydown", handleGlobalFormShortcuts);
   document.getElementById("staff-profile-modal")?.addEventListener("click", e => {
     if(e.target?.id === "staff-profile-modal") closeStaffProfileModal();
   });
   window.addEventListener("afterprint", () => setFaxMode(false));
+  syncDocumentTitle();
 });
 
 // Reposition open dropdowns on scroll or resize
@@ -5271,11 +6678,15 @@ clearForm = function(){
   if(lon){ lon.disabled = false; lon.value = ""; }
   const bedLon = document.getElementById("bed-lon-months");
   if(bedLon){ bedLon.disabled = false; bedLon.value = ""; }
+  const hoyerLon = document.getElementById("hoyer-lon-months");
+  if(hoyerLon){ hoyerLon.disabled = false; hoyerLon.value = ""; }
 
   const wcLifetime = document.getElementById("lon-lifetime");
   if(wcLifetime) wcLifetime.checked = false;
   const bedLifetime = document.getElementById("bed-lon-lifetime");
   if(bedLifetime) bedLifetime.checked = false;
+  const hoyerLifetime = document.getElementById("hoyer-lon-lifetime");
+  if(hoyerLifetime) hoyerLifetime.checked = false;
 
   updateAllQty();
   clearMissingHighlights();
