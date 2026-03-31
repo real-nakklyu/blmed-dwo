@@ -749,12 +749,16 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   padding:34px 40px 30px;
   min-height:1040px;
   overflow:visible;
+  display:flex;
+  flex-direction:column;
 }
 .fax-cover::before{display:none}
 .fax-cover-content{
   position:static;
   z-index:auto;
   gap:16px;
+  flex:1 1 auto;
+  min-height:100%;
 }
 .fax-cover-head{
   display:flex;
@@ -764,13 +768,13 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 }
 .fax-cover-office{
   font-family:'Manrope',Arial,sans-serif;
-  font-size:12px;
-  line-height:1.45;
+  font-size:15px;
+  line-height:1.55;
   color:#111;
 }
 .fax-cover-company{
   font-family:'Manrope',Arial,sans-serif;
-  font-size:20px;
+  font-size:24px;
   font-weight:800;
   color:#111;
   text-align:right;
@@ -795,7 +799,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 }
 .fax-cover-sub{
   font-family:'Manrope',Arial,sans-serif;
-  font-size:12px;
+  font-size:14px;
   font-weight:700;
   letter-spacing:.12em;
   text-transform:uppercase;
@@ -825,7 +829,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   flex:0 0 48px;
   margin:0;
   font-family:'Manrope',Arial,sans-serif;
-  font-size:12px;
+  font-size:14px;
   font-weight:800;
   letter-spacing:0;
   text-transform:none;
@@ -835,8 +839,8 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   flex:1 1 auto;
   min-width:0;
   font-family:'Manrope',Arial,sans-serif;
-  font-size:12.5px;
-  line-height:1.45;
+  font-size:14.5px;
+  line-height:1.55;
   color:#111;
   white-space:pre-wrap;
 }
@@ -853,7 +857,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   align-items:center;
   gap:6px;
   font-family:'Manrope',Arial,sans-serif;
-  font-size:11.5px;
+  font-size:13.5px;
   color:#111;
 }
 .fax-type-box{
@@ -889,30 +893,30 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   display:inline-block;
   margin:0 4px 0 0;
   font-family:'Manrope',Arial,sans-serif;
-  font-size:11px;
+  font-size:14px;
   font-weight:800;
   letter-spacing:0;
   text-transform:none;
   color:#111;
 }
 #fax-preview-notes{
-  font-size:12.5px;
-  line-height:1.55;
+  font-size:14.5px;
+  line-height:1.62;
 }
 .fax-cover-disclaimer{
   margin-top:auto;
-  padding-top:10px;
-  border-top:1px solid #777;
+  padding-top:14px;
+  border-top:none;
   border-radius:0;
   background:none;
   font-family:'Manrope',Arial,sans-serif;
-  font-size:10px;
-  line-height:1.4;
+  font-size:12px;
+  line-height:1.5;
   color:#333;
 }
 .fax-cover-legal-title{
   font-family:'Manrope',Arial,sans-serif;
-  font-size:10.5px;
+  font-size:12.5px;
   font-weight:800;
   letter-spacing:.08em;
   text-transform:uppercase;
@@ -1450,12 +1454,12 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     gap:12px!important;
   }
   body.fax-cover-enabled .fax-cover-office{
-    font-size:7.8pt!important;
-    line-height:1.35!important;
+    font-size:9.3pt!important;
+    line-height:1.48!important;
     color:#111!important;
   }
   body.fax-cover-enabled .fax-cover-company{
-    font-size:16.5pt!important;
+    font-size:19.5pt!important;
     color:#111!important;
     text-align:right!important;
     padding-top:2px!important;
@@ -1475,7 +1479,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     margin:0!important;
   }
   body.fax-cover-enabled .fax-cover-sub{
-    font-size:7.3pt!important;
+    font-size:8.8pt!important;
     letter-spacing:.12em!important;
     text-align:right!important;
     color:#444!important;
@@ -1496,15 +1500,15 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   }
   body.fax-cover-enabled .fax-label{
     flex:0 0 34px!important;
-    font-size:7.6pt!important;
+    font-size:9.3pt!important;
     letter-spacing:0!important;
     text-transform:none!important;
     color:#111!important;
     margin:0!important;
   }
   body.fax-cover-enabled .fax-value{
-    font-size:8.1pt!important;
-    line-height:1.28!important;
+    font-size:9.8pt!important;
+    line-height:1.4!important;
     color:#111!important;
   }
   body.fax-cover-enabled .fax-type-row{
@@ -1513,7 +1517,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     border-bottom:1px solid #444!important;
   }
   body.fax-cover-enabled .fax-type-option{
-    font-size:7.3pt!important;
+    font-size:8.8pt!important;
     color:#111!important;
   }
   body.fax-cover-enabled .fax-type-box{
@@ -1535,28 +1539,28 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     background:none!important;
   }
   body.fax-cover-enabled .fax-section-title{
-    font-size:7.6pt!important;
+    font-size:9.2pt!important;
     margin:0 3px 0 0!important;
     letter-spacing:0!important;
     text-transform:none!important;
     color:#111!important;
   }
   body.fax-cover-enabled #fax-preview-notes{
-    font-size:8.1pt!important;
-    line-height:1.4!important;
+    font-size:9.8pt!important;
+    line-height:1.52!important;
   }
   body.fax-cover-enabled .fax-cover-disclaimer{
-    margin-top:8px!important;
-    padding:7px 0 0!important;
-    border-top:1px solid #777!important;
+    margin-top:auto!important;
+    padding:8px 0 0!important;
+    border-top:none!important;
     border-radius:0!important;
     background:none!important;
-    font-size:6.5pt!important;
-    line-height:1.3!important;
+    font-size:8pt!important;
+    line-height:1.45!important;
     color:#333!important;
   }
   body.fax-cover-enabled .fax-cover-legal-title{
-    font-size:6.8pt!important;
+    font-size:8.3pt!important;
     margin-bottom:4px!important;
     color:#111!important;
   }
@@ -2697,12 +2701,13 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
           Better Life Medical &amp; Surgical Supply<br/>
           Phone (305) 909-0880<br/>
           Fax (305) 539-0880<br/>
+          Intake line (305) 242-6069
         </div>
         <div class="fax-cover-company">Better Life Medical</div>
       </div>
       <div class="fax-cover-title-row">
         <div class="fax-cover-title">FAX</div>
-        <div class="fax-cover-sub">Detailed Written Order</div>
+        <div class="fax-cover-sub">Detailed Written Order Package</div>
       </div>
       <div class="fax-cover-grid">
         <div class="fax-line"><span class="fax-label">To:</span><div class="fax-value" id="fax-preview-to-name"></div></div>
