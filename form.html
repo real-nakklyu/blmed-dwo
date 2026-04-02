@@ -1587,17 +1587,17 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   }
   .brand-left img{width:34px!important;height:34px!important}
   .brand-name{font-size:13pt!important}
-  .brand-sub,.brand-contact{font-size:7pt!important}
-  .doc-title-block .form-name{font-size:10.5pt!important}
-  .doc-title-block .form-sub{font-size:7pt!important}
-  .form-id{font-size:7pt!important}
-  .form-id span{font-size:6.5pt!important}
+  .brand-sub,.brand-contact{font-size:8pt!important}
+  .doc-title-block .form-name{font-size:11.5pt!important}
+  .doc-title-block .form-sub{font-size:8pt!important}
+  .form-id{font-size:8pt!important}
+  .form-id span{font-size:7.5pt!important}
 
   /* All sections вЂ” base sizing */
   .sec{padding:0 14px 3px!important;flex:0 0 auto!important}
   .order-wrap{padding:0 14px 3px!important;flex:0 0 auto!important}
   .refrow{padding:2px 14px 3px!important;border-top:1px solid #ccc!important;flex:0 0 auto!important}
-  .footnote{padding:4px 14px 6px!important;font-size:6.5pt!important;border-top:1px dashed #999!important;flex:0 0 auto!important;margin-top:auto!important}
+  .footnote{padding:4px 14px 6px!important;font-size:7.75pt!important;border-top:1px dashed #999!important;flex:0 0 auto!important;margin-top:auto!important}
 
   /* Notes and physician sections вЂ” tight, no stretching */
   #sec-notes{flex:none!important}
@@ -1621,12 +1621,12 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     flex:none!important;
   }
   .sig-line{margin-top:42px!important;border-bottom:1.5px solid #111!important}
-  .sig-label{font-size:7pt!important;margin-top:4px!important}
+  .sig-label{font-size:8pt!important;margin-top:4px!important}
 
   /* Section labels */
   .sec-label{padding:4px 0 3px!important}
   .sec-label .stamp{
-    font-size:7.5pt!important;padding:1px 8px!important;
+    font-size:8.5pt!important;padding:1px 8px!important;
     background:#2a3d5c!important;color:#fff!important;
     border:1px solid #1a2838!important;
   }
@@ -1636,19 +1636,19 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   .frow{gap:0 8px!important;margin-bottom:2px!important}
   #sec-physician .frow{margin-bottom:14px!important}
   .f{margin-bottom:2px!important}
-  .f label{font-size:6.5pt!important;letter-spacing:.04em!important}
+  .f label{font-size:7.75pt!important;letter-spacing:.04em!important}
   .f input{
-    font-size:9pt!important;padding:1px 2px 2px!important;
+    font-size:10pt!important;padding:1px 2px 2px!important;
     border-bottom:1px solid #777!important;background:#fff!important;
   }
   .f select{
-    font-size:9pt!important;padding:1px 2px 2px!important;
+    font-size:10pt!important;padding:1px 2px 2px!important;
     border-bottom:1px solid #777!important;background:#fff!important;
     border-radius:0!important;appearance:none!important;
     -webkit-appearance:none!important;background-image:none!important;
   }
   .f textarea{
-    font-size:9pt!important;min-height:22px!important;
+    font-size:10pt!important;min-height:22px!important;
     padding:2px 4px!important;border:1px solid #777!important;
     background:#fff!important;line-height:1.5!important;
     width:100%!important;display:block!important;
@@ -1656,15 +1656,30 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   .f.dx input{background:#fff!important;border-bottom:1px solid #8B1A1A!important}
   .f.dx.sel input{display:none!important}
   .icd-sel{
-    font-size:9pt!important;padding:1px 2px!important;
+    font-size:10pt!important;padding:1px 2px!important;
     border-bottom:1.5px solid #8B1A1A!important;color:#8B1A1A!important;background:transparent!important;
   }
   .f.dx:not(.sel) .icd-sel{display:none!important}
 
+  /* Override inline font sizes embedded in form markup so print changes are visible */
+  .sheet [style*="font-size:8px"]{font-size:9.5pt!important}
+  .sheet [style*="font-size:8.5px"]{font-size:10pt!important}
+  .sheet [style*="font-size:9px"]{font-size:10.25pt!important}
+  .sheet [style*="font-size:9.5px"]{font-size:10.5pt!important}
+  .sheet [style*="font-size:10px"]{font-size:10.75pt!important}
+  .sheet [style*="font-size:10.5px"]{font-size:11pt!important}
+  .sheet [style*="font-size:11px"]{font-size:11.25pt!important}
+  .sheet [style*="font-size:11.5px"]{font-size:11.5pt!important}
+  .sheet [style*="font-size:12px"]{font-size:11.75pt!important}
+  .sheet [style*="font-size:12.5px"]{font-size:12pt!important}
+  .sheet [style*="font-size:13px"]{font-size:12.25pt!important}
+  .sheet [style*="font-size:13.5px"]{font-size:12.5pt!important}
+  .sheet [style*="font-size:14px"]{font-size:12.75pt!important}
+
   /* Order table */
-  .order-wrap table{font-size:8.5pt!important}
+  .order-wrap table{font-size:9.5pt!important}
   .order-wrap thead th{
-    padding:3px 6px!important;font-size:7.5pt!important;
+    padding:3px 6px!important;font-size:8.5pt!important;
     background:#2a3d5c!important;color:#fff!important;
     border:1px solid #1a2838!important;letter-spacing:.06em!important;
   }
@@ -1673,12 +1688,12 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     border-right:1px solid #ccc!important;border-bottom:1px solid #ccc!important;
   }
   .order-wrap tbody tr:nth-child(odd){background:#f9f9f9!important}
-  .order-wrap tbody input{font-size:8.5pt;padding:2px 3px!important;line-height:1.4!important}
+  .order-wrap tbody input{font-size:9.5pt;padding:2px 3px!important;line-height:1.4!important}
 
   /* Refills */
-  .refrow label{font-size:7pt!important}
+  .refrow label{font-size:8pt!important}
   .refrow input{
-    font-size:9pt!important;border-bottom:1px solid #777!important;
+    font-size:10pt!important;border-bottom:1px solid #777!important;
     width:60px!important;padding:1px 3px!important;background:#fff!important;
   }
 }
@@ -1780,14 +1795,14 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 
 /* PRINT compression */
 @media print{
-  #section-compression .cs-check{font-size:7.5pt!important}
-  #section-compression .cs-check input{width:9px!important;height:9px!important}
+  #section-compression .cs-check{font-size:9.5pt!important}
+  #section-compression .cs-check input{width:11px!important;height:11px!important}
   #section-compression .cs-garment-grid{padding:3px!important;gap:2px!important}
   #section-compression .cs-garment-col{padding:2px 4px!important;gap:2px!important}
   #section-compression .cs-leg-img{font-size:18px!important;margin-bottom:2px!important}
-  #section-compression .cs-code{font-size:7pt!important}
-  #section-compression textarea{font-size:7.5pt!important;min-height:24px!important;border:0.7px solid #888!important;background:#fff!important;padding:1px 3px!important}
-  #section-compression input[type=text]{font-size:7.5pt!important}
+  #section-compression .cs-code{font-size:9pt!important}
+  #section-compression textarea{font-size:9.5pt!important;min-height:24px!important;border:0.7px solid #888!important;background:#fff!important;padding:1px 3px!important}
+  #section-compression input[type=text]{font-size:9.5pt!important}
   /* Compression section grows to fill space for this form */
   .sheet[data-form="compression"] #section-compression{flex:1 1 auto!important}
   /* Oxygen form print вЂ” preserve screen layout */
@@ -1798,9 +1813,9 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   .sheet[data-form="oxygen"] #section-oxygen .sec{padding:0 14px 6px!important}
   .sheet[data-form="oxygen"] #section-oxygen .sec-label{padding:4px 0 3px!important}
   .sheet[data-form="oxygen"] #section-oxygen .frow{margin-bottom:4px!important;gap:0 10px!important}
-  .sheet[data-form="oxygen"] #section-oxygen .f label{font-size:6.5pt!important}
-  .sheet[data-form="oxygen"] #section-oxygen .f input{font-size:8.5pt!important;padding:1px 3px!important}
-  .sheet[data-form="oxygen"] #section-oxygen .cs-check{font-size:8.5pt!important}
+  .sheet[data-form="oxygen"] #section-oxygen .f label{font-size:8pt!important}
+  .sheet[data-form="oxygen"] #section-oxygen .f input{font-size:10.25pt!important;padding:1px 3px!important}
+  .sheet[data-form="oxygen"] #section-oxygen .cs-check{font-size:10.25pt!important}
   .sheet[data-form="oxygen"] #oxy-sig-block{
     padding:80px 14px 10px!important;flex-shrink:0!important;
     margin-top:auto!important;gap:80px!important;align-items:flex-end!important;
@@ -1815,17 +1830,17 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     color:var(--ink)!important;
     margin-top:6px!important;
   }
-  .sheet[data-form="oxygen"] #oxy-footnote{flex-shrink:0!important;padding:4px 14px 6px!important;font-size:6pt!important}
+  .sheet[data-form="oxygen"] #oxy-footnote{flex-shrink:0!important;padding:4px 14px 6px!important;font-size:8pt!important}
   .sheet[data-form="oxygen"] #sec-notes{flex:0!important;display:none!important}
   .sheet[data-form="oxygen"] > .sig-block,
   .sheet[data-form="oxygen"] > .footnote{display:none!important}
   #oxy-sig-block{padding:80px 14px 10px!important;display:flex!important;gap:80px!important;align-items:flex-end!important}
   #oxy-sig-block .sig-line{margin-top:60px!important;border-bottom:1.5px solid #111!important}
   #oxy-sig-block .siglabel{font-size:11pt!important;font-family:'Special Elite',cursive!important;margin-top:6px!important}
-  #section-oxygen .cs-check{font-size:8.5pt!important}
-  #section-oxygen .cs-check input{width:10px!important;height:10px!important}
+  #section-oxygen .cs-check{font-size:10.25pt!important}
+  #section-oxygen .cs-check input{width:12px!important;height:12px!important}
   #section-oxygen input[type=text],#section-oxygen input[type=tel],#section-oxygen input[type=date]{
-    font-size:8.5pt!important;border-bottom:0.7px solid #888!important;background:#fff!important;
+    font-size:10.25pt!important;border-bottom:0.7px solid #888!important;background:#fff!important;
   }
 
   .sheet[data-form="compression"] #sec-notes .f textarea{
@@ -1848,17 +1863,17 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     margin-bottom:2px!important;
   }
   .sheet[data-form="nutrition"] #section-order-standard .order-wrap table{
-    font-size:8pt!important;
+    font-size:9.5pt!important;
   }
   .sheet[data-form="nutrition"] #section-order-standard .order-wrap thead th{
     padding:2px 5px!important;
-    font-size:7pt!important;
+    font-size:9pt!important;
   }
   .sheet[data-form="nutrition"] #section-order-standard .order-wrap tbody td{
     padding:3px 4px!important;
   }
   .sheet[data-form="nutrition"] #section-order-standard .order-wrap tbody input{
-    font-size:8pt!important;
+    font-size:9.75pt!important;
     padding:1px 2px!important;
   }
   .sheet[data-form="nutrition"] #section-order-standard #rows tr:nth-child(n+8){
@@ -1879,24 +1894,24 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     border-radius:10px!important;
   }
   .sheet[data-form="nutrition"] #section-nutrition .nutrition-card-title{
-    font-size:7pt!important;
+    font-size:8.5pt!important;
     margin-bottom:4px!important;
   }
   .sheet[data-form="nutrition"] #section-nutrition .nutrition-checks{
     gap:6px 10px!important;
   }
   .sheet[data-form="nutrition"] #section-nutrition .nutrition-check{
-    font-size:7.25pt!important;
+    font-size:9pt!important;
   }
   .sheet[data-form="nutrition"] #section-nutrition .nutrition-check input{
     width:9px!important;
     height:9px!important;
   }
   .sheet[data-form="nutrition"] #section-nutrition .f label{
-    font-size:6.25pt!important;
+    font-size:8pt!important;
   }
   .sheet[data-form="nutrition"] #section-nutrition .f input{
-    font-size:8pt!important;
+    font-size:9.75pt!important;
     padding:1px 2px!important;
   }
   .sheet[data-form="nutrition"] #sec-notes .sec-label,
@@ -1913,7 +1928,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     margin-bottom:8px!important;
   }
   .sheet[data-form="nutrition"] #sec-physician .f input{
-    font-size:8.25pt!important;
+    font-size:9.75pt!important;
   }
   .sheet[data-form="nutrition"] .sig-block{
     padding:16px 12px 8px!important;
@@ -1924,7 +1939,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   }
   .sheet[data-form="nutrition"] .footnote{
     padding:3px 12px 4px!important;
-    font-size:5.9pt!important;
+    font-size:7.75pt!important;
     line-height:1.35!important;
   }
   .sheet[data-form="wheelchair"] .sig-block{
@@ -2327,31 +2342,46 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   }
   .brand-left img{width:28px!important;height:28px!important}
   .brand-name{font-size:10pt!important}
-  .brand-sub,.brand-contact{font-size:6.5pt!important}
-  .doc-title-block .form-name{font-size:8.5pt!important}
-  .doc-title-block .form-sub,.form-id{font-size:6.5pt!important}
+  .brand-sub,.brand-contact{font-size:8pt!important}
+  .doc-title-block .form-name{font-size:10.5pt!important}
+  .doc-title-block .form-sub,.form-id{font-size:8pt!important}
 
   /* в”Ђв”Ђ PATIENT SECTION в”Ђв”Ђ */
   .sec{padding:0 10px 2px!important;flex-shrink:0!important}
   .sec-label{padding:2px 0 2px!important}
   .sec-label .stamp{
-    font-size:6.5pt!important;padding:1px 6px!important;
+    font-size:8pt!important;padding:1px 6px!important;
     background:#2a3d5c!important;color:#fff!important;
   }
   .sec-label .rule-line{border-top:0.7px solid #aaa!important}
   .frow{gap:0 6px!important;margin-bottom:2px!important}
   .f{margin-bottom:1px!important}
-  .f label{font-size:6pt!important}
+  .f label{font-size:8pt!important}
   .f input,.f select{
-    font-size:7.5pt!important;padding:1px 2px!important;
+    font-size:9.5pt!important;padding:1px 2px!important;
     border-bottom:0.7px solid #777!important;background:#fff!important;
   }
   .gdx{gap:0 4px!important}
 
+  /* Override inline font sizes embedded in form markup so print changes are visible */
+  .sheet [style*="font-size:8px"]{font-size:9.5pt!important}
+  .sheet [style*="font-size:8.5px"]{font-size:10pt!important}
+  .sheet [style*="font-size:9px"]{font-size:10.25pt!important}
+  .sheet [style*="font-size:9.5px"]{font-size:10.5pt!important}
+  .sheet [style*="font-size:10px"]{font-size:10.75pt!important}
+  .sheet [style*="font-size:10.5px"]{font-size:11pt!important}
+  .sheet [style*="font-size:11px"]{font-size:11.25pt!important}
+  .sheet [style*="font-size:11.5px"]{font-size:11.5pt!important}
+  .sheet [style*="font-size:12px"]{font-size:11.75pt!important}
+  .sheet [style*="font-size:12.5px"]{font-size:12pt!important}
+  .sheet [style*="font-size:13px"]{font-size:12.25pt!important}
+  .sheet [style*="font-size:13.5px"]{font-size:12.5pt!important}
+  .sheet [style*="font-size:14px"]{font-size:12.75pt!important}
+
   /* в”Ђв”Ђ ORDER TABLE в”Ђв”Ђ */
   .order-wrap{padding:0 10px 1px!important;flex-shrink:0!important}
   .order-wrap thead th{
-    padding:2px 5px!important;font-size:7pt!important;
+    padding:2px 5px!important;font-size:9pt!important;
     background:#2a3d5c!important;color:#fff!important;
   }
   #wc-rows tr td,#bed-rows tr td,#hoyer-rows tr td{
@@ -2359,15 +2389,15 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     border-bottom:0.7px solid #ccc!important;
     border-right:0.5px solid #e0e0e0!important;
   }
-  #wc-rows input,#bed-rows input,#hoyer-rows input{font-size:7.5pt!important;padding:1px 2px!important}
-  #wc-rows span,#bed-rows span,#hoyer-rows span{font-size:7.5pt!important;padding:0 3px!important;display:block!important}
+  #wc-rows input,#bed-rows input,#hoyer-rows input{font-size:9.5pt!important;padding:1px 2px!important}
+  #wc-rows span,#bed-rows span,#hoyer-rows span{font-size:9.5pt!important;padding:0 3px!important;display:block!important}
   #section-order-wheelchair .sec-label,
   #section-order-bed .sec-label,
   #section-order-hoyer .sec-label{padding:2px 0 1px!important}
 
   /* в”Ђв”Ђ LENGTH OF NEED в”Ђв”Ђ */
   .lon-row{
-    padding:2px 10px!important;font-size:7pt!important;
+    padding:2px 10px!important;font-size:9pt!important;
     flex-shrink:0!important;gap:10px!important;
   }
   .hoyer-options{
@@ -2375,12 +2405,12 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     gap:8px 14px!important;
   }
   .hoyer-option{
-    font-size:7pt!important;
+    font-size:9pt!important;
     gap:4px!important;
   }
   .hoyer-option input{
-    width:9px!important;
-    height:9px!important;
+    width:10px!important;
+    height:10px!important;
   }
 
   /* в”Ђв”Ђ HIDE WRONG CRITERIA SECTION в”Ђв”Ђ */
@@ -2424,7 +2454,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     min-height:0!important;
   }
   .criteria-title{
-    font-size:6.5pt!important;margin-bottom:2px!important;
+    font-size:8pt!important;margin-bottom:2px!important;
     line-height:1.3!important;flex-shrink:0!important;
   }
   /* Criteria rows share remaining space equally */
@@ -2438,9 +2468,9 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     border-bottom:0.5px solid #e5e5e5!important;
   }
   .criteria-row:last-child{border-bottom:none!important}
-  .criteria-text{font-size:7pt!important;line-height:1.25!important}
-  .criteria-check{font-size:7pt!important;gap:2px!important}
-  .criteria-check input{width:9px!important;height:9px!important}
+  .criteria-text{font-size:9pt!important;line-height:1.25!important}
+  .criteria-check{font-size:9pt!important;gap:2px!important}
+  .criteria-check input{width:11px!important;height:11px!important}
   .criteria-checks{gap:8px!important;flex-shrink:0!important}
 
   /* в”Ђв”Ђ NOTES в”Ђв”Ђ */
@@ -2450,7 +2480,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   }
   #sec-notes .sec-label{padding:2px 0 1px!important}
   #sec-notes .f textarea{
-    font-size:7.5pt!important;border:0.7px solid #888!important;background:#fff!important;
+    font-size:9.5pt!important;border:0.7px solid #888!important;background:#fff!important;
     padding:1px 3px!important;
   }
   /* Wheelchair: 1.5x = 108px */
@@ -2482,9 +2512,9 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     padding:1px 10px 2px!important;flex-shrink:0!important;
     border-top:0.7px solid #ccc!important;
   }
-  .refrow label{font-size:6.5pt!important}
+  .refrow label{font-size:8pt!important}
   .refrow input{
-    font-size:7.5pt!important;padding:1px 3px!important;
+    font-size:9.5pt!important;padding:1px 3px!important;
     border-bottom:0.7px solid #888!important;background:#fff!important;width:55px!important;
   }
 
@@ -2493,12 +2523,92 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     padding:63px 10px 6px!important;flex-shrink:0!important;gap:16px!important;
   }
   .sig-line{margin-top:162px!important;border-bottom:1.5px solid #222!important}
-  .siglabel{font-size:6.5pt!important;margin-top:2px!important}
+  .siglabel{font-size:8.5pt!important;margin-top:2px!important}
 
   /* в”Ђв”Ђ FOOTNOTE в”Ђв”Ђ */
-.footnote{
-    padding:2px 10px 4px!important;font-size:6pt!important;
+  .footnote{
+    padding:2px 10px 4px!important;font-size:8pt!important;
     border-top:0.7px dashed #aaa!important;flex-shrink:0!important;
+  }
+
+  /* Final print-fit pass: keep larger text but preserve one-page A4 layout */
+  @page{size:A4 portrait;margin:3mm 4mm}
+  .paper{padding:0!important;margin:0!important}
+  .sheet{
+    transform:none!important;
+    height:calc(297mm - 6mm)!important;
+    border-width:.8px!important;
+  }
+  .doc-header{
+    padding:2px 6px 1px!important;
+  }
+  .brand-left img{width:22px!important;height:22px!important}
+  .sec,
+  .order-wrap,
+  #sec-physician,
+  #sec-notes,
+  .refrow{
+    padding-left:6px!important;
+    padding-right:6px!important;
+  }
+  .sec{padding-bottom:0!important}
+  .order-wrap{padding-bottom:1px!important}
+  .sec-label{padding:0!important}
+  .frow{gap:0 4px!important;margin-bottom:0!important}
+  #sec-physician .frow{margin-bottom:1px!important}
+  .f{margin-bottom:0!important}
+  .hoyer-options{padding:0 6px 1px!important;gap:4px 8px!important}
+  .criteria-section{padding:0 6px 0!important}
+  .criteria-row{gap:3px!important}
+  .criteria-checks{gap:4px!important}
+  .lon-row{padding:0 6px!important;gap:6px!important}
+  .order-wrap thead th{padding:1px 3px!important}
+  .order-wrap tbody td{padding:1px 2px!important}
+  .order-wrap tbody input{padding:1px 2px!important}
+  #sec-notes .f textarea{
+    line-height:1.3!important;
+  }
+  .sheet[data-form="standard"] #sec-notes .f textarea{
+    min-height:48px!important;max-height:48px!important;height:48px!important;
+  }
+  .sheet[data-form="wheelchair"] #sec-notes .f textarea{
+    min-height:72px!important;max-height:72px!important;height:72px!important;
+  }
+  .sheet[data-form="bed"] #sec-notes .f textarea,
+  .sheet[data-form="hoyer"] #sec-notes .f textarea{
+    min-height:92px!important;max-height:92px!important;height:92px!important;
+  }
+  .sheet[data-form="compression"] #sec-notes .f textarea{
+    min-height:88px!important;max-height:88px!important;height:88px!important;
+  }
+  .sheet[data-form="nutrition"] #sec-notes .f textarea{
+    min-height:52px!important;max-height:52px!important;height:52px!important;
+  }
+  .sig-block{
+    padding:18px 6px 3px!important;gap:10px!important;
+  }
+  .sig-line{margin-top:78px!important}
+  .sheet[data-form="wheelchair"] .sig-block{padding:14px 6px 3px!important}
+  .sheet[data-form="wheelchair"] .sig-line{margin-top:48px!important}
+  .sheet[data-form="hoyer"] .sig-block{padding:20px 6px 3px!important}
+  .sheet[data-form="hoyer"] .sig-line{margin-top:64px!important}
+  .sheet[data-form="compression"] .sig-block{padding:24px 6px 3px!important}
+  .sheet[data-form="compression"] .sig-line{margin-top:46px!important}
+  .sheet[data-form="oxygen"] #section-oxygen .sec,
+  .sheet[data-form="oxygen"] #oxy-footnote{
+    padding-left:8px!important;
+    padding-right:8px!important;
+  }
+  .sheet[data-form="oxygen"] #section-oxygen .sec{padding-bottom:2px!important}
+  .sheet[data-form="oxygen"] #section-oxygen .frow{margin-bottom:1px!important;gap:0 4px!important}
+  .sheet[data-form="oxygen"] #oxy-sig-block,
+  #oxy-sig-block{
+    padding:22px 8px 4px!important;
+    gap:24px!important;
+  }
+  .sheet[data-form="oxygen"] #oxy-sig-block .sig-line,
+  #oxy-sig-block .sig-line{
+    margin-top:26px!important;
   }
 }
 
@@ -2702,11 +2812,11 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
           Phone (305) 909-0880<br/>
           Fax (305) 539-0880<br/>
         </div>
-        <div class="fax-cover-company">Better Life Medical & Surgical Supply</div>
+        <div class="fax-cover-company">Better Life Medical &amp; Surgical Supply</div>
       </div>
       <div class="fax-cover-title-row">
         <div class="fax-cover-title">FAX</div>
-        <div class="fax-cover-sub">Detailed Written Order</div>
+        <div class="fax-cover-sub">Detailed Written Order Package</div>
       </div>
       <div class="fax-cover-grid">
         <div class="fax-line"><span class="fax-label">To:</span><div class="fax-value" id="fax-preview-to-name"></div></div>
