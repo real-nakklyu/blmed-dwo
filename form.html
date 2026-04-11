@@ -2696,8 +2696,8 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 
       <div class="form-card" onclick="startNewForm('bed')">
         <h3>Hospital Bed</h3>
-        <p>Includes medical necessity criteria checklist for semi-electric and full-electric beds.</p>
-        <div class="codes">E0255 &middot; E0260 &middot; E0261 (+ E0272 auto-added for E0261)</div>
+        <p>Includes medical necessity criteria checklist for semi-electric, full-electric, and heavy-duty extra-wide beds.</p>
+        <div class="codes">E0255 &middot; E0260 &middot; E0261 &middot; E0303 (+ E0272 auto-added for E0261)</div>
       </div>
 
       <div class="form-card" onclick="startNewForm('compression')">
@@ -2811,8 +2811,9 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
           Better Life Medical &amp; Surgical Supply<br/>
           Phone (305) 909-0880<br/>
           Fax (305) 539-0880<br/>
+          Intake line (305) 242-6069
         </div>
-        <div class="fax-cover-company">Better Life Medical &amp; Surgical Supply</div>
+        <div class="fax-cover-company">Better Life Medical</div>
       </div>
       <div class="fax-cover-title-row">
         <div class="fax-cover-title">FAX</div>
@@ -3007,6 +3008,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
         <button class="variant-btn active" id="bed-e0260-btn" onclick="setBedVariant('E0260')">E0260 Semi-Electric</button>
         <button class="variant-btn" id="bed-e0255-btn" onclick="setBedVariant('E0255')">E0255 Fixed Height</button>
         <button class="variant-btn" id="bed-e0261-btn" onclick="setBedVariant('E0261')">E0261 Full-Electric</button>
+        <button class="variant-btn" id="bed-e0303-btn" onclick="setBedVariant('E0303')">E0303 Heavy Duty Extra Wide</button>
       </div>
       <table>
         <thead><tr><th>#</th><th class="col-hcpcs">HCPCS Code</th><th>Item Description</th><th class="col-qty">Qty</th></tr></thead>
@@ -3564,6 +3566,11 @@ const BED_CODES = {
     {code:"E0272", desc:"MATTRESS, INNERSPRING"},
     {code:"", desc:""},
     {code:"", desc:""},
+  ],
+  E0303: [
+    {code:"E0303", desc:"HOSPITAL BED, HEAVY DUTY, EXTRA WIDE, WITH WEIGHT CAPACITY GREATER THAN 350 POUNDS, BUT LESS THAN OR EQUAL TO 600 POUNDS, WITH ANY TYPE SIDE RAILS, WITH MATTRESS"},
+    {code:"", desc:""},
+    {code:"", desc:""},
   ]
 };
 
@@ -3832,8 +3839,8 @@ function buildBedRows(bedCode){
   const ins = getInsuranceType();
   const codes = BED_CODES[bedCode] || [];
   codes.forEach((item, i) => {
-    // Bed is purchase for Medicaid, rental for Medicare/Commercial
-    // Special case per your rule: E0260, E0261 Medicaid = 1 NU
+    // Default bed rule here is E0260: Medicaid purchase, Medicare/Commercial rental.
+    // E0255, E0261, and E0303 use their own quantity rules below.
     let qty = "";
     if(item.code === ""){
       qty = ""; // blank row вЂ” no qty until code is entered
@@ -3841,6 +3848,8 @@ function buildBedRows(bedCode){
       qty = "1 NU"; // mattress always purchase
     } else if(bedCode === "E0261"){
       qty = "13 RR"; // E0261 is Medicare-only, always rental
+    } else if(bedCode === "E0303"){
+      qty = ins === "medicaid" ? "10 RR" : "13 RR"; // bariatric bed always rental
     } else if(bedCode === "E0255"){
       qty = "10 RR"; // E0255 always 10 RR
     } else {
@@ -3954,7 +3963,7 @@ function setWheelchairVariant(v){
 
 function setBedVariant(code){
   bedVariant = code;
-  ["E0260","E0255","E0261"].forEach(c => {
+  ["E0260","E0255","E0261","E0303"].forEach(c => {
     document.getElementById(`bed-${c.toLowerCase()}-btn`).classList.toggle("active", c===code);
   });
   buildBedRows(code);
