@@ -2770,7 +2770,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
       <div class="form-card" onclick="startNewForm('bed')">
         <h3>Hospital Bed</h3>
         <p>Includes medical necessity criteria checklist for semi-electric, full-electric, and heavy-duty extra-wide beds.</p>
-        <div class="codes">E0255 &middot; E0260 &middot; E0261 &middot; E0303 (+ E0272 auto-added for E0261)</div>
+        <div class="codes">E0255 &middot; E0260 &middot; E0261 &middot; E0265 &middot; E0303 (+ E0272 auto-added for E0261)</div>
       </div>
 
       <div class="form-card" onclick="startNewForm('compression')">
@@ -3081,6 +3081,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
         <button class="variant-btn active" id="bed-e0260-btn" onclick="setBedVariant('E0260')">E0260 Semi-Electric</button>
         <button class="variant-btn" id="bed-e0255-btn" onclick="setBedVariant('E0255')">E0255 Fixed Height</button>
         <button class="variant-btn" id="bed-e0261-btn" onclick="setBedVariant('E0261')">E0261 Full-Electric</button>
+        <button class="variant-btn" id="bed-e0265-btn" onclick="setBedVariant('E0265')">E0265 Full-Electric</button>
         <button class="variant-btn" id="bed-e0303-btn" onclick="setBedVariant('E0303')">E0303 Heavy Duty Extra Wide</button>
       </div>
       <table>
@@ -3640,6 +3641,11 @@ const BED_CODES = {
     {code:"", desc:""},
     {code:"", desc:""},
   ],
+  E0265: [
+    {code:"E0265", desc:"FULL-ELECTRIC HOSPITAL BED WITH HEAD, FOOT, AND HEIGHT ADJUSTMENT, INCLUDING BOTH SIDE RAILS AND A MATTRESS"},
+    {code:"", desc:""},
+    {code:"", desc:""},
+  ],
   E0303: [
     {code:"E0303", desc:"HOSPITAL BED, HEAVY DUTY, EXTRA WIDE, WITH WEIGHT CAPACITY GREATER THAN 350 POUNDS, BUT LESS THAN OR EQUAL TO 600 POUNDS, WITH ANY TYPE SIDE RAILS, WITH MATTRESS"},
     {code:"", desc:""},
@@ -3913,7 +3919,7 @@ function buildBedRows(bedCode){
   const codes = BED_CODES[bedCode] || [];
   codes.forEach((item, i) => {
     // Default bed rule here is E0260: Medicaid purchase, Medicare/Commercial rental.
-    // E0255, E0261, and E0303 use their own quantity rules below.
+    // E0255, E0261, E0265, and E0303 use their own quantity rules below.
     let qty = "";
     if(item.code === ""){
       qty = ""; // blank row вЂ” no qty until code is entered
@@ -3921,6 +3927,8 @@ function buildBedRows(bedCode){
       qty = "1 NU"; // mattress always purchase
     } else if(bedCode === "E0261"){
       qty = "13 RR"; // E0261 is Medicare-only, always rental
+    } else if(bedCode === "E0265"){
+      qty = "1 NU"; // E0265 full-electric bed defaults to purchase for all insurances
     } else if(bedCode === "E0303"){
       qty = ins === "medicaid" ? "10 RR" : "13 RR"; // bariatric bed always rental
     } else if(bedCode === "E0255"){
@@ -4036,7 +4044,7 @@ function setWheelchairVariant(v){
 
 function setBedVariant(code){
   bedVariant = code;
-  ["E0260","E0255","E0261","E0303"].forEach(c => {
+  ["E0260","E0255","E0261","E0265","E0303"].forEach(c => {
     document.getElementById(`bed-${c.toLowerCase()}-btn`).classList.toggle("active", c===code);
   });
   buildBedRows(code);
@@ -4273,9 +4281,13 @@ function getAddressDropId(inputId){
 
 function getAddressLookupMessage(error){
   const code = String(error?.message || "");
+  const normalizedCode = code.toUpperCase();
   if(code === "PLACES_UNAVAILABLE") return "Address lookup is not available right now.";
   if(code === "PLACES_TIMEOUT") return "Address lookup took too long. Please try again.";
-  if(code === "REQUEST_DENIED") return "Address lookup is not allowed for this Google Maps setup.";
+  if(code === "REQUEST_DENIED") return "Address lookup is temporarily unavailable. Please enter the address manually or try again later.";
+  if(normalizedCode.includes("BILLINGNOTENABLEDMAPERROR")) return "Address lookup is temporarily unavailable because Google Maps billing needs attention. Please enter the address manually for now.";
+  if(normalizedCode.includes("REFERERNOTALLOWEDMAPERROR")) return "Address lookup is temporarily unavailable because this site is not authorized for the current Google Maps setup.";
+  if(normalizedCode.includes("APINOTACTIVATEDMAPERROR")) return "Address lookup is temporarily unavailable because the required Google Maps APIs are not enabled.";
   if(code === "OVER_QUERY_LIMIT") return "Address lookup limit reached. Please try again shortly.";
   return "No addresses found.";
 }
@@ -4338,10 +4350,6 @@ async function addrSearch(inputId, dropId) {
   const el = document.getElementById(inputId);
   const drop = document.getElementById(dropId);
   if (!el || !drop) return;
-  if (el.dataset.googleNative === "true") {
-    closeDrop(drop);
-    return;
-  }
   const q = el.value.trim();
 
   if (q.length < 3) {
@@ -4407,28 +4415,9 @@ function parseAddressComponents(components) {
 }
 
 function initGoogleAddressAutocompletes(){
-  if(!window.google?.maps?.places?.Autocomplete) return;
-  ["pat_addr", "phys_addr", "oxy-address", "oxy-phys-addr"].forEach(inputId => {
-    const input = document.getElementById(inputId);
-    if(!input || nativeAddressAutocompletes.has(inputId)) return;
-    const autocomplete = new google.maps.places.Autocomplete(input, {
-      types: ["address"],
-      componentRestrictions: { country: ["us"] },
-      fields: ["formatted_address", "address_components"]
-    });
-    autocomplete.addListener("place_changed", () => {
-      const place = autocomplete.getPlace();
-      if(place?.formatted_address){
-        input.value = place.formatted_address;
-      }
-      input.dataset.addressObj = JSON.stringify(parseAddressComponents(place?.address_components || []));
-      const dropId = getAddressDropId(inputId);
-      const drop = dropId ? document.getElementById(dropId) : null;
-      if(drop) closeDrop(drop);
-    });
-    input.dataset.googleNative = "true";
-    nativeAddressAutocompletes.set(inputId, autocomplete);
-  });
+  // Keep address search in our own dropdown so Google config issues surface
+  // as friendly inline messages instead of a blocking vendor popup.
+  nativeAddressAutocompletes.clear();
 }
 
 // Build dropdown items from Places results
@@ -5106,6 +5095,8 @@ function getItemType(hcpcsCode, insuranceType){
     const ins = insuranceType || getInsuranceType();
     return ins === "medicaid" ? "purchase" : "rental";
   }
+
+  if(code === "E0265") return "purchase";
 
   // Check price lookup table first
   if(HCPCS_PRICES[code] !== undefined){
