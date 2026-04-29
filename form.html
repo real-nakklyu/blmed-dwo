@@ -3080,7 +3080,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
         <label>Bed Type :</label>
         <button class="variant-btn active" id="bed-e0260-btn" onclick="setBedVariant('E0260')">E0260 Semi-Electric</button>
         <button class="variant-btn" id="bed-e0255-btn" onclick="setBedVariant('E0255')">E0255 Fixed Height</button>
-        <button class="variant-btn" id="bed-e0261-btn" onclick="setBedVariant('E0261')">E0261 Semi-Electric</button>
+        <button class="variant-btn" id="bed-e0261-btn" onclick="setBedVariant('E0261')">E0261 Full-Electric</button>
         <button class="variant-btn" id="bed-e0265-btn" onclick="setBedVariant('E0265')">E0265 Full-Electric</button>
         <button class="variant-btn" id="bed-e0303-btn" onclick="setBedVariant('E0303')">E0303 Heavy Duty Extra Wide</button>
       </div>
@@ -3604,6 +3604,7 @@ const WC_CODES = {
     {code:"E0978", desc:"WHEELCHAIR ACCESSORY, POSITIONING BELT/SAFETY BELT/PELVIC STRAP"},
     {code:"E2601", desc:"GENERAL USE WHEELCHAIR SEAT CUSHION"},
     {code:"E2611", desc:"POSITIONING WHEELCHAIR SEAT CUSHION, WIDTH LESS THAN 22 INCHES, ANY DEPTH"},
+    {code:"", desc:""},
   ],
   lightweight: [
     {code:"K0003", desc:"LIGHTWEIGHT WHEELCHAIR"},
@@ -3612,6 +3613,7 @@ const WC_CODES = {
     {code:"E0978", desc:"WHEELCHAIR ACCESSORY, POSITIONING BELT/SAFETY BELT/PELVIC STRAP"},
     {code:"E2601", desc:"GENERAL USE WHEELCHAIR SEAT CUSHION"},
     {code:"E2611", desc:"POSITIONING WHEELCHAIR SEAT CUSHION, WIDTH LESS THAN 22 INCHES, ANY DEPTH"},
+    {code:"", desc:""},
   ],
   bariatric: [
     {code:"K0007", desc:"EXTRA HEAVY DUTY WHEELCHAIR"},
@@ -3620,6 +3622,7 @@ const WC_CODES = {
     {code:"E0978", desc:"WHEELCHAIR ACCESSORY, POSITIONING BELT/SAFETY BELT/PELVIC STRAP"},
     {code:"E2602", desc:"GENERAL USE WHEELCHAIR SEAT CUSHION, BARIATRIC"},
     {code:"E2612", desc:"POSITIONING WHEELCHAIR SEAT CUSHION, BARIATRIC, WIDTH 22 INCHES OR GREATER"},
+    {code:"", desc:""},
   ]
 };
 
@@ -3875,6 +3878,15 @@ function buildStandardRows(){
 
 function buildWheelchairRows(variant){
   const tbody = document.getElementById("wc-rows");
+  const customValues = {};
+  tbody.querySelectorAll("tr[data-wc-custom-row]").forEach(tr => {
+    const row = tr.dataset.wcCustomRow;
+    customValues[row] = {
+      code: tr.querySelector("[data-role='code']")?.value || "",
+      desc: tr.querySelector("[data-role='desc']")?.value || "",
+      qty: tr.querySelector("[data-role='qty']")?.value || ""
+    };
+  });
   tbody.innerHTML = "";
   const ins = getInsuranceType();
   WC_CODES[variant].forEach((item, i) => {
@@ -3883,7 +3895,9 @@ function buildWheelchairRows(variant){
     // E0974, E0978, E2601/E2602, E2611/E2612 = 1 NU or 2 NU
     let qty = "";
     const wcCode = item.code;
-    if(wcCode === WC_CODES[variant][0].code || wcCode === "K0195"){
+    if(!wcCode){
+      qty = "";
+    } else if(wcCode === WC_CODES[variant][0].code || wcCode === "K0195"){
       // Main chair + leg rests = rental
       qty = ins === "medicare_commercial" ? "13 RR" : "10 RR";
     } else if(wcCode === "E0974"){
@@ -3891,7 +3905,10 @@ function buildWheelchairRows(variant){
     } else {
       qty = "1 NU";
     }
+    const customValue = customValues[i] || {};
+    const isCustomRow = !item.code && !item.desc;
     const tr = document.createElement("tr");
+    if(isCustomRow) tr.dataset.wcCustomRow = String(i);
     tr.style.background = i%2===0 ? "rgba(255,255,255,.3)" : "transparent";
     tr.innerHTML = `
       <td style="text-align:center;font-size:10.5px;color:var(--rule-dk);font-weight:600">${i+1}</td>
@@ -3903,11 +3920,18 @@ function buildWheelchairRows(variant){
                       autocomplete="off" oninput="wcCodeSearch(this,${i})" onblur="validateWcCode(this,${i})"/>
                <div class="drop" id="wcd${i}"></div>
              </div>`
+          : isCustomRow
+            ? `<div class="ac" style="position:relative">
+                 <input id="wc-hcpcs-${i}" data-role="code" data-wc-custom-input type="text" value="${esc(customValue.code || "")}"
+                        style="width:100%;border:none;background:transparent;font-family:'Courier Prime',monospace;font-size:12.5px;color:var(--ink);outline:none;padding:3px 4px"
+                        autocomplete="off" oninput="wheelchairBlankSearch(this,${i}); toUpper(this)" onblur="autoFillWheelchairCustomQty(${i})"/>
+                 <div class="drop" id="wc-drop-${i}"></div>
+               </div>`
           : `<span style="font-family:'Courier Prime',monospace;font-size:12.5px;padding:3px 6px;display:block">${item.code}</span>`
         }
       </td>
-      <td><input type="text" value="${item.desc}" style="width:100%;border:none;background:transparent;font-family:'Courier Prime',monospace;font-size:12.5px;color:var(--ink);outline:none;padding:3px 4px" oninput="fitText(this,12.5,7)"/></td>
-      <td style="text-align:center"><input type="text" value="${qty}" style="width:100%;border:none;background:transparent;font-family:'Courier Prime',monospace;font-size:12px;color:var(--ink);outline:none;padding:3px;text-align:center"/></td>`;
+      <td><input ${isCustomRow ? `id="wc-desc-${i}" data-role="desc"` : ""} type="text" value="${esc(isCustomRow ? customValue.desc || "" : item.desc)}" style="width:100%;border:none;background:transparent;font-family:'Courier Prime',monospace;font-size:12.5px;color:var(--ink);outline:none;padding:3px 4px" oninput="fitText(this,12.5,7)"/></td>
+      <td style="text-align:center"><input ${isCustomRow ? `id="wc-qty-${i}" data-role="qty"` : ""} type="text" value="${esc(isCustomRow ? customValue.qty || "" : qty)}" style="width:100%;border:none;background:transparent;font-family:'Courier Prime',monospace;font-size:12px;color:var(--ink);outline:none;padding:3px;text-align:center"/></td>`;
     tbody.appendChild(tr);
   });
 }
@@ -4099,6 +4123,62 @@ async function bedBlankSearch(el, rowIdx, bedCode){
       drop.classList.add("open");
     }
   }, 300);
+}
+
+async function wheelchairBlankSearch(el, rowIdx){
+  const q = el.value.trim();
+  const drop = document.getElementById(`wc-drop-${rowIdx}`);
+  if(!drop) return;
+  drop._linkedInput = el;
+  if(q.length < 2){ closeDrop(drop); return; }
+  clearTimeout(T[`wc-blank-${rowIdx}`]);
+  T[`wc-blank-${rowIdx}`] = setTimeout(async() => {
+    showLoad(drop, "Searching HCPCS...", el);
+    try{
+      const r = await fetch(`https://clinicaltables.nlm.nih.gov/api/hcpcs/v3/search?sf=code,short_desc,long_desc&terms=${encodeURIComponent(q)}&maxList=8&ef=long_desc`);
+      const d = await r.json();
+      const codes = d[1] || [];
+      const extra = d[2] || {};
+      const longs = extra["long_desc"] || [];
+      const disp = d[3] || [];
+      const items = codes.map((c, i) => ({
+        code: c,
+        desc: (longs[i] || "").trim() || (disp[i] || [])[1] || ""
+      }));
+      renderCodes(drop, items, (code, desc) => {
+        el.value = String(code || "").toUpperCase();
+        const descEl = document.getElementById(`wc-desc-${rowIdx}`);
+        if(descEl){
+          descEl.value = desc || "";
+          trimTextToFit(descEl, 12.5);
+        }
+        autoFillWheelchairCustomQty(rowIdx);
+        closeDrop(drop);
+      }, el);
+    }catch{
+      drop.innerHTML = `<div class="empty-row">Search unavailable</div>`;
+      drop.classList.add("open");
+    }
+  }, 300);
+}
+
+function autoFillWheelchairCustomQty(rowIdx){
+  const codeEl = document.getElementById(`wc-hcpcs-${rowIdx}`);
+  const qtyEl = document.getElementById(`wc-qty-${rowIdx}`);
+  if(!codeEl || !qtyEl) return;
+  const code = normalizeHcpcsCode(codeEl.value || "");
+  if(!code){
+    qtyEl.value = "";
+    return;
+  }
+  if(String(qtyEl.value || "").trim()) return;
+  const ins = getInsuranceType();
+  if(code === "E0974") qtyEl.value = "2 NU";
+  else {
+    const itemType = getItemType(code, ins);
+    qtyEl.value = itemType === "rental" ? (ins === "medicare_commercial" ? "13 RR" : "10 RR") : "1 NU";
+  }
+  fitText(qtyEl, 12, 7);
 }
 
 // в”Ђв”Ђ WC CODE SEARCH (K0001вЂ“K0009 range) в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
