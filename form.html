@@ -1208,8 +1208,8 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 }
 .order-wrap thead th:first-child{width:24px;text-align:center}
 .order-wrap thead th:last-child{width:52px;text-align:center}
-.order-wrap tbody tr{border-bottom:1px solid var(--rule)}
-.order-wrap tbody tr:nth-child(odd){background:rgba(255,255,255,.3)}
+.order-wrap tbody tr{border-bottom:1px solid var(--rule);background:#fff}
+.order-wrap tbody tr:nth-child(odd){background:#fff}
 .order-wrap tbody td{
   padding:3px 6px;
   border-right:1px solid var(--rule);
@@ -1687,7 +1687,8 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     padding:5px 5px!important;
     border-right:1px solid #ccc!important;border-bottom:1px solid #ccc!important;
   }
-  .order-wrap tbody tr:nth-child(odd){background:#f9f9f9!important}
+  .order-wrap tbody tr,
+  .order-wrap tbody tr:nth-child(odd){background:#fff!important}
   .order-wrap tbody input{font-size:9.5pt;padding:2px 3px!important;line-height:1.4!important}
 
   /* Refills */
