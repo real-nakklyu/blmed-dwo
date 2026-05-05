@@ -1264,3 +1264,273 @@ body.portal-body{
     font-size:26px;
   }
 }
+
+/* GitHub-inspired portal theme overrides for consistent, readable light/dark modes. */
+:root{
+  --portal-bg:#f6f8fa;
+  --portal-surface:#ffffff;
+  --portal-panel:#f6f8fa;
+  --portal-line:#d0d7de;
+  --portal-muted:#57606a;
+  --portal-ink:#24292f;
+  --portal-primary:#0969da;
+  --portal-blue:#0969da;
+  --portal-accent:#8250df;
+  --portal-shadow:0 8px 24px rgba(140,149,159,.20);
+  --portal-shadow-soft:0 4px 12px rgba(140,149,159,.15);
+}
+
+body.portal-body{
+  background:var(--portal-bg);
+  color:var(--portal-ink);
+}
+
+.portal-panel,
+.auth-panel,
+.portal-modal-card{
+  background:var(--portal-surface);
+  border-color:var(--portal-line);
+  box-shadow:var(--portal-shadow);
+}
+
+.portal-card,
+.shortcut-item,
+.record-card,
+.hero-note,
+.hero-account,
+.verify-box,
+.guide-stat,
+.guide-mini,
+.guide-shortcut,
+.auth-aside,
+.auth-main{
+  background:var(--portal-surface);
+  border-color:var(--portal-line);
+  color:var(--portal-ink);
+  box-shadow:var(--portal-shadow-soft);
+}
+
+.hero-card,
+.guide-hero{
+  background:var(--portal-surface);
+  border-color:var(--portal-line);
+}
+
+.portal-brand h1,
+.portal-title,
+.section-heading h2,
+.portal-card h2,
+.portal-card h3,
+.record-head h3,
+.auth-aside h1,
+.auth-main-header h2,
+.portal-modal-title{
+  color:#24292f;
+}
+
+.portal-brand p,
+.portal-subtitle,
+.section-heading p,
+.portal-card p,
+.shortcut-sub,
+.hero-copy,
+.hero-account span,
+.portal-field-note,
+.auth-footnote,
+.auth-switch,
+.auth-aside p,
+.auth-main-header p,
+.record-subtitle,
+.record-meta,
+.portal-modal-text,
+.portal-status{
+  color:var(--portal-muted);
+}
+
+.hero-badge,
+.guide-kicker,
+.auth-kicker,
+.record-form-badge{
+  background:#ddf4ff;
+  border:1px solid #54aeff;
+  color:#0969da;
+}
+
+.hero-account strong,
+.guide-callout strong,
+.guide-callout a{
+  color:#0969da;
+}
+
+.guide-callout{
+  background:#ddf4ff;
+  border-color:#54aeff;
+  color:#24292f;
+}
+
+.portal-field input,
+.portal-field textarea,
+.btn-ghost,
+.theme-toggle{
+  background:#ffffff;
+  border-color:var(--portal-line);
+  color:var(--portal-ink);
+}
+
+.btn-ghost:hover,
+.theme-toggle:hover{
+  background:#f3f4f6;
+  border-color:#8c959f;
+  color:#0969da;
+}
+
+.btn-stamp,
+.btn-manual{
+  background:#0969da;
+  border-color:#0969da;
+  color:#ffffff;
+  box-shadow:none;
+}
+
+.btn-stamp:hover,
+.btn-manual:hover{
+  background:#0757b8;
+  border-color:#0757b8;
+}
+
+.portal-status.status-ok{color:#1a7f37}
+.portal-status.status-warn{color:#cf222e}
+
+html[data-theme="dark"]{
+  --portal-bg:#0d1117;
+  --portal-surface:#161b22;
+  --portal-panel:#21262d;
+  --portal-line:#30363d;
+  --portal-muted:#8b949e;
+  --portal-ink:#c9d1d9;
+  --portal-primary:#58a6ff;
+  --portal-blue:#58a6ff;
+  --portal-accent:#a371f7;
+  --portal-shadow:0 16px 32px rgba(1,4,9,.42);
+  --portal-shadow-soft:0 8px 18px rgba(1,4,9,.30);
+}
+
+html[data-theme="dark"] body.portal-body{
+  background:var(--portal-bg);
+  color:var(--portal-ink);
+}
+
+html[data-theme="dark"] .portal-panel,
+html[data-theme="dark"] .auth-panel,
+html[data-theme="dark"] .portal-modal-card{
+  background:var(--portal-surface);
+  border-color:var(--portal-line);
+  box-shadow:var(--portal-shadow);
+}
+
+html[data-theme="dark"] .portal-card,
+html[data-theme="dark"] .shortcut-item,
+html[data-theme="dark"] .record-card,
+html[data-theme="dark"] .hero-note,
+html[data-theme="dark"] .hero-account,
+html[data-theme="dark"] .verify-box,
+html[data-theme="dark"] .guide-stat,
+html[data-theme="dark"] .guide-mini,
+html[data-theme="dark"] .guide-shortcut,
+html[data-theme="dark"] .auth-aside,
+html[data-theme="dark"] .auth-main{
+  background:var(--portal-panel);
+  border-color:var(--portal-line);
+  color:var(--portal-ink);
+}
+
+html[data-theme="dark"] .hero-card,
+html[data-theme="dark"] .guide-hero{
+  background:var(--portal-surface);
+  border-color:var(--portal-line);
+}
+
+html[data-theme="dark"] .portal-brand h1,
+html[data-theme="dark"] .portal-title,
+html[data-theme="dark"] .section-heading h2,
+html[data-theme="dark"] .portal-card h2,
+html[data-theme="dark"] .portal-card h3,
+html[data-theme="dark"] .record-head h3,
+html[data-theme="dark"] .auth-aside h1,
+html[data-theme="dark"] .auth-main-header h2,
+html[data-theme="dark"] .portal-modal-title{
+  color:#f0f6fc;
+}
+
+html[data-theme="dark"] .portal-brand p,
+html[data-theme="dark"] .portal-subtitle,
+html[data-theme="dark"] .section-heading p,
+html[data-theme="dark"] .portal-card p,
+html[data-theme="dark"] .shortcut-sub,
+html[data-theme="dark"] .hero-copy,
+html[data-theme="dark"] .hero-account span,
+html[data-theme="dark"] .portal-field-note,
+html[data-theme="dark"] .auth-footnote,
+html[data-theme="dark"] .auth-switch,
+html[data-theme="dark"] .auth-aside p,
+html[data-theme="dark"] .auth-main-header p,
+html[data-theme="dark"] .record-subtitle,
+html[data-theme="dark"] .record-meta,
+html[data-theme="dark"] .portal-modal-text,
+html[data-theme="dark"] .portal-status{
+  color:var(--portal-muted);
+}
+
+html[data-theme="dark"] .hero-badge,
+html[data-theme="dark"] .guide-kicker,
+html[data-theme="dark"] .auth-kicker,
+html[data-theme="dark"] .record-form-badge{
+  background:rgba(56,139,253,.15);
+  border-color:rgba(56,139,253,.40);
+  color:#58a6ff;
+}
+
+html[data-theme="dark"] .hero-account strong,
+html[data-theme="dark"] .guide-callout strong,
+html[data-theme="dark"] .guide-callout a{
+  color:#58a6ff;
+}
+
+html[data-theme="dark"] .guide-callout{
+  background:rgba(56,139,253,.12);
+  border-color:rgba(56,139,253,.35);
+  color:var(--portal-ink);
+}
+
+html[data-theme="dark"] .portal-field input,
+html[data-theme="dark"] .portal-field textarea,
+html[data-theme="dark"] .btn-ghost,
+html[data-theme="dark"] .theme-toggle{
+  background:#0d1117;
+  border-color:var(--portal-line);
+  color:var(--portal-ink);
+}
+
+html[data-theme="dark"] .btn-ghost:hover,
+html[data-theme="dark"] .theme-toggle:hover{
+  background:#21262d;
+  border-color:#8b949e;
+  color:#58a6ff;
+}
+
+html[data-theme="dark"] .btn-stamp,
+html[data-theme="dark"] .btn-manual{
+  background:#238636;
+  border-color:#2ea043;
+  color:#ffffff;
+  box-shadow:none;
+}
+
+html[data-theme="dark"] .btn-stamp:hover,
+html[data-theme="dark"] .btn-manual:hover{
+  background:#2ea043;
+  border-color:#3fb950;
+}
+
+html[data-theme="dark"] .portal-status.status-ok{color:#3fb950}
+html[data-theme="dark"] .portal-status.status-warn{color:#ff7b72}
