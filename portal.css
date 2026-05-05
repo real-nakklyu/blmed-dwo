@@ -1144,6 +1144,26 @@ body.portal-body{
     box-shadow:0 10px 22px rgba(37,99,235,.16);
   }
 
+  html[data-theme="dark"] .guide-callout{
+    background:#111827;
+    border-color:#334155;
+    color:#dbeafe;
+  }
+
+  html[data-theme="dark"] .guide-callout strong{
+    color:#7dd3fc;
+  }
+
+  html[data-theme="dark"] .guide-list strong,
+  html[data-theme="dark"] .guide-steps strong{
+    color:#e5e7eb;
+  }
+
+  html[data-theme="dark"] .guide-list em,
+  html[data-theme="dark"] .guide-steps em{
+    color:#cbd5e1;
+  }
+
   html[data-theme="dark"] .portal-brand h1,
   html[data-theme="dark"] .portal-title,
   html[data-theme="dark"] .section-heading h2,
