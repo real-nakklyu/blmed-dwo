@@ -1402,17 +1402,17 @@ body.portal-body{
 .portal-status.status-warn{color:#cf222e}
 
 html[data-theme="dark"]{
-  --portal-bg:#22272e;
-  --portal-surface:#2d333b;
-  --portal-panel:#22272e;
-  --portal-line:#444c56;
-  --portal-muted:#768390;
-  --portal-ink:#adbac7;
-  --portal-primary:#539bf5;
-  --portal-blue:#539bf5;
-  --portal-accent:#b083f0;
-  --portal-shadow:0 16px 32px rgba(28,33,40,.34);
-  --portal-shadow-soft:0 8px 18px rgba(28,33,40,.24);
+  --portal-bg:#0d1117;
+  --portal-surface:#151b23;
+  --portal-panel:#212830;
+  --portal-line:#3d444d;
+  --portal-muted:#9198a1;
+  --portal-ink:#f0f6fc;
+  --portal-primary:#4493f8;
+  --portal-blue:#4493f8;
+  --portal-accent:#ab7df8;
+  --portal-shadow:0 16px 32px rgba(1,4,9,.42);
+  --portal-shadow-soft:0 8px 18px rgba(1,4,9,.30);
 }
 
 html[data-theme="dark"] body.portal-body{
@@ -1485,20 +1485,20 @@ html[data-theme="dark"] .hero-badge,
 html[data-theme="dark"] .guide-kicker,
 html[data-theme="dark"] .auth-kicker,
 html[data-theme="dark"] .record-form-badge{
-  background:rgba(65,132,228,.16);
-  border-color:rgba(83,155,245,.42);
-  color:#539bf5;
+  background:#388bfd1a;
+  border-color:#388bfd66;
+  color:#4493f8;
 }
 
 html[data-theme="dark"] .hero-account strong,
 html[data-theme="dark"] .guide-callout strong,
 html[data-theme="dark"] .guide-callout a{
-  color:#539bf5;
+  color:#4493f8;
 }
 
 html[data-theme="dark"] .guide-callout{
-  background:rgba(65,132,228,.13);
-  border-color:rgba(83,155,245,.34);
+  background:#388bfd1a;
+  border-color:#388bfd66;
   color:var(--portal-ink);
 }
 
@@ -1506,34 +1506,34 @@ html[data-theme="dark"] .portal-field input,
 html[data-theme="dark"] .portal-field textarea,
 html[data-theme="dark"] .btn-ghost,
 html[data-theme="dark"] .theme-toggle{
-  background:#1c2128;
+  background:#010409;
   border-color:var(--portal-line);
   color:var(--portal-ink);
 }
 
 html[data-theme="dark"] .btn-ghost:hover,
 html[data-theme="dark"] .theme-toggle:hover{
-  background:#373e47;
-  border-color:#768390;
-  color:#539bf5;
+  background:#262c36;
+  border-color:#3d444d;
+  color:#4493f8;
 }
 
 html[data-theme="dark"] .btn-stamp,
 html[data-theme="dark"] .btn-manual{
-  background:#347d39;
-  border-color:#46954a;
+  background:#1f6feb;
+  border-color:#1f6feb;
   color:#ffffff;
   box-shadow:none;
 }
 
 html[data-theme="dark"] .btn-stamp:hover,
 html[data-theme="dark"] .btn-manual:hover{
-  background:#46954a;
-  border-color:#57ab5a;
+  background:#2a7aef;
+  border-color:#2a7aef;
 }
 
-html[data-theme="dark"] .portal-status.status-ok{color:#57ab5a}
-html[data-theme="dark"] .portal-status.status-warn{color:#e5534b}
+html[data-theme="dark"] .portal-status.status-ok{color:#58a6ff}
+html[data-theme="dark"] .portal-status.status-warn{color:#f85149}
 
 .shortcut-item strong{
   color:#24292f;
@@ -1541,11 +1541,11 @@ html[data-theme="dark"] .portal-status.status-warn{color:#e5534b}
 
 html[data-theme="dark"] .shortcut-item strong,
 html[data-theme="dark"] .record-head h3{
-  color:#cdd9e5;
+  color:#f0f6fc;
 }
 
 html[data-theme="dark"] .shortcut-sub,
 html[data-theme="dark"] .record-subtitle,
 html[data-theme="dark"] .record-meta{
-  color:#adbac7;
+  color:#9198a1;
 }

@@ -3013,20 +3013,20 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   .status-warn{color:#cf222e}
 
   html[data-theme="dark"]{
-    --ui-bg:#22272e;
-    --ui-surface:#2d333b;
-    --ui-panel:#22272e;
-    --ui-line:#444c56;
-    --ui-muted:#768390;
-    --ui-ink:#adbac7;
-    --ui-primary:#539bf5;
-    --ui-primary-2:#4184e4;
-    --ui-accent:#b083f0;
-    --ui-shadow:0 16px 32px rgba(28,33,40,.34);
+    --ui-bg:#0d1117;
+    --ui-surface:#151b23;
+    --ui-panel:#212830;
+    --ui-line:#3d444d;
+    --ui-muted:#9198a1;
+    --ui-ink:#f0f6fc;
+    --ui-primary:#4493f8;
+    --ui-primary-2:#1f6feb;
+    --ui-accent:#ab7df8;
+    --ui-shadow:0 16px 32px rgba(1,4,9,.42);
   }
 
   html[data-theme="dark"] body{
-    background:#22272e;
+    background:#0d1117;
     color:var(--ui-ink);
   }
 
@@ -3085,7 +3085,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   html[data-theme="dark"] .records-toolbar input,
   html[data-theme="dark"] .modal-field input,
   html[data-theme="dark"] .fax-type-choice{
-    background:#1c2128;
+    background:#010409;
     border-color:var(--ui-line);
     color:var(--ui-ink);
   }
@@ -3093,30 +3093,30 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   html[data-theme="dark"] .btn-ghost:hover,
   html[data-theme="dark"] .back-btn:hover,
   html[data-theme="dark"] .theme-toggle:hover{
-    background:#373e47;
-    border-color:#768390;
-    color:#539bf5;
+    background:#262c36;
+    border-color:#3d444d;
+    color:#4493f8;
   }
 
   html[data-theme="dark"] .btn-stamp{
-    background:#347d39;
-    border-color:#46954a;
+    background:#1f6feb;
+    border-color:#1f6feb;
     color:#ffffff;
     box-shadow:none;
   }
 
   html[data-theme="dark"] .btn-stamp:hover{
-    background:#46954a;
-    border-color:#57ab5a;
+    background:#2a7aef;
+    border-color:#2a7aef;
   }
 
   html[data-theme="dark"] .workflow-card input:focus,
   html[data-theme="dark"] .workflow-card textarea:focus,
   html[data-theme="dark"] .workflow-card select:focus{
-    border-color:#539bf5;
-    box-shadow:0 0 0 3px rgba(83,155,245,.22);
+    border-color:#4493f8;
+    box-shadow:0 0 0 3px rgba(68,147,248,.22);
   }
 
-  html[data-theme="dark"] .status-ok{color:#57ab5a}
-  html[data-theme="dark"] .status-warn{color:#e5534b}
+  html[data-theme="dark"] .status-ok{color:#58a6ff}
+  html[data-theme="dark"] .status-warn{color:#f85149}
 }
