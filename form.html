@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -28,13 +28,23 @@ window.BLMED_FIREBASE_CONFIG = {
   --ink-lt:   #5d6675;
   --red:      #9a4234;
   --red-lt:   #f7ebe7;
-  --paper:    #fbf8f2;
-  --paper-dk: #f0e9dc;
-  --paper-md: #f2ece1;
-  --rule:     #c9c2b5;
-  --rule-dk:  #948a7b;
+  --paper:    #ffffff;
+  --paper-dk: #f1f5f9;
+  --paper-md: #f8fafc;
+  --rule:     #d9e2ea;
+  --rule-dk:  #94a3b8;
   --stamp:    #2f5d73;
   --sh:       0 18px 38px rgba(29,36,48,.10);
+  --ui-bg:    #eef3f7;
+  --ui-surface:#ffffff;
+  --ui-panel: #f8fafc;
+  --ui-line:  #d9e2ea;
+  --ui-muted: #64748b;
+  --ui-ink:   #0f172a;
+  --ui-primary:#0f766e;
+  --ui-primary-2:#2563eb;
+  --ui-accent:#f97316;
+  --ui-shadow:0 18px 44px rgba(15,23,42,.10);
 }
 
 
@@ -43,9 +53,10 @@ window.BLMED_FIREBASE_CONFIG = {
 body{
   font-family:'Manrope',Arial,sans-serif;
   background:
-    radial-gradient(circle at top left, rgba(255,255,255,.55), transparent 34%),
-    linear-gradient(180deg, #d9d7d0 0%, #d8d3c8 100%);
-  color:var(--ink);
+    linear-gradient(135deg, rgba(15,118,110,.10) 0%, transparent 28%),
+    linear-gradient(225deg, rgba(37,99,235,.09) 0%, transparent 32%),
+    linear-gradient(180deg, #f8fafc 0%, var(--ui-bg) 48%, #e8edf3 100%);
+  color:var(--ui-ink);
   min-height:100vh;
   padding-bottom:60px;
 }
@@ -55,13 +66,18 @@ html.route-loading body{
 
 /* в”Ђв”Ђ TOOLBAR в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ */
 .toolbar{
-  max-width:1040px;
-  margin:20px auto 0;
-  padding:0 12px;
+  max-width:1120px;
+  margin:18px auto 0;
+  padding:12px;
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:14px;
+  background:rgba(255,255,255,.78);
+  border:1px solid rgba(217,226,234,.86);
+  border-radius:8px;
+  box-shadow:0 12px 32px rgba(15,23,42,.08);
+  backdrop-filter:blur(14px);
 }
 .toolbar-actions{
   display:flex;
@@ -72,70 +88,71 @@ html.route-loading body{
 }
 .btn{
   font-family:'Manrope',Arial,sans-serif;
-  font-size:12px;
+  font-size:11px;
   font-weight:700;
-  letter-spacing:.05em;
-  padding:10px 16px;
-  min-height:42px;
+  letter-spacing:.02em;
+  padding:10px 14px;
+  min-height:38px;
   cursor:pointer;
   border:none;
-  text-transform:uppercase;
+  text-transform:none;
   transition:all .15s ease;
-  border-radius:14px;
+  border-radius:8px;
 }
 .btn-ghost{
-  background:rgba(255,253,248,.94);
-  border:1.5px solid rgba(148,138,123,.78);
-  color:var(--ink);
-  box-shadow:0 8px 18px rgba(29,36,48,.08);
+  background:rgba(255,255,255,.92);
+  border:1px solid var(--ui-line);
+  color:var(--ui-ink);
+  box-shadow:0 8px 18px rgba(15,23,42,.06);
 }
 .btn-ghost:hover{
   background:#fff;
-  color:var(--stamp);
-  border-color:rgba(47,93,115,.7);
+  color:var(--ui-primary);
+  border-color:rgba(15,118,110,.36);
   transform:translateY(-1px);
 }
 .btn-stamp{
-  background:linear-gradient(135deg, #3b738d 0%, #2f5d73 100%);
-  border:1.5px solid #244658;
+  background:linear-gradient(135deg, var(--ui-primary) 0%, var(--ui-primary-2) 100%);
+  border:1px solid rgba(15,118,110,.28);
   color:#fff;
-  box-shadow:0 12px 22px rgba(36,70,88,.2);
+  box-shadow:0 12px 24px rgba(37,99,235,.18);
 }
 .btn-stamp:hover{
-  background:linear-gradient(135deg, #447f9a 0%, #35677f 100%);
+  background:linear-gradient(135deg, #0d9488 0%, #1d4ed8 100%);
   transform:translateY(-1px);
 }
 
 .workflow-bar{
-  max-width:1040px;
-  margin:0 auto 10px;
-  padding:0 12px;
+  max-width:1120px;
+  margin:12px auto 18px;
+  padding:0;
 }
 .workflow-panel{
-  background:rgba(245,240,232,.95);
-  border:1px solid var(--rule);
-  box-shadow:var(--sh);
-  border-radius:22px;
-  padding:10px 12px;
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(217,226,234,.9);
+  box-shadow:var(--ui-shadow);
+  border-radius:8px;
+  padding:12px;
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:10px;
+  gap:12px;
+  backdrop-filter:blur(14px);
 }
 .workflow-card{
   display:flex;
   flex-direction:column;
-  gap:6px;
-  background:rgba(255,255,255,.54);
-  border:1px solid var(--rule);
-  border-radius:16px;
+  gap:8px;
+  background:var(--ui-panel);
+  border:1px solid var(--ui-line);
+  border-radius:8px;
   padding:12px;
 }
 .workflow-title{
   font-size:10px;
-  font-weight:700;
-  letter-spacing:.08em;
+  font-weight:800;
+  letter-spacing:.04em;
   text-transform:uppercase;
-  color:var(--ink-lt);
+  color:var(--ui-primary);
 }
 .workflow-actions{
   display:flex;
@@ -145,24 +162,34 @@ html.route-loading body{
 }
 .workflow-card select{
   width:100%;
-  background:#fff8ee;
-  border:1px solid var(--rule);
+  background:#fff;
+  border:1px solid var(--ui-line);
   font-family:'Manrope',Arial,sans-serif;
   font-size:12px;
-  color:var(--ink);
-  padding:6px 8px;
-  border-radius:10px;
+  color:var(--ui-ink);
+  padding:8px 10px;
+  border-radius:8px;
+  outline:none;
+  transition:border-color .15s ease, box-shadow .15s ease;
 }
 .workflow-card input,
 .workflow-card textarea{
   width:100%;
-  background:#fff8ee;
-  border:1px solid var(--rule);
+  background:#fff;
+  border:1px solid var(--ui-line);
   font-family:'Manrope',Arial,sans-serif;
   font-size:12px;
-  color:var(--ink);
-  padding:6px 8px;
-  border-radius:10px;
+  color:var(--ui-ink);
+  padding:8px 10px;
+  border-radius:8px;
+  outline:none;
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+.workflow-card input:focus,
+.workflow-card textarea:focus,
+.workflow-card select:focus{
+  border-color:rgba(15,118,110,.48);
+  box-shadow:0 0 0 3px rgba(15,118,110,.10);
 }
 .workflow-card textarea{
   min-height:74px;
@@ -172,6 +199,58 @@ html.route-loading body{
   min-height:92px;
   font-size:14px;
   line-height:1.5;
+}
+.package-builder{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  border-top:1px dashed var(--ui-line);
+  margin-top:4px;
+  padding-top:8px;
+}
+.package-builder select{
+  min-height:34px;
+}
+.package-list{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.package-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  background:#fff;
+  border:1px solid var(--ui-line);
+  border-radius:8px;
+  padding:7px 8px;
+}
+.package-item strong{
+  display:block;
+  font-size:12px;
+  line-height:1.25;
+}
+.package-item span{
+  display:block;
+  color:var(--ui-muted);
+  font-size:10.5px;
+  line-height:1.3;
+}
+.package-remove{
+  width:28px;
+  height:28px;
+  flex:0 0 auto;
+  border:1px solid var(--ui-line);
+  border-radius:50%;
+  background:#f1f5f9;
+  color:var(--ui-ink);
+  cursor:pointer;
+  font-weight:700;
+}
+.package-remove:hover{
+  background:#fee2e2;
+  color:#991b1b;
 }
 .fax-type-picker{
   display:flex;
@@ -184,9 +263,9 @@ html.route-loading body{
   font-family:'Manrope',Arial,sans-serif;
   font-size:10px;
   font-weight:800;
-  letter-spacing:.08em;
+  letter-spacing:.04em;
   text-transform:uppercase;
-  color:var(--ink-lt);
+  color:var(--ui-muted);
 }
 .fax-type-choice{
   display:inline-flex;
@@ -194,22 +273,153 @@ html.route-loading body{
   gap:6px;
   font-family:'Manrope',Arial,sans-serif;
   font-size:11px;
-  color:var(--ink);
+  color:var(--ui-ink);
+  background:#fff;
+  border:1px solid var(--ui-line);
+  border-radius:8px;
+  padding:5px 8px;
 }
 .fax-type-choice input{
   width:13px;
   height:13px;
   margin:0;
-  accent-color:#223648;
+  accent-color:var(--ui-primary);
 }
 .workflow-note{
   font-size:11px;
   line-height:1.4;
-  color:var(--ink-lt);
+  color:var(--ui-muted);
   min-height:32px;
 }
-.status-ok{color:#2f5d37}
-.status-warn{color:var(--red)}
+.status-ok{color:#047857}
+.status-warn{color:#be123c}
+.theme-toggle{
+  position:fixed;
+  right:18px;
+  top:18px;
+  z-index:9998;
+  min-width:104px;
+  min-height:44px;
+  border:1px solid var(--ui-line);
+  border-radius:8px;
+  background:rgba(255,255,255,.92);
+  color:var(--ui-ink);
+  box-shadow:0 14px 30px rgba(15,23,42,.14);
+  cursor:pointer;
+  font-family:'Manrope',Arial,sans-serif;
+  font-size:12px;
+  font-weight:800;
+  line-height:1;
+  padding:0 14px;
+}
+.theme-toggle:hover{
+  transform:translateY(-1px);
+}
+@media screen{
+  html[data-theme="dark"]{
+    --ink:#e5e7eb;
+    --ink-lt:#aab4c2;
+    --paper:#ffffff;
+    --paper-dk:#f1f5f9;
+    --paper-md:#f8fafc;
+    --rule:#d9e2ea;
+    --rule-dk:#94a3b8;
+    --ui-bg:#111827;
+    --ui-surface:#1f2937;
+    --ui-panel:#182231;
+    --ui-line:#374151;
+    --ui-muted:#aab4c2;
+    --ui-ink:#f8fafc;
+    --ui-primary:#2dd4bf;
+    --ui-primary-2:#60a5fa;
+    --ui-shadow:0 18px 44px rgba(0,0,0,.36);
+  }
+  html[data-theme="dark"] body{
+    background:
+      linear-gradient(135deg, rgba(45,212,191,.11) 0%, transparent 28%),
+      linear-gradient(225deg, rgba(96,165,250,.10) 0%, transparent 32%),
+      linear-gradient(180deg, #111827 0%, #1f2937 52%, #0f172a 100%);
+    color:var(--ui-ink);
+  }
+  html[data-theme="dark"] .toolbar,
+  html[data-theme="dark"] .workflow-panel,
+  html[data-theme="dark"] .home-header,
+  html[data-theme="dark"] .modal-card{
+    background:rgba(31,41,55,.86);
+    border-color:var(--ui-line);
+    box-shadow:var(--ui-shadow);
+  }
+  html[data-theme="dark"] .workflow-card,
+  html[data-theme="dark"] .home-utility-card,
+  html[data-theme="dark"] .form-card,
+  html[data-theme="dark"] .records-card,
+  html[data-theme="dark"] .lookup-result,
+  html[data-theme="dark"] .record-chip,
+  html[data-theme="dark"] .package-item{
+    background:var(--ui-panel);
+    border-color:var(--ui-line);
+    color:var(--ui-ink);
+  }
+  html[data-theme="dark"] .btn-ghost,
+  html[data-theme="dark"] .back-btn,
+  html[data-theme="dark"] .theme-toggle,
+  html[data-theme="dark"] .workflow-card input,
+  html[data-theme="dark"] .workflow-card textarea,
+  html[data-theme="dark"] .workflow-card select,
+  html[data-theme="dark"] .home-utility-card input,
+  html[data-theme="dark"] .home-utility-card textarea,
+  html[data-theme="dark"] .records-toolbar input,
+  html[data-theme="dark"] .modal-field input,
+  html[data-theme="dark"] .fax-type-choice{
+    background:#111827;
+    border-color:var(--ui-line);
+    color:var(--ui-ink);
+  }
+  html[data-theme="dark"] .workflow-note,
+  html[data-theme="dark"] .home-brand p,
+  html[data-theme="dark"] .home-brand .contact,
+  html[data-theme="dark"] .home-sub,
+  html[data-theme="dark"] .home-utility-card p,
+  html[data-theme="dark"] .records-meta,
+  html[data-theme="dark"] .records-status,
+  html[data-theme="dark"] .lookup-result-sub,
+  html[data-theme="dark"] .lookup-result-meta,
+  html[data-theme="dark"] .package-item span{
+    color:var(--ui-muted);
+  }
+  html[data-theme="dark"] .home-brand h1,
+  html[data-theme="dark"] .form-card h3,
+  html[data-theme="dark"] .records-card h3,
+  html[data-theme="dark"] .record-chip strong,
+  html[data-theme="dark"] .modal-title{
+    color:var(--ui-ink);
+  }
+  html[data-theme="dark"] .paper{
+    --ink:#1d2430;
+    --ink-lt:#5d6675;
+    --red:#9a4234;
+    --red-lt:#f7ebe7;
+    --paper:#ffffff;
+    --paper-dk:#f1f5f9;
+    --paper-md:#f8fafc;
+    --rule:#d9e2ea;
+    --rule-dk:#94a3b8;
+    --stamp:#2f5d73;
+    color:#1d2430;
+    box-shadow:0 20px 52px rgba(0,0,0,.32), 0 0 0 1px var(--ui-line);
+  }
+  html[data-theme="dark"] .sheet,
+  html[data-theme="dark"] .sheet input,
+  html[data-theme="dark"] .sheet textarea,
+  html[data-theme="dark"] .sheet select{
+    color:var(--ink);
+  }
+  html[data-theme="dark"] .sheet input::placeholder,
+  html[data-theme="dark"] .sheet textarea::placeholder{
+    color:#6b7280;
+    opacity:1;
+  }
+}
 .field-missing{
   border-bottom:2px solid var(--red)!important;
   background:rgba(139,26,26,.08)!important;
@@ -225,9 +435,9 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   background:
     linear-gradient(180deg, rgba(243,248,251,.96) 0, rgba(255,255,255,.98) 110px),
     #fff;
-  border:1px solid rgba(148,138,123,.45);
-  box-shadow:0 14px 34px rgba(29,36,48,.1);
-  border-radius:18px;
+  border:1px solid var(--ui-line);
+  box-shadow:0 14px 34px rgba(15,23,42,.08);
+  border-radius:8px;
   padding:24px 24px 22px;
   position:relative;
   overflow:hidden;
@@ -237,7 +447,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   position:absolute;
   inset:14px;
   border:1px solid rgba(47,93,115,.14);
-  border-radius:12px;
+  border-radius:8px;
   pointer-events:none;
 }
 .fax-cover-content{
@@ -311,7 +521,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 }
 .fax-panel{
   border:1px solid rgba(148,138,123,.38);
-  border-radius:18px;
+  border-radius:8px;
   background:rgba(255,255,255,.92);
   padding:14px 16px 16px;
   box-shadow:0 12px 24px rgba(32,46,60,.04);
@@ -374,7 +584,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   gap:14px;
   align-items:center;
   padding:14px 16px;
-  border-radius:18px;
+  border-radius:8px;
   background:linear-gradient(135deg, rgba(47,93,115,.1), rgba(255,255,255,.95));
   border:1px solid rgba(47,93,115,.18);
 }
@@ -403,7 +613,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 .fax-message{
   border:1px solid rgba(47,93,115,.16);
   background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(246,249,251,.98));
-  border-radius:20px;
+  border-radius:8px;
   min-height:132px;
   padding:16px 18px 18px;
   margin-bottom:0;
@@ -432,7 +642,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 .modal-backdrop{
   position:fixed;
   inset:0;
-  background:rgba(26,17,8,.45);
+  background:rgba(15,23,42,.48);
   display:none;
   align-items:center;
   justify-content:center;
@@ -442,22 +652,23 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 .modal-backdrop.open{display:flex}
 .modal-card{
   width:min(520px,100%);
-  background:var(--paper);
-  border:1px solid var(--rule-dk);
-  box-shadow:var(--sh), 0 0 0 6px var(--paper-md), 0 0 0 7px var(--rule);
+  background:#fff;
+  border:1px solid var(--ui-line);
+  border-radius:8px;
+  box-shadow:0 24px 70px rgba(15,23,42,.24);
   padding:22px 22px 18px;
 }
 .modal-title{
-  font-family:'Special Elite',cursive;
-  font-size:22px;
-  color:var(--red);
+  font-family:'Fraunces',serif;
+  font-size:24px;
+  color:var(--ui-ink);
   margin-bottom:8px;
 }
 .modal-text{
-  font-family:'Courier Prime',monospace;
+  font-family:'Manrope',Arial,sans-serif;
   font-size:12px;
   line-height:1.6;
-  color:var(--ink-lt);
+  color:var(--ui-muted);
   margin-bottom:14px;
 }
 .modal-grid{
@@ -472,19 +683,21 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 }
 .modal-field.full{grid-column:1 / -1}
 .modal-field label{
-  font-family:'Courier Prime',monospace;
-  font-size:9px;
-  letter-spacing:.08em;
+  font-family:'Manrope',Arial,sans-serif;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.04em;
   text-transform:uppercase;
-  color:var(--ink-lt);
+  color:var(--ui-muted);
 }
 .modal-field input{
   width:100%;
-  background:#fff8ee;
-  border:1px solid var(--rule);
-  font-family:'Courier Prime',monospace;
+  background:#fff;
+  border:1px solid var(--ui-line);
+  border-radius:8px;
+  font-family:'Manrope',Arial,sans-serif;
   font-size:13px;
-  color:var(--ink);
+  color:var(--ui-ink);
   padding:8px 9px;
 }
 .modal-actions{
@@ -509,10 +722,10 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   flex:1;
 }
 .lookup-status{
-  font-family:'Courier Prime',monospace;
+  font-family:'Manrope',Arial,sans-serif;
   font-size:12px;
   line-height:1.5;
-  color:var(--ink-lt);
+  color:var(--ui-muted);
   margin-bottom:12px;
 }
 .lookup-results{
@@ -524,9 +737,9 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   min-height:120px;
 }
 .lookup-result{
-  border:1px solid var(--rule);
-  border-radius:14px;
-  background:rgba(255,248,238,.95);
+  border:1px solid var(--ui-line);
+  border-radius:8px;
+  background:#fff;
   padding:12px;
   display:flex;
   flex-direction:column;
@@ -544,15 +757,15 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 }
 .lookup-result-sub{
   font-size:11px;
-  color:var(--ink-lt);
+  color:var(--ui-muted);
   line-height:1.4;
 }
 .lookup-pill{
   flex-shrink:0;
-  border:1px solid rgba(47,93,115,.28);
-  background:rgba(47,93,115,.08);
-  color:var(--stamp);
-  border-radius:999px;
+  border:1px solid rgba(15,118,110,.24);
+  background:#ecfdf5;
+  color:var(--ui-primary);
+  border-radius:8px;
   padding:4px 9px;
   font-size:10px;
   font-weight:700;
@@ -562,7 +775,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 .lookup-result-meta{
   font-size:12px;
   line-height:1.55;
-  color:var(--ink);
+  color:var(--ui-ink);
 }
 .lookup-result-actions{
   display:flex;
@@ -570,13 +783,13 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   gap:8px;
 }
 .lookup-empty{
-  border:1px dashed var(--rule);
-  border-radius:14px;
+  border:1px dashed var(--ui-line);
+  border-radius:8px;
   padding:18px 16px;
   background:rgba(255,255,255,.5);
   font-size:12px;
   line-height:1.6;
-  color:var(--ink-lt);
+  color:var(--ui-muted);
 }
 
 .records-list{
@@ -592,28 +805,29 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   flex-direction:column;
   gap:3px;
   padding:8px 9px;
-  border:1px solid var(--rule);
-  background:#fff8ee;
+  border:1px solid var(--ui-line);
+  border-radius:8px;
+  background:#fff;
   cursor:pointer;
   text-align:left;
 }
 .record-chip.active{
-  border-color:var(--stamp);
-  box-shadow:inset 0 0 0 1px var(--stamp);
-  background:#f2ede2;
+  border-color:var(--ui-primary);
+  box-shadow:0 0 0 3px rgba(15,118,110,.10);
+  background:#f0fdfa;
 }
 .record-chip strong{
   font-size:11px;
-  color:var(--ink);
+  color:var(--ui-ink);
 }
 .record-chip span{
   font-size:10px;
-  color:var(--rule-dk);
+  color:var(--ui-muted);
 }
 .record-empty{
   padding:10px 0;
   font-size:11px;
-  color:var(--rule-dk);
+  color:var(--ui-muted);
 }
 .field-warning{
   position:relative;
@@ -622,10 +836,10 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   content:attr(data-warning);
   display:block;
   margin-top:4px;
-  font-family:'Courier Prime',monospace;
+  font-family:'Manrope',Arial,sans-serif;
   font-size:10px;
   line-height:1.3;
-  color:var(--red);
+  color:#be123c;
 }
 .fax-cover-brand{
   display:flex;
@@ -663,7 +877,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   min-width:230px;
   padding:16px 18px;
   border:1px solid rgba(47,93,115,.18);
-  border-radius:18px;
+  border-radius:8px;
   background:linear-gradient(135deg, rgba(47,93,115,.08), rgba(255,255,255,.92));
 }
 .fax-cover-kicker{
@@ -683,7 +897,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 }
 .fax-cover-disclaimer{
   border:1px solid rgba(148,138,123,.34);
-  border-radius:18px;
+  border-radius:8px;
   background:rgba(249,247,242,.92);
   margin-top:2px;
   padding:14px 16px 16px;
@@ -1288,7 +1502,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
   html,body{width:100%!important;height:100%!important;margin:0!important;padding:0!important}
   body{background:#fff!important;font-size:9pt!important}
-  .toolbar,.workflow-bar{display:none!important}
+  .toolbar,.workflow-bar,.theme-toggle{display:none!important}
   .modal-backdrop{display:none!important}
   .drop,.loading-row,.spin{display:none!important}
   body:not(.fax-cover-enabled) .fax-cover-wrap{display:none!important}
@@ -1960,37 +2174,38 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 
 /* в”Ђв”Ђ HOME SCREEN в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ */
 #home-screen{
-  max-width:820px;margin:40px auto 0;padding:0 20px;
+  max-width:1080px;margin:32px auto 0;padding:0 20px;
 }
 .home-header{
-  background:var(--paper);
-  border:1px solid var(--rule-dk);
-  box-shadow:var(--sh), 0 0 0 6px var(--paper-md), 0 0 0 7px var(--rule);
-  padding:28px 36px;
+  background:rgba(255,255,255,.84);
+  border:1px solid var(--ui-line);
+  border-radius:8px;
+  box-shadow:var(--ui-shadow);
+  padding:28px;
   position:relative;
+  backdrop-filter:blur(14px);
 }
 .home-header::before{
-  content:'';position:absolute;inset:8px;
-  border:1px solid var(--rule);pointer-events:none;
+  display:none;
 }
 .home-top{
   display:flex;align-items:center;gap:16px;
-  border-bottom:3px double var(--rule-dk);
+  border-bottom:1px solid var(--ui-line);
   padding-bottom:18px;margin-bottom:22px;
 }
-.home-top img{width:58px;height:58px;object-fit:contain;filter:sepia(30%) contrast(1.1)}
-.home-brand h1{font-family:'Special Elite',cursive;font-size:24px;color:var(--red);line-height:1.1}
-.home-brand p{font-family:'Courier Prime',monospace;font-size:10px;color:var(--ink-lt);letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
-.home-brand .contact{font-size:10px;color:var(--ink-lt);margin-top:2px}
+.home-top img{width:58px;height:58px;object-fit:contain;filter:none}
+.home-brand h1{font-family:'Fraunces',serif;font-size:28px;color:var(--ui-ink);line-height:1.05}
+.home-brand p{font-family:'Manrope',Arial,sans-serif;font-size:12px;color:var(--ui-muted);letter-spacing:0;text-transform:none;margin-top:4px}
+.home-brand .contact{font-size:11px;color:var(--ui-muted);margin-top:3px}
 .home-title{
-  font-family:'IM Fell English',serif;
-  font-size:13px;color:var(--stamp);
-  letter-spacing:.04em;text-align:center;margin-bottom:4px;
+  font-family:'Fraunces',serif;
+  font-size:18px;color:var(--ui-primary);
+  letter-spacing:0;text-align:center;margin-bottom:4px;
 }
 .home-sub{
-  font-family:'Courier Prime',monospace;
-  font-size:10px;color:var(--rule-dk);letter-spacing:.1em;
-  text-transform:uppercase;text-align:center;margin-bottom:22px;
+  font-family:'Manrope',Arial,sans-serif;
+  font-size:12px;color:var(--ui-muted);letter-spacing:0;
+  text-transform:none;text-align:center;margin-bottom:22px;
 }
 .home-utility-grid{
   display:grid;
@@ -1999,21 +2214,22 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   margin-bottom:18px;
 }
 .home-utility-card{
-  background:rgba(255,255,255,.32);
-  border:1px solid var(--rule);
+  background:#fff;
+  border:1px solid var(--ui-line);
+  border-radius:8px;
   padding:14px 16px;
 }
 .home-utility-card h3{
-  font-family:'Special Elite',cursive;
+  font-family:'Manrope',Arial,sans-serif;
   font-size:14px;
-  color:var(--stamp);
+  color:var(--ui-ink);
   margin-bottom:8px;
 }
 .home-utility-card p{
-  font-family:'Courier Prime',monospace;
+  font-family:'Manrope',Arial,sans-serif;
   font-size:11px;
   line-height:1.5;
-  color:var(--ink-lt);
+  color:var(--ui-muted);
 }
 .auth-grid{
   display:grid;
@@ -2024,31 +2240,34 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 .auth-grid .full{grid-column:1 / -1}
 .home-utility-card label{
   display:block;
-  font-family:'Courier Prime',monospace;
-  font-size:9px;
-  letter-spacing:.08em;
+  font-family:'Manrope',Arial,sans-serif;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.04em;
   text-transform:uppercase;
-  color:var(--ink-lt);
+  color:var(--ui-muted);
   margin-bottom:4px;
 }
 .home-utility-card input{
   width:100%;
-  background:#fff8ee;
-  border:1px solid var(--rule);
-  font-family:'Courier Prime',monospace;
+  background:#fff;
+  border:1px solid var(--ui-line);
+  border-radius:8px;
+  font-family:'Manrope',Arial,sans-serif;
   font-size:13px;
-  color:var(--ink);
+  color:var(--ui-ink);
   padding:8px 9px;
 }
 .home-utility-card textarea{
   width:100%;
   min-height:110px;
-  background:#fff8ee;
-  border:1px solid var(--rule);
-  font-family:'Courier Prime',monospace;
+  background:#fff;
+  border:1px solid var(--ui-line);
+  border-radius:8px;
+  font-family:'Manrope',Arial,sans-serif;
   font-size:12px;
   line-height:1.5;
-  color:var(--ink);
+  color:var(--ui-ink);
   padding:8px 9px;
   resize:vertical;
 }
@@ -2060,43 +2279,45 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 }
 .home-status{
   min-height:34px;
-  font-family:'Courier Prime',monospace;
+  font-family:'Manrope',Arial,sans-serif;
   font-size:11px;
   line-height:1.5;
-  color:var(--ink-lt);
+  color:var(--ui-muted);
 }
 .form-grid{
   display:grid;grid-template-columns:1fr 1fr;gap:12px;
 }
 .form-card{
-  background:var(--paper-md);
-  border:1.5px solid var(--rule-dk);
+  background:#fff;
+  border:1px solid var(--ui-line);
+  border-radius:8px;
   padding:16px 18px;cursor:pointer;
   transition:all .15s;position:relative;
-  box-shadow:2px 2px 0 var(--rule-dk);
+  box-shadow:0 10px 24px rgba(15,23,42,.06);
 }
 .form-card:hover{
-  background:var(--paper);
-  box-shadow:3px 3px 0 var(--rule-dk);
-  transform:translate(-1px,-1px);
+  background:#fff;
+  border-color:rgba(15,118,110,.36);
+  box-shadow:0 14px 30px rgba(15,23,42,.10);
+  transform:translateY(-1px);
 }
 .form-card.active-form{
-  border-color:var(--red);
-  box-shadow:3px 3px 0 var(--red);
-  background:var(--paper);
+  border-color:var(--ui-primary);
+  box-shadow:0 0 0 3px rgba(15,118,110,.12), 0 14px 30px rgba(15,23,42,.10);
+  background:#f0fdfa;
 }
 .form-card h3{
-  font-family:'Special Elite',cursive;
-  font-size:13px;color:var(--stamp);margin-bottom:4px;
+  font-family:'Manrope',Arial,sans-serif;
+  font-size:14px;color:var(--ui-ink);margin-bottom:4px;
 }
 .form-card p{
-  font-family:'Courier Prime',monospace;
-  font-size:9.5px;color:var(--rule-dk);line-height:1.4;
+  font-family:'Manrope',Arial,sans-serif;
+  font-size:11px;color:var(--ui-muted);line-height:1.45;
 }
 .form-card .codes{
-  font-family:'Courier Prime',monospace;
-  font-size:8.5px;color:var(--red);
-  margin-top:6px;letter-spacing:.04em;
+  font-family:'Manrope',Arial,sans-serif;
+  font-size:10px;color:var(--ui-accent);
+  margin-top:8px;letter-spacing:0;font-weight:800;
 }
 .form-select-btn{
   margin-top:20px;text-align:center;
@@ -2106,8 +2327,8 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 #form-screen{ display:none; }
 #records-screen{
   display:none;
-  max-width:980px;
-  margin:40px auto 0;
+  max-width:1080px;
+  margin:32px auto 0;
   padding:0 20px 40px;
 }
 .records-toolbar{
@@ -2123,12 +2344,18 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 }
 .records-toolbar input{
   width:100%;
-  background:#fff8ee;
-  border:1px solid var(--rule);
-  font-family:'Courier Prime',monospace;
+  background:#fff;
+  border:1px solid var(--ui-line);
+  border-radius:8px;
+  font-family:'Manrope',Arial,sans-serif;
   font-size:13px;
-  color:var(--ink);
+  color:var(--ui-ink);
   padding:10px 11px;
+  outline:none;
+}
+.records-toolbar input:focus{
+  border-color:rgba(37,99,235,.42);
+  box-shadow:0 0 0 3px rgba(37,99,235,.10);
 }
 .records-grid{
   display:grid;
@@ -2136,22 +2363,23 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
   gap:12px;
 }
 .records-card{
-  background:var(--paper-md);
-  border:1.5px solid var(--rule-dk);
-  box-shadow:2px 2px 0 var(--rule-dk);
+  background:#fff;
+  border:1px solid var(--ui-line);
+  border-radius:8px;
+  box-shadow:0 10px 24px rgba(15,23,42,.06);
   padding:16px 18px;
 }
 .records-card h3{
-  font-family:'Special Elite',cursive;
+  font-family:'Manrope',Arial,sans-serif;
   font-size:14px;
-  color:var(--stamp);
+  color:var(--ui-ink);
   margin-bottom:6px;
 }
 .records-meta{
-  font-family:'Courier Prime',monospace;
-  font-size:10px;
+  font-family:'Manrope',Arial,sans-serif;
+  font-size:11px;
   line-height:1.6;
-  color:var(--ink-lt);
+  color:var(--ui-muted);
   margin-bottom:12px;
 }
 .records-actions{
@@ -2161,38 +2389,38 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
 }
 .records-empty{
   padding:18px 0 4px;
-  font-family:'Courier Prime',monospace;
+  font-family:'Manrope',Arial,sans-serif;
   font-size:12px;
-  color:var(--rule-dk);
+  color:var(--ui-muted);
 }
 .records-status{
   min-height:30px;
-  font-family:'Courier Prime',monospace;
+  font-family:'Manrope',Arial,sans-serif;
   font-size:11px;
   line-height:1.5;
-  color:var(--ink-lt);
+  color:var(--ui-muted);
   margin-bottom:14px;
 }
 
 /* в”Ђв”Ђ BACK BUTTON в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ */
 .back-btn{
   font-family:'Manrope',Arial,sans-serif;
-  font-size:11px;font-weight:700;letter-spacing:.06em;
-  text-transform:uppercase;cursor:pointer;
-  background:rgba(255,253,248,.92);
-  border:1.5px solid rgba(148,138,123,.78);
-  color:var(--stamp);
+  font-size:11px;font-weight:700;letter-spacing:.02em;
+  text-transform:none;cursor:pointer;
+  background:rgba(255,255,255,.92);
+  border:1px solid var(--ui-line);
+  color:var(--ui-primary);
   padding:10px 14px;
   margin-bottom:0;
-  min-height:42px;
-  border-radius:14px;
-  box-shadow:0 8px 18px rgba(29,36,48,.08);
+  min-height:38px;
+  border-radius:8px;
+  box-shadow:0 8px 18px rgba(15,23,42,.06);
   display:flex;align-items:center;gap:6px;
 }
 .back-btn:hover{
   background:#fff;
-  color:var(--stamp);
-  border-color:rgba(47,93,115,.7);
+  color:var(--ui-primary-2);
+  border-color:rgba(37,99,235,.36);
   transform:translateY(-1px);
 }
 
@@ -2809,7 +3037,7 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
     <div class="home-sub">Search saved DWOs by patient name or date of birth, then reopen them in the form.</div>
     <div class="records-toolbar">
       <div class="search">
-        <label for="records-search" style="display:block;font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-lt);margin-bottom:4px;">Search</label>
+        <label for="records-search" style="display:block;font-family:'Manrope',Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--ui-muted);margin-bottom:4px;">Search</label>
         <input id="records-search" type="text" placeholder="Search by patient name or DOB"/>
       </div>
       <button class="btn btn-ghost" type="button" onclick="refreshCloudRecords()">Refresh Records</button>
@@ -2872,6 +3100,17 @@ body.fax-cover-enabled .fax-cover-wrap{display:block}
       </div>
       <textarea id="cover_notes" placeholder="Optional note to physician office"></textarea>
       <div class="workflow-note" id="fax-status">Use fax package print for a cover sheet plus the A4 form. If no fax type is selected, the cover defaults to For Review.</div>
+      <div class="package-builder no-form-state" aria-label="Optional multi-DWO package">
+        <div class="workflow-title">Package DWOs</div>
+        <div class="workflow-note" id="package-status">Default: this fax package includes only the current DWO.</div>
+        <div class="package-list" id="package-list"></div>
+        <select id="package-dwo-select" onchange="addDwoPackageRecord(this.value); this.value='';">
+          <option value="">Add another saved DWO...</option>
+        </select>
+        <div class="workflow-actions">
+          <button class="btn btn-ghost" type="button" onclick="clearDwoPackage()">Use Current DWO Only</button>
+        </div>
+      </div>
     </div>
 </div>
 </div>
@@ -3542,6 +3781,9 @@ let latestChecklist = [];
 let selectedRecordId = "";
 let currentCloudRecordId = "";
 let cloudRecordsCache = [];
+let packageRecordIds = [];
+let faxPackagePageCountOverride = 0;
+let packageRenderingInProgress = false;
 let recordLookupMode = "patient";
 let recordLookupResultsCache = [];
 let firebaseReady = false;
@@ -3570,6 +3812,47 @@ if(requestedFormType || requestedRecordId || requestedCloneId || requestedSeedRe
 }
 const OFFICE_PHONE = "(305) 909-0880";
 const OFFICE_FAX = "(305) 539-0880";
+const THEME_STORAGE_KEY = "bl_dwo_theme_v1";
+
+function getStoredTheme(){
+  try{
+    return localStorage.getItem(THEME_STORAGE_KEY) === "dark" ? "dark" : "light";
+  }catch{
+    return "light";
+  }
+}
+
+function applyTheme(theme){
+  const mode = theme === "dark" ? "dark" : "light";
+  document.documentElement.dataset.theme = mode;
+  document.querySelectorAll(".theme-toggle").forEach(btn => {
+    btn.textContent = mode === "dark" ? "Light Mode" : "Dark Mode";
+    btn.title = mode === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    btn.setAttribute("aria-label", btn.title);
+  });
+}
+
+function setStoredTheme(theme){
+  try{
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
+  }catch{}
+  applyTheme(theme);
+}
+
+function toggleTheme(){
+  setStoredTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+}
+
+function initThemeToggle(){
+  applyTheme(getStoredTheme());
+  if(document.querySelector(".theme-toggle")) return;
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "theme-toggle";
+  btn.onclick = toggleTheme;
+  document.body.appendChild(btn);
+  applyTheme(getStoredTheme());
+}
 
 // в”Ђв”Ђ WHEELCHAIR CRITERIA TEXT в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 const WC_CRITERIA = [
@@ -4920,6 +5203,7 @@ document.addEventListener("change", e => {
 
 function resetCurrentFormState(){
   document.querySelectorAll("#form-screen input:not([type=hidden]),#form-screen select,#form-screen textarea").forEach(el => {
+    if(el.closest(".no-form-state")) return;
     if(el.type === "checkbox" || el.type === "radio") el.checked = false;
     else el.value = "";
   });
@@ -4928,6 +5212,7 @@ function resetCurrentFormState(){
   for(let i=1;i<=4;i++)clearIcd(i);
   currentCloudRecordId = "";
   selectedRecordId = "";
+  packageRecordIds = [];
   updateAllQty();
   syncWorkflowPanel();
 }
@@ -5667,11 +5952,13 @@ async function refreshCloudRecords(){
     cloudRecordsCache = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     renderSavedRecords();
     renderCloudRecords();
+    renderDwoPackageBuilder();
     setRecordsPageStatus(cloudRecordsCache.length ? `${cloudRecordsCache.length} cloud record${cloudRecordsCache.length === 1 ? "" : "s"} loaded.` : "No cloud records have been saved yet.", cloudRecordsCache.length ? "status-ok" : "status-warn");
     return cloudRecordsCache;
   }catch(error){
     renderSavedRecords();
     renderCloudRecords();
+    renderDwoPackageBuilder();
     setRecordsPageStatus(getCloudErrorMessage(error, "Records could not be loaded right now."), "status-warn");
     return [];
   }
@@ -5685,6 +5972,7 @@ function openCloudRecord(id){
   }
   selectedRecordId = id;
   currentCloudRecordId = id;
+  packageRecordIds = [];
   openForm(record.form || "standard", true);
   restoreFormState(record.state);
   renderSavedRecords();
@@ -6674,6 +6962,7 @@ async function applyRequestedRoute(){
       const record = { id: snap.id, ...snap.data() };
       currentCloudRecordId = record.id;
       selectedRecordId = record.id;
+      packageRecordIds = [];
       openForm(record.form || requestedFormType || "standard", true);
       restoreFormState(record.state);
       requestedRouteApplied = true;
@@ -6761,6 +7050,7 @@ async function applyRequestedRoute(){
 function getFormState(){
   const state = { form: currentForm, wcVariant, bedVariant, fields: {}, icdSelections: {} };
   document.querySelectorAll("#form-screen input, #form-screen select, #form-screen textarea").forEach(el => {
+    if(el.closest(".no-form-state")) return;
     if(!el.id || el.type === "file") return;
     state.fields[el.id] = (el.type === "checkbox" || el.type === "radio") ? !!el.checked : el.value;
   });
@@ -7170,6 +7460,7 @@ function handlePrint(){
 
 function syncWorkflowPanel(){
   renderSavedRecords();
+  renderDwoPackageBuilder();
   const draft = getDraftStore()[currentForm];
   setWorkflowMessage("draft-status", draft?.savedAt ? `Autosave available for ${currentForm} from ${formatTimestamp(draft.savedAt)}.` : "Autosaves locally while you type.");
   updateStaffStatus();
@@ -7223,6 +7514,173 @@ function syncFaxTypePreview(){
   });
 }
 
+function getFormDisplayLabel(form){
+  return FORM_FILE_LABELS[form] || String(form || "DWO").toUpperCase();
+}
+
+function getPackageOrderSummary(record){
+  const fields = record?.state?.fields || {};
+  const form = record?.state?.form || record?.form || "";
+  if(form === "standard" || form === "nutrition"){
+    for(let i=1;i<=10;i++){
+      const code = String(fields[`hcpcs_${i}`] || "").trim().toUpperCase();
+      const desc = String(fields[`desc_${i}`] || "").trim();
+      if(code || desc) return [code, desc].filter(Boolean).join(" ");
+    }
+  }
+  if(form === "hoyer"){
+    const selected = [
+      fields["hoyer-code-e0630"] ? "E0630 Patient lift" : "",
+      fields["hoyer-code-e0635"] ? "E0635 Hydraulic lift" : "",
+      fields["hoyer-code-e0621"] ? "E0621 Sling" : ""
+    ].filter(Boolean);
+    if(selected.length) return selected.join(", ");
+  }
+  if(form === "compression"){
+    const other = String(fields["cs-other-input"] || "").trim();
+    if(other) return other;
+    const code = Object.keys(fields).find(key => /^cs-code-/i.test(key) && fields[key]);
+    if(code) return code.replace(/^cs-code-/i, "").toUpperCase();
+  }
+  if(form === "oxygen"){
+    const saturation = String(fields["oxy-saturation"] || "").trim();
+    return saturation ? `O2 saturation ${saturation}` : "Oxygen prescription";
+  }
+  return "";
+}
+
+function getPackageRecordLabel(record){
+  const summary = getPackageOrderSummary(record);
+  return [getFormDisplayLabel(record?.form || record?.state?.form), summary].filter(Boolean).join(" - ");
+}
+
+function normalizePackageDigits(value){
+  return String(value || "").replace(/\D/g, "");
+}
+
+function getPackageCurrentRecordSnapshot(){
+  const record = createRecordSnapshot();
+  record.id = currentCloudRecordId || "__current_dwo__";
+  record.savedAtMs = Date.now();
+  return record;
+}
+
+function patientMatchesForPackage(a, b){
+  if(!a || !b) return false;
+  const aName = normalizeLookupText(a.name);
+  const bName = normalizeLookupText(b.name);
+  const aDob = normalizeDob(a.dob);
+  const bDob = normalizeDob(b.dob);
+  if(aName && bName && aDob && bDob) return aName === bName && aDob === bDob;
+  const aInsurance = normalizeLookupText(a.insuranceId);
+  const bInsurance = normalizeLookupText(b.insuranceId);
+  if(aName && bName && aInsurance && bInsurance) return aName === bName && aInsurance === bInsurance;
+  const aPhone = normalizePackageDigits(a.phone || a.mobile);
+  const bPhone = normalizePackageDigits(b.phone || b.mobile);
+  return !!(aName && bName && aName === bName && aPhone && bPhone && aPhone === bPhone);
+}
+
+function doctorMatchesForPackage(a, b){
+  if(!a || !b) return false;
+  const aNpi = normalizePackageDigits(a.npi);
+  const bNpi = normalizePackageDigits(b.npi);
+  if(aNpi && bNpi) return aNpi === bNpi;
+  const aName = normalizeLookupText(a.name);
+  const bName = normalizeLookupText(b.name);
+  const aFax = normalizePackageDigits(a.fax);
+  const bFax = normalizePackageDigits(b.fax);
+  if(aName && bName && aFax && bFax) return aName === bName && aFax === bFax;
+  const aPhone = normalizePackageDigits(a.phone);
+  const bPhone = normalizePackageDigits(b.phone);
+  return !!(aName && bName && aName === bName && aPhone && bPhone && aPhone === bPhone);
+}
+
+function recordMatchesCurrentPackage(record){
+  if(!record?.state) return false;
+  const currentRecordIds = Array.from(new Set([currentCloudRecordId, requestedRecordId].filter(Boolean)));
+  if(record.id && currentRecordIds.includes(record.id)) return false;
+  const currentRecord = getPackageCurrentRecordSnapshot();
+  return patientMatchesForPackage(extractPatientProfileFromRecord(currentRecord), extractPatientProfileFromRecord(record))
+    && doctorMatchesForPackage(extractPhysicianProfileFromRecord(currentRecord), extractPhysicianProfileFromRecord(record));
+}
+
+function getEligiblePackageRecords(){
+  return cloudRecordsCache
+    .filter(recordMatchesCurrentPackage)
+    .sort((a,b) => Number(b.savedAtMs || b.savedAt || 0) - Number(a.savedAtMs || a.savedAt || 0));
+}
+
+function getSelectedPackageRecords(){
+  const byId = new Map(cloudRecordsCache.map(record => [record.id, record]));
+  return packageRecordIds.map(id => byId.get(id)).filter(Boolean).filter(recordMatchesCurrentPackage);
+}
+
+function renderDwoPackageBuilder(){
+  if(packageRenderingInProgress) return;
+  const list = document.getElementById("package-list");
+  const select = document.getElementById("package-dwo-select");
+  const status = document.getElementById("package-status");
+  if(!list || !select || !status) return;
+  const eligible = getEligiblePackageRecords();
+  const eligibleIds = new Set(eligible.map(record => record.id));
+  packageRecordIds = packageRecordIds.filter(id => eligibleIds.has(id));
+  const selectedIds = new Set(packageRecordIds);
+  const selected = getSelectedPackageRecords();
+  list.innerHTML = selected.map(record => `
+    <div class="package-item">
+      <div>
+        <strong>${esc(getRecordLabel(record))}</strong>
+        <span>${esc(getPackageRecordLabel(record))} - ${esc(formatTimestamp(record.savedAtMs || record.savedAt))}</span>
+      </div>
+      <button class="package-remove" type="button" aria-label="Remove ${esc(getRecordLabel(record))}" onclick="removeDwoPackageRecord('${record.id}')">x</button>
+    </div>
+  `).join("");
+  select.innerHTML = `<option value="">Add another saved DWO...</option>` + eligible
+    .filter(record => !selectedIds.has(record.id))
+    .map(record => `<option value="${esc(record.id)}">${esc(getPackageRecordLabel(record))} - ${esc(getRecordLabel(record))} - ${esc(formatTimestamp(record.savedAtMs || record.savedAt))}</option>`)
+    .join("");
+  select.disabled = !authUser || !eligible.some(record => !selectedIds.has(record.id));
+  const totalForms = selected.length + 1;
+  if(selected.length){
+    status.textContent = `Full package enabled: cover sheet plus ${totalForms} DWO pages for this patient and doctor.`;
+    status.className = "workflow-note status-ok";
+  }else if(!authUser){
+    status.textContent = "Sign in and save records to add other DWO types to this fax package.";
+    status.className = "workflow-note status-warn";
+  }else if(!eligible.length){
+    status.textContent = "Default: this package includes only the current DWO. Matching saved DWOs for the same patient and doctor will appear here.";
+    status.className = "workflow-note";
+  }else{
+    status.textContent = "Default: current DWO only. Add a matching saved DWO to make a full package.";
+    status.className = "workflow-note";
+  }
+}
+
+function addDwoPackageRecord(id){
+  if(!id || packageRecordIds.includes(id)) return;
+  const record = cloudRecordsCache.find(item => item.id === id);
+  if(!record || !recordMatchesCurrentPackage(record)){
+    setWorkflowMessage("package-status", "Only saved DWOs for the same patient and ordering doctor can be added.", "status-warn");
+    renderDwoPackageBuilder();
+    return;
+  }
+  packageRecordIds.push(id);
+  renderDwoPackageBuilder();
+  syncFaxCover();
+}
+
+function removeDwoPackageRecord(id){
+  packageRecordIds = packageRecordIds.filter(item => item !== id);
+  renderDwoPackageBuilder();
+  syncFaxCover();
+}
+
+function clearDwoPackage(){
+  packageRecordIds = [];
+  renderDwoPackageBuilder();
+  syncFaxCover();
+}
+
 function syncFaxCover(){
   const staff = getStaffProfile();
   const staffName = getStaffDisplayName(staff);
@@ -7242,7 +7700,8 @@ function syncFaxCover(){
   set("fax-preview-attn", attn);
   set("fax-preview-date", new Date().toLocaleDateString());
   set("fax-preview-patient", patient);
-  set("fax-preview-pages", "2 total (cover + 1-page form)");
+  const dwoPageCount = Math.max(1, Number(faxPackagePageCountOverride) || (getSelectedPackageRecords().length + 1));
+  set("fax-preview-pages", `${dwoPageCount + 1} total (cover + ${dwoPageCount} DWO page${dwoPageCount === 1 ? "" : "s"})`);
   set("fax-preview-subject", subject);
   set("fax-preview-notes", notes || "Please sign and return the attached DWO form.");
   syncFaxTypePreview();
@@ -7277,11 +7736,121 @@ function handleFaxPrint(){
     setWorkflowMessage("checklist-status", `Fax printing is paused until the highlighted fields are filled. Start with ${missing[0].label}.`, "status-warn");
     return;
   }
+  if(getSelectedPackageRecords().length){
+    handleMultiDwoFaxPrint();
+    return;
+  }
   captureCurrentFormPreferences();
   syncFaxCover();
   setFaxMode(true);
   syncDocumentTitle();
   window.print();
+}
+
+function markPaperAsPackagePage(html){
+  return String(html || "").replace('class="paper"', 'class="paper fax-package-paper"');
+}
+
+function serializeLiveFormNode(node){
+  if(!node) return "";
+  const clone = node.cloneNode(true);
+  const sourceControls = node.querySelectorAll("input, textarea, select");
+  const cloneControls = clone.querySelectorAll("input, textarea, select");
+  sourceControls.forEach((source, index) => {
+    const target = cloneControls[index];
+    if(!target) return;
+    const tag = source.tagName;
+    if(tag === "TEXTAREA"){
+      target.textContent = source.value || "";
+      return;
+    }
+    if(tag === "SELECT"){
+      Array.from(target.options).forEach((option, optionIndex) => {
+        if(source.options[optionIndex]?.selected) option.setAttribute("selected", "selected");
+        else option.removeAttribute("selected");
+      });
+      return;
+    }
+    if(source.type === "checkbox" || source.type === "radio"){
+      if(source.checked) target.setAttribute("checked", "checked");
+      else target.removeAttribute("checked");
+      return;
+    }
+    if(source.type !== "file"){
+      target.setAttribute("value", source.value || "");
+    }
+  });
+  return clone.outerHTML;
+}
+
+function renderPaperHtmlForPackageRecord(record){
+  if(!record?.state) return "";
+  restoreFormState(record.state);
+  syncDocumentTitle();
+  return markPaperAsPackagePage(serializeLiveFormNode(document.querySelector(".paper")));
+}
+
+function buildMultiDwoPackageHtml(packageRecords){
+  const originalState = getFormState();
+  const originalForm = currentForm;
+  const originalCloudRecordId = currentCloudRecordId;
+  const originalSelectedRecordId = selectedRecordId;
+  let paperHtml = "";
+  try{
+    packageRenderingInProgress = true;
+    paperHtml = packageRecords.map(renderPaperHtmlForPackageRecord).filter(Boolean).join("");
+  }finally{
+    packageRenderingInProgress = false;
+    openForm(originalForm, true);
+    restoreFormState(originalState);
+    currentCloudRecordId = originalCloudRecordId;
+    selectedRecordId = originalSelectedRecordId;
+    renderSavedRecords();
+    renderDwoPackageBuilder();
+    syncDocumentTitle();
+  }
+  faxPackagePageCountOverride = Math.max(1, packageRecords.length);
+  syncFaxCover();
+  setFaxMode(true);
+  const style = document.querySelector("style")?.textContent || "";
+  const coverHtml = serializeLiveFormNode(document.querySelector(".fax-cover-wrap"));
+  const packageStyle = `
+    @media print{
+      .fax-cover-wrap{break-after:page;page-break-after:always}
+      .fax-package-paper + .fax-package-paper{break-before:page;page-break-before:always}
+    }
+    @media screen{
+      .fax-package-paper{margin-bottom:24px}
+    }
+  `;
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>${getPatientFileBase()} PACKAGE</title><style>${style}</style><style>${packageStyle}</style></head><body class="fax-cover-enabled">${coverHtml}${paperHtml}</body></html>`;
+}
+
+function handleMultiDwoFaxPrint(){
+  const savedPackageRecords = getSelectedPackageRecords();
+  if(!savedPackageRecords.length){
+    renderDwoPackageBuilder();
+    syncFaxCover();
+    return;
+  }
+  captureCurrentFormPreferences();
+  const packageRecords = [getPackageCurrentRecordSnapshot(), ...savedPackageRecords];
+  const printWindow = window.open("", "_blank");
+  if(!printWindow){
+    setWorkflowMessage("fax-status", "The full package print window was blocked. Allow pop-ups for this site and try again.", "status-warn");
+    return;
+  }
+  const html = buildMultiDwoPackageHtml(packageRecords);
+  printWindow.document.open();
+  printWindow.document.write(html);
+  printWindow.document.close();
+  faxPackagePageCountOverride = 0;
+  setFaxMode(false);
+  setWorkflowMessage("fax-status", `Full package ready: cover sheet plus ${packageRecords.length} DWO pages.`, "status-ok");
+  setTimeout(() => {
+    printWindow.focus();
+    printWindow.print();
+  }, 300);
 }
 
 function buildStandalonePackageHtml(includeFaxCover){
@@ -7334,6 +7903,7 @@ async function saveRecordPackage(){
 // Move all .drop elements to <body> so they are NEVER clipped by any parent
 // This is the only reliable way to ensure they always appear on top
 document.addEventListener("DOMContentLoaded", function() {
+  initThemeToggle();
   if(!requestedFormType && !requestedRecordId && !requestedCloneId && !requestedSeedRecordId){
     window.location.replace("index.html");
     return;
@@ -7362,18 +7932,22 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   document.addEventListener("input", e => {
     if(!e.target?.id || !e.target.closest("#form-screen")) return;
+    if(e.target.closest(".no-form-state")) return;
     queueAutosave();
     queuePreferenceSave();
     syncDocumentTitle();
     syncFaxCover();
+    renderDwoPackageBuilder();
   });
   document.addEventListener("change", e => {
     if(!e.target?.id || !e.target.closest("#form-screen")) return;
+    if(e.target.closest(".no-form-state")) return;
     queueAutosave();
     queuePreferenceSave();
     if(e.target.id === "patient_name" || e.target.id === "dob") applyPatientInsuranceCarryForward();
     syncDocumentTitle();
     syncFaxCover();
+    renderDwoPackageBuilder();
   });
   const importInput = document.getElementById("draft-import-input");
   if(importInput){

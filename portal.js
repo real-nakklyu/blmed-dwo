@@ -17,6 +17,7 @@
   let pendingShortcutDwo = null;
   const MAX_SHORTCUT_ITEMS = 6;
   const MAX_PINNED_ITEMS = 12;
+  const THEME_STORAGE_KEY = "bl_dwo_theme_v1";
 
   function esc(value){
     return String(value || "")
@@ -24,6 +25,46 @@
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
+  }
+
+  function getStoredTheme(){
+    try{
+      return localStorage.getItem(THEME_STORAGE_KEY) === "dark" ? "dark" : "light";
+    }catch{
+      return "light";
+    }
+  }
+
+  function applyTheme(theme){
+    const mode = theme === "dark" ? "dark" : "light";
+    document.documentElement.dataset.theme = mode;
+    document.querySelectorAll(".theme-toggle").forEach(btn => {
+      btn.textContent = mode === "dark" ? "Light Mode" : "Dark Mode";
+      btn.title = mode === "dark" ? "Switch to light mode" : "Switch to dark mode";
+      btn.setAttribute("aria-label", btn.title);
+    });
+  }
+
+  function setStoredTheme(theme){
+    try{
+      localStorage.setItem(THEME_STORAGE_KEY, theme);
+    }catch{}
+    applyTheme(theme);
+  }
+
+  function toggleTheme(){
+    setStoredTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+  }
+
+  function initThemeToggle(){
+    applyTheme(getStoredTheme());
+    if(document.querySelector(".theme-toggle")) return;
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "theme-toggle";
+    btn.onclick = toggleTheme;
+    document.body.appendChild(btn);
+    applyTheme(getStoredTheme());
   }
 
   function setStatus(id, message, className){
@@ -911,6 +952,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function(){
+    initThemeToggle();
     if(!initFirebase()){
       ["login-status", "signup-status", "verify-status"].forEach(id => {
         setStatus(id, "The website could not connect right now.", "status-warn");
