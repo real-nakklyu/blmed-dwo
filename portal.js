@@ -39,9 +39,11 @@
     const mode = theme === "dark" ? "dark" : "light";
     document.documentElement.dataset.theme = mode;
     document.querySelectorAll(".theme-toggle").forEach(btn => {
-      btn.textContent = mode === "dark" ? "Light Mode" : "Dark Mode";
-      btn.title = mode === "dark" ? "Switch to light mode" : "Switch to dark mode";
-      btn.setAttribute("aria-label", btn.title);
+      const label = mode === "dark" ? "Dark theme. Switch to light theme." : "Light theme. Switch to dark theme.";
+      btn.dataset.mode = mode;
+      btn.innerHTML = `<span class="theme-toggle-label">${label}</span>`;
+      btn.title = label;
+      btn.setAttribute("aria-label", label);
     });
   }
 
@@ -379,8 +381,14 @@
       "auth/weak-password": "Password must be at least 6 characters.",
       "auth/invalid-email": "Enter a valid email address.",
       "auth/too-many-requests": "Too many attempts. Please wait a moment and try again.",
+      "auth/network-request-failed": "Network connection failed. Check your connection and try again.",
+      "auth/operation-not-allowed": "Password sign-in is not enabled in Firebase Authentication.",
+      "auth/unauthorized-continue-uri": "This website domain is not authorized in Firebase Authentication yet.",
+      "auth/invalid-continue-uri": "Firebase rejected the password reset return link.",
+      "auth/missing-continue-uri": "Firebase needs a valid password reset return link.",
       "auth/invalid-action-code": "That verification link or code is no longer valid.",
-      "auth/expired-action-code": "That verification link or code has expired."
+      "auth/expired-action-code": "That verification link or code has expired.",
+      "auth/missing-email": "Enter your account email address first."
     };
     return messages[code] || fallback;
   }
@@ -434,6 +442,24 @@
     redirectTo(`verify-email.html${query}`);
   }
 
+  function getLocalPageUrl(page){
+    const base = `${window.location.origin}${window.location.pathname.replace(/[^/]*$/, "")}`;
+    return `${base}${page}`;
+  }
+
+  function getPasswordResetActionSettings(){
+    if(!/^https?:$/.test(window.location.protocol)) return undefined;
+    return { url: getLocalPageUrl("reset-password.html") };
+  }
+
+  function shouldRetryPasswordResetWithoutReturnLink(err){
+    return [
+      "auth/unauthorized-continue-uri",
+      "auth/invalid-continue-uri",
+      "auth/missing-continue-uri"
+    ].includes(err?.code || "");
+  }
+
   function getEmailValue(){
     return (
       document.getElementById("login-email")?.value ||
@@ -452,6 +478,18 @@
 
   function getConfirmPasswordValue(){
     return document.getElementById("signup-password-confirm")?.value || "";
+  }
+
+  function getActionCodeValue(inputId){
+    const raw = (document.getElementById(inputId)?.value || "").trim();
+    if(!raw) return "";
+    try{
+      const parsed = new URL(raw);
+      return parsed.searchParams.get("oobCode") || raw;
+    }catch{
+      const match = raw.match(/[?&]oobCode=([^&]+)/i);
+      return match ? decodeURIComponent(match[1]) : raw;
+    }
   }
 
   async function applyLoginPersistence(){
@@ -545,6 +583,85 @@
       setStatus("password-status", "Password updated successfully.", "status-ok");
     }catch(err){
       setStatus("password-status", getFriendlyAuthMessage(err, "Password could not be updated."), "status-warn");
+    }finally{
+      if(button){
+        button.disabled = false;
+        button.textContent = "Update Password";
+      }
+    }
+  }
+
+  async function sendPasswordResetEmail(){
+    const email = (document.getElementById("forgot-email")?.value || document.getElementById("login-email")?.value || "").trim();
+    const button = document.getElementById("forgot-send-button");
+    if(!email){
+      setStatus("forgot-status", "Enter your account email address first.", "status-warn");
+      return;
+    }
+    try{
+      if(button){
+        button.disabled = true;
+        button.textContent = "Sending...";
+      }
+      setStatus("forgot-status", "Sending password reset email...", "");
+      try{
+        await withTimeout(auth.sendPasswordResetEmail(email, getPasswordResetActionSettings()), 12000);
+      }catch(err){
+        if(!shouldRetryPasswordResetWithoutReturnLink(err)) throw err;
+        await withTimeout(auth.sendPasswordResetEmail(email), 12000);
+      }
+      setStatus("forgot-status", "Password reset email sent. Open the link in your email to set a new password.", "status-ok");
+    }catch(err){
+      setStatus("forgot-status", getFriendlyAuthMessage(err, "Password reset email could not be sent."), "status-warn");
+    }finally{
+      if(button){
+        button.disabled = false;
+        button.textContent = "Send Reset Email";
+      }
+    }
+  }
+
+  async function showPasswordResetAccount(){
+    const code = getActionCodeValue("reset-code");
+    const emailEl = document.getElementById("reset-account-email");
+    if(!code || !emailEl) return;
+    try{
+      const email = await withTimeout(auth.verifyPasswordResetCode(code), 12000);
+      emailEl.textContent = email || "your account";
+      setStatus("reset-status", "Reset link verified. Enter a new password to continue.", "status-ok");
+    }catch(err){
+      setStatus("reset-status", getFriendlyAuthMessage(err, "That reset link is invalid or has expired."), "status-warn");
+    }
+  }
+
+  async function confirmPasswordReset(){
+    const code = getActionCodeValue("reset-code");
+    const newPassword = document.getElementById("reset-new-password")?.value || "";
+    const confirmPassword = document.getElementById("reset-confirm-password")?.value || "";
+    const button = document.getElementById("reset-save-button");
+    if(!code){
+      setStatus("reset-status", "Paste the password reset link or code from your email first.", "status-warn");
+      return;
+    }
+    if(newPassword.length < 6){
+      setStatus("reset-status", "New password must be at least 6 characters.", "status-warn");
+      return;
+    }
+    if(newPassword !== confirmPassword){
+      setStatus("reset-status", "New password and confirmation do not match.", "status-warn");
+      return;
+    }
+    try{
+      if(button){
+        button.disabled = true;
+        button.textContent = "Updating...";
+      }
+      setStatus("reset-status", "Updating your password...", "");
+      await withTimeout(auth.confirmPasswordReset(code, newPassword), 12000);
+      setStatus("reset-status", "Password updated successfully. Redirecting to sign in...", "status-ok");
+      window.setTimeout(() => redirectTo("login.html"), 900);
+    }catch(err){
+      setStatus("reset-status", getFriendlyAuthMessage(err, "Password could not be reset."), "status-warn");
     }finally{
       if(button){
         button.disabled = false;
@@ -902,6 +1019,10 @@
       return;
     }
 
+    if(page === "forgot-password" || page === "reset-password"){
+      return;
+    }
+
     if(!authUser){
       redirectTo("login.html");
       return;
@@ -954,7 +1075,7 @@
   document.addEventListener("DOMContentLoaded", function(){
     initThemeToggle();
     if(!initFirebase()){
-      ["login-status", "signup-status", "verify-status"].forEach(id => {
+      ["login-status", "signup-status", "verify-status", "forgot-status", "reset-status"].forEach(id => {
         setStatus(id, "The website could not connect right now.", "status-warn");
       });
       return;
@@ -977,6 +1098,28 @@
           signUp();
         });
       });
+    }
+    if(page === "forgot-password"){
+      const emailField = document.getElementById("forgot-email");
+      emailField?.addEventListener("keydown", event => {
+        if(event.key !== "Enter") return;
+        event.preventDefault();
+        sendPasswordResetEmail();
+      });
+      const email = getQueryParam("email");
+      if(emailField && email) emailField.value = email;
+    }
+    if(page === "reset-password"){
+      const oobCode = getQueryParam("oobCode");
+      if(oobCode) document.getElementById("reset-code").value = oobCode;
+      ["reset-code", "reset-new-password", "reset-confirm-password"].forEach(id => {
+        document.getElementById(id)?.addEventListener("keydown", event => {
+          if(event.key !== "Enter") return;
+          event.preventDefault();
+          confirmPasswordReset();
+        });
+      });
+      if(oobCode) showPasswordResetAccount();
     }
     if(page === "verify-email"){
       const codeField = document.getElementById("verify-code");
@@ -1005,6 +1148,8 @@
   window.portalSignUp = signUp;
   window.portalSignOut = signOut;
   window.portalReturnToLogin = returnToLogin;
+  window.portalSendPasswordResetEmail = sendPasswordResetEmail;
+  window.portalConfirmPasswordReset = confirmPasswordReset;
   window.portalResendVerification = resendVerificationEmail;
   window.portalRefreshVerification = refreshVerificationStatus;
   window.portalApplyVerificationCode = applyVerificationCode;

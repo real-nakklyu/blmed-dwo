@@ -64,9 +64,11 @@ function applyTheme(theme){
   const mode = theme === "dark" ? "dark" : "light";
   document.documentElement.dataset.theme = mode;
   document.querySelectorAll(".theme-toggle").forEach(btn => {
-    btn.textContent = mode === "dark" ? "Light Mode" : "Dark Mode";
-    btn.title = mode === "dark" ? "Switch to light mode" : "Switch to dark mode";
-    btn.setAttribute("aria-label", btn.title);
+    const label = mode === "dark" ? "Dark theme. Switch to light theme." : "Light theme. Switch to dark theme.";
+    btn.dataset.mode = mode;
+    btn.innerHTML = `<span class="theme-toggle-label">${label}</span>`;
+    btn.title = label;
+    btn.setAttribute("aria-label", label);
   });
 }
 
@@ -236,6 +238,24 @@ async function signInAccount(){
     setHomeStatus("auth-status", `Signed in as ${email}.`, "status-ok");
   }catch(err){
     setHomeStatus("auth-status", err?.message || "Sign-in failed.", "status-warn");
+  }
+}
+
+async function sendAccountPasswordReset(){
+  if(!firebaseReady || !auth){
+    setHomeStatus("auth-status", "Connect Firebase first, then request a password reset.", "status-warn");
+    return;
+  }
+  const email = (document.getElementById("auth-email")?.value || "").trim();
+  if(!email){
+    setHomeStatus("auth-status", "Enter your account email first.", "status-warn");
+    return;
+  }
+  try{
+    await auth.sendPasswordResetEmail(email);
+    setHomeStatus("auth-status", `Password reset email sent to ${email}.`, "status-ok");
+  }catch(err){
+    setHomeStatus("auth-status", err?.message || "Password reset email could not be sent.", "status-warn");
   }
 }
 
