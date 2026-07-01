@@ -101,7 +101,8 @@ const WC_CRITERIA = [
   "The beneficiary's home provides adequate access between rooms, maneuvering space, and surfaces for use of the manual wheelchair that is provided.",
   "Use of a manual wheelchair will significantly improve the beneficiary's ability to participate in MRADLs and the beneficiary will use it on a regular basis in the home.",
   "The beneficiary cannot self-propel in a standard wheelchair in the home; and the beneficiary can and does self-propel in a lightweight wheelchair.",
-  "The beneficiary has sufficient upper extremity function and other physical and mental capabilities needed to safely self-propel the manual wheelchair that is provided in the home during a typical day. Limitations of strength, endurance, range of motion, or coordination, presence of pain, or deformity or absence of one or both upper extremities are relevant to the assessment of upper extremity function."
+  "The beneficiary has sufficient upper extremity function and other physical and mental capabilities needed to safely self-propel the manual wheelchair that is provided in the home during a typical day.",
+  "The beneficiary has a caregiver who is available, willing, and able to provide assistance with the wheelchair."
 ];
 
 // в”Ђв”Ђ BED CRITERIA TEXT в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
